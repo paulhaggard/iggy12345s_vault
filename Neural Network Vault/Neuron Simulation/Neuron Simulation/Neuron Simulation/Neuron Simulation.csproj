@@ -48,6 +48,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activation Functions\ActivationFunction.cs" />
+    <Compile Include="Activation Functions\Functions\Gaussian.cs" />
+    <Compile Include="Activation Functions\Functions\Sinc.cs" />
+    <Compile Include="Activation Functions\Functions\Sinusoid.cs" />
+    <Compile Include="Activation Functions\Functions\BentIdentity.cs" />
+    <Compile Include="Activation Functions\Functions\SoftExponential.cs" />
+    <Compile Include="Activation Functions\Functions\Softplus.cs" />
+    <Compile Include="Activation Functions\Functions\ISRLU.cs" />
+    <Compile Include="Activation Functions\Functions\APL.cs" />
+    <Compile Include="Activation Functions\Functions\SReLU.cs" />
+    <Compile Include="Activation Functions\Functions\SELU.cs" />
+    <Compile Include="Activation Functions\Functions\LeakyReLU.cs" />
+    <Compile Include="Activation Functions\Functions\ELU.cs" />
+    <Compile Include="Activation Functions\Functions\RReLU.cs" />
+    <Compile Include="Activation Functions\Functions\PReLU.cs" />
+    <Compile Include="Activation Functions\Functions\ReLU.cs" />
+    <Compile Include="Activation Functions\Functions\ISRU.cs" />
+    <Compile Include="Activation Functions\Functions\Softsign.cs" />
+    <Compile Include="Activation Functions\Functions\ATan.cs" />
+    <Compile Include="Activation Functions\Functions\Tanh.cs" />
+    <Compile Include="Activation Functions\Functions\BinaryStep.cs" />
+    <Compile Include="Activation Functions\Functions\Identity.cs" />
+    <Compile Include="Activation Functions\Functions\Sigmoid.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

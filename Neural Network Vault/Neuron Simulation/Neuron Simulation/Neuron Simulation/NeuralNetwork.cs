@@ -61,7 +61,8 @@ namespace Neuron_Simulation
 
             // Setup training variables
 
-            double cost = 0;
+            double cost = 0;    // This is the error function for a specific training set
+            double dCost = 0;   // This is the error of the network for an entire iteration
 
             // Sets up the Normal Distribution random number generator
             NormalDistribution rndNorm = new NormalDistribution();
@@ -108,6 +109,7 @@ namespace Neuron_Simulation
             for(int i = 0; i < sample_in.Count; i++)
             {
                 activationCount = 0; // Resets the activationCount
+                //dCost = 0;
 
                 // Assigns the biases, and weights, and inputs
                 for (int j = 0; j < layers.Count; j++)
@@ -143,7 +145,10 @@ namespace Neuron_Simulation
                 // Compute the cost of training
                 cost = temp / Layers.Last().Count;
 
+                // Back propagation time!
                 // https://youtu.be/tIeHLnjs5U8
+
+                dCost += 
             }
         }
 
