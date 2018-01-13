@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Neuron_Simulation.Activation_Functions;
+using Neuron_Simulation.Activation_Functions.Functions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +17,7 @@ namespace Neuron_Simulation
         private int activationCount;
         
         // Constructor
-        public NeuralNetwork(List<int> LayerInfo, List<Activations> defaultActivations = null, List<ActivationParameters> Params = null)
+        public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null)
         {
             // Creates a neural network with LayerInfo.Count layers and each Layer with int neurons.
 
@@ -23,18 +25,18 @@ namespace Neuron_Simulation
 
             Layers = new List<List<Neuron>>(LayerInfo.Count);
 
-            if(defaultActivations == null)
+            if(defaultActivationFunction == null)
             {
-                defaultActivations = new List<Activations>(LayerInfo.Count);
-                for (int i = 0; i < defaultActivations.Count; i++)
-                    defaultActivations[i] = Activations.Default;
+                defaultActivationFunction = new List<ActivationFunction>(LayerInfo.Count);
+                for (int i = 0; i < defaultActivationFunction.Count; i++)
+                    defaultActivationFunction[i] = new Sigmoid();
             }
 
             if(Params == null)
             {
                 Params = new List<ActivationParameters>(LayerInfo.Count);
                 for (int i = 0; i < Params.Count; i++)
-                    Params[i] = new ActivationParameters();
+                    Params[i] = new SigmoidParams();
             }
 
             // Generates the layers of Neurons
@@ -43,12 +45,12 @@ namespace Neuron_Simulation
                 List<Neuron> temp = new List<Neuron>(LayerInfo[i]);
                 if (i == 0)
                     for (int j = 0; j < LayerInfo[i]; j++)
-                        temp.Add(new Neuron(defaultActivation: defaultActivations[i], defaultParameters: Params[i]));
+                        temp.Add(new Neuron(defaultActivation: defaultActivationFunction[i], defaultParameters: Params[i]));
                 else
                 {
                     List<Neuron> prev = Layers[i - 1];
                     for (int j = 0; j < LayerInfo[i]; j++)
-                        temp.Add(new Neuron(ref prev, defaultActivation: defaultActivations[i], defaultParameters: Params[i]));
+                        temp.Add(new Neuron(ref prev, defaultActivation: defaultActivationFunction[i], defaultParameters: Params[i]));
                 }
             }
         }
@@ -132,7 +134,7 @@ namespace Neuron_Simulation
                     item.Activate();
                 }
 
-                while (activationCount < neuronCount) ; // Waits until all activations are complete
+                while (activationCount < neuronCount) ; // Waits until all ActivationFunction are complete
 
                 // Computes the result of the Neural network
                 double temp = 0;
