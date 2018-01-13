@@ -46,10 +46,13 @@ namespace Neuron_Simulation
 
     class Neuron
     {
+        // Delegates
         public delegate void ActivationEventHandler(object sender, ActivationEventArgs e);
 
-        public event ActivationEventHandler ActiveEvent;
+        // Events
+        public event ActivationEventHandler ActiveEvent;    // Triggered when this Neuron finishes calculating its activation value
 
+        // Properties
         private double activation;          // This represents how activated the neuron is
         private double weight_out;          // Weight to be passed to the next neuron
         private double bias_out;            // Bias to be passed to the next neuron
@@ -68,6 +71,13 @@ namespace Neuron_Simulation
         private long ID;                    // The unique Identifier that tells this Neuron apart form every other Neuron
         private static long NeuronCount;    // How many Neurons currently exist
 
+        // Accessor Methods
+        public double[] Inputs { get => inputs; set => inputs = value; }            // Sets the inputs to the Neuron
+        public double Weight_in { get => weight_out; set => weight_out = value; }   // Sets the initial weight value for the Neuron
+        public double Bias_in { get => bias_out; set => bias_out = value; }         // Sets the initial bias value for the Neuron
+        public double Activation { get => activation; set => activation = value; }  // The output of the Neuron
+
+        // Constructors
         public Neuron(ref Neuron[] inputNeurons, double weight = 0, double bias = 0,
             Activations defaultActivation = Activations.Sigmoid, ActivationParameters defaultParameters = new ActivationParameters())
         {
@@ -90,7 +100,30 @@ namespace Neuron_Simulation
             }
         }
 
-        public Neuron(int num_in = 1, double weight = 0, double bias = 0, Activations defaultActivation = Activations.Sigmoid)
+        public Neuron(ref List<Neuron> inputNeurons, double weight = 0, double bias = 0,
+            Activations defaultActivation = Activations.Sigmoid, ActivationParameters defaultParameters = new ActivationParameters())
+        {
+            // Creates a new neuron and links it to all of it's input Neurons
+            raw_input = false;
+
+            weight_out = weight;                        // initial weight value
+            bias_out = bias;                            // initial bias value
+
+            ID = NeuronCount++;                         // assigns the Neuron ID and increments the count
+
+            this.defaultActivation = defaultActivation; // default activation function
+            this.defaultParameters = defaultParameters; // default activation parameters (if you are using one that requires them)
+
+            this.inputNeurons = inputNeurons.ToList();
+
+            for (int i = 0; i < inputNeurons.Count; i++)
+            {
+                inputNeurons[i].ActiveEvent += OnActivate;  // Subscribes to the input Neuron's activation events
+            }
+        }
+
+        public Neuron(int num_in = 1, double weight = 0, double bias = 0,
+            Activations defaultActivation = Activations.Sigmoid, ActivationParameters defaultParameters = new ActivationParameters())
         {
             raw_input = true;
 
@@ -98,15 +131,19 @@ namespace Neuron_Simulation
             bias_out = bias;                            // initial bias value
 
             this.defaultActivation = defaultActivation; // default activation function
+            this.defaultParameters = defaultParameters; // default activation parameters
 
-            inputs = new double[num_in];
+            ID = NeuronCount++;                         // assigns the Neuron ID and increments the count
+
+            Inputs = new double[num_in];
 
             for(int i = 0; i < num_in; i++)
             {
-                inputs[i] = 0;
+                Inputs[i] = 0;
             }
         }
 
+        // Methods
         public void OnActivate(object sender, ActivationEventArgs e)
         {
             // Figures out which Neuron fired this event, and then collects it's data.
@@ -148,97 +185,97 @@ namespace Neuron_Simulation
 
             double temp = 0;
             for (int i = 0; i < inputNeurons.Count; i++)
-                temp += (raw_input ? inputNeurons[i].activation : inputs[i]) * inputNeurons[i].weight_out + inputNeurons[i].bias_out;
+                temp += (raw_input ? inputNeurons[i].Activation : Inputs[i]) * inputNeurons[i].weight_out + inputNeurons[i].bias_out;
 
             switch (type)
             {
                 case (Activations.Sigmoid):
-                    activation = 1 / (1 + Math.Exp(-temp));
+                    Activation = 1 / (1 + Math.Exp(-temp));
                     break;
 
                 case Activations.Identity:
-                    activation = temp;
+                    Activation = temp;
                     break;
 
                 case Activations.BinaryStep:
-                    activation = 0;
+                    Activation = 0;
                     if (temp >= 0)
-                        activation = 1;
+                        Activation = 1;
                     break;
 
                 case Activations.Tanh:
-                    activation = (2 / (1 + Math.Exp(-2 * temp))) - 1;
+                    Activation = (2 / (1 + Math.Exp(-2 * temp))) - 1;
                     break;
 
                 case Activations.ATan:
-                    activation = Math.Atan(temp);
+                    Activation = Math.Atan(temp);
                     break;
 
                 case Activations.Softsign:
-                    activation = temp / (1 + Math.Abs(temp));
+                    Activation = temp / (1 + Math.Abs(temp));
                     break;
 
                 case Activations.InverseRoot:
                     // Inverse Square root unit
-                    activation = temp / Math.Sqrt(1 + Params.Alpha * Math.Pow(temp, 2));
+                    Activation = temp / Math.Sqrt(1 + Params.Alpha * Math.Pow(temp, 2));
                     break;
 
                 case Activations.ReLU:
                     // Rectified Linear Unit
-                    activation = 0;
+                    Activation = 0;
                     if (temp >= 0)
-                        activation = temp;
+                        Activation = temp;
                     break;
 
                 case Activations.LeakyReLU:
                     // See ReLU
-                    activation = 0.01 * temp;
+                    Activation = 0.01 * temp;
                     if (temp >= 0)
-                        activation = temp;
+                        Activation = temp;
                     break;
 
                 case Activations.PReLU:
                     // Parametric
-                    activation = Params.Alpha * temp;
+                    Activation = Params.Alpha * temp;
                     if (temp >= 0)
-                        activation = temp;
+                        Activation = temp;
                     break;
 
                 case Activations.RReLU:
                     // Randomized leaky rectified linear unit
-                    activation = Params.Alpha * temp;
+                    Activation = Params.Alpha * temp;
                     if (temp >= 0)
-                        activation = temp;
+                        Activation = temp;
                     break;
 
                 case Activations.ELU:
                     // Exponential linear unit
-                    activation = Params.Alpha * (Math.Exp(temp) - 1);
+                    Activation = Params.Alpha * (Math.Exp(temp) - 1);
                     if (temp >= 0)
-                        activation = temp;
+                        Activation = temp;
                     break;
 
                 case Activations.SELU:
                     // Scaled ELU
-                    activation = 1.0507 * 1.67326 * (Math.Exp(temp) - 1);
+                    Activation = 1.0507 * 1.67326 * (Math.Exp(temp) - 1);
                     if (temp >= 0)
-                        activation = 1.0507 * temp;
+                        Activation = 1.0507 * temp;
                     break;
 
                 case Activations.SReLU:
                     // S-shaped rectified linear activation unit
-                    activation = Params.Tl + Params.Al * (temp - Params.Tl);
+                    Activation = Params.Tl + Params.Al * (temp - Params.Tl);
                     if (temp > Params.Tl && temp < Params.Tr)
-                        activation = temp;
+                        Activation = temp;
                     else if (temp >= Params.Tr)
-                        activation = Params.Tr + Params.Ar * (temp - Params.Tr);
+                        Activation = Params.Tr + Params.Ar * (temp - Params.Tr);
                     break;
 
                 case Activations.ISRLU:
                     // Inverse Square root LU
-                    activation = temp / Math.Sqrt(1 + Params.Alpha * Math.Pow(temp, 2));
+                    Activation = temp / Math.Sqrt(1 + Params.Alpha * Math.Pow(temp, 2));
                     if (temp >= 0)
-                        activation = temp;
+                        Activation = temp;
                     break;
 
                 case Activations.APL:
@@ -246,47 +283,47 @@ namespace Neuron_Simulation
                     double total = 0;
                     for (int i = 1; i < Params.S; i++)
                         total += Math.Pow(Params.Alpha, Params.S) * Math.Max(0, -temp + Math.Pow(Params.Beta, Params.S));
-                    activation = Math.Max(0, temp) + total;
+                    Activation = Math.Max(0, temp) + total;
                     break;
 
                 case Activations.SoftPlus:
-                    activation = Math.Log(1 + Math.Exp(temp));
+                    Activation = Math.Log(1 + Math.Exp(temp));
                     if (Params.Alpha == 0)
-                        activation = temp;
+                        Activation = temp;
                     else if (Params.Alpha > 0)
-                        activation = (Math.Exp(Params.Alpha * temp) - 1) / Params.Alpha + Params.Alpha;
+                        Activation = (Math.Exp(Params.Alpha * temp) - 1) / Params.Alpha + Params.Alpha;
                     break;
 
                 case Activations.BentIdentity:
-                    activation = (Math.Sqrt(Math.Pow(temp, 2) + 1) - 1) / 2 + temp;
+                    Activation = (Math.Sqrt(Math.Pow(temp, 2) + 1) - 1) / 2 + temp;
                     break;
 
                 case Activations.SoftExponential:
-                    activation = -(Math.Log(1 - Params.Alpha * (temp + Params.Alpha)) / Params.Alpha);
+                    Activation = -(Math.Log(1 - Params.Alpha * (temp + Params.Alpha)) / Params.Alpha);
                     break;
 
                 case Activations.Sinusoid:
-                    activation = Math.Sin(temp);
+                    Activation = Math.Sin(temp);
                     break;
 
                 case Activations.Sinc:
-                    activation = 1;
+                    Activation = 1;
                     if (temp != 0)
-                        activation = Math.Sin(temp) / temp;
+                        Activation = Math.Sin(temp) / temp;
                     break;
 
                 case Activations.Gaussian:
-                    activation = Math.Exp(-Math.Pow(temp, 2));
+                    Activation = Math.Exp(-Math.Pow(temp, 2));
                     break;
 
                 default:
-                    activation = 0;
+                    Activation = 0;
                     break;
             }
 
-            OnActiveEvent(new ActivationEventArgs(activation, weight_out, bias_out));
+            OnActiveEvent(new ActivationEventArgs(Activation, weight_out, bias_out));
 
-            return activation;
+            return Activation;
         }
 
         protected virtual void OnActiveEvent(ActivationEventArgs e)
