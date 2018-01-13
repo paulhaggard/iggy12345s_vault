@@ -152,7 +152,7 @@ namespace Neuron_Simulation
 
             double temp = 0;
             for (int i = 0; i < inputNeurons.Count; i++)
-                temp += (raw_input ? inputNeurons[i].Activation : Inputs[i]) * inputNeurons[i].weight_out + inputNeurons[i].bias_out;
+                temp += (!raw_input ? inputNeurons[i].Activation : Inputs[i]) * inputNeurons[i].weight_out + inputNeurons[i].bias_out;
 
             activation = type.Activate(temp, Params);
 
