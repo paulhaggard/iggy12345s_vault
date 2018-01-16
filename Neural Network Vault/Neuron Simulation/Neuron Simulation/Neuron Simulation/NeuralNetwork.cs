@@ -61,11 +61,6 @@ namespace Neuron_Simulation
         {
             // Trains the neural network
 
-            // Setup training variables
-
-            double cost = 0;    // This is the error function for a specific training set
-            double dCost = 0;   // This is the error of the network for an entire iteration
-
             // Sets up the Normal Distribution random number generator
             NormalDistribution rndNorm = new NormalDistribution();
             rndNorm.Sigma = 0.1;
@@ -76,8 +71,6 @@ namespace Neuron_Simulation
 
             for (int iter = 0; iter < iterations; iter++)
             {
-                List<double> dCosts = new List<double>(Layers.Last().Count);
-                List<double> Costs = new List<double>(Layers.Last().Count);
                 // Generates the inital weight and bias tables
 
                 // Generates a random weight table if one wasn't supplied
@@ -132,39 +125,96 @@ namespace Neuron_Simulation
                         }
                     }
 
-                    // Causes all of the Neurons to fire.
-                    foreach (Neuron item in layers[0])
-                    {
-                        item.Activate();
-                    }
+                    ForwardPropagate(); // propagates the network forward
 
-                    while (activationCount < neuronCount) ; // Waits until all ActivationFunction are complete
-
-                    // Computes the result of the Neural network
-                    double temp = 0;
-                    for (int j = 0; j < layers.Last().Count; j++)
-                    {
-                        // Compare the outputs of the network versus the expected output of the network and square them
-                        Costs.Add(Math.Pow(layers.Last()[j].Activation - sample_out[i][j], 2));
-                        temp += Costs[j];
-                        double dCosttemp = 0;
-                        for(int k = 0; k < Layers[Layers.Count - 2].Count; k++)
-                        {
-                            dCosttemp += Layers[Layers.Count - 2][k].Activation * 
-                                Layers.Last()[j].DefaultActivation.Derivate(
-                                    Layers[Layers.Count - 1][j].Weight_in*Layers[Layers.Count - 2][j])
-                        }
-                    }
-
-                    // Compute the cost of training
-                    cost = temp / Layers.Last().Count;
-
-                    // Back propagation time!
-                    // https://youtu.be/tIeHLnjs5U8
-
-                    dCost += Layers[Layers.Count - 2][0].Activation * Layers.Last()[0].DefaultActivation.Derivate();
+                    
                 }
             }
+        }
+
+        public void ForwardPropagate()
+        {
+            // Propagates the network forward, computes an answer
+
+            // Causes all of the Neurons to fire.
+            foreach (Neuron item in layers[0])
+            {
+                item.Activate();
+            }
+
+            while (activationCount < neuronCount) ; // Waits until all ActivationFunction are complete
+        }
+
+        public double BackPropagate(List<double> Sample)
+        {
+            // Propagates the network backward, uses computed answers, compared to real answers, to update the weights and biases
+            // Returns the %error the this training sample
+
+            // Computes the cost of the last layer's results (%error) --> Cost = ((out - expected)^2)/2
+            List<double> Costs = new List<double>(layers.Last().Count);
+            for (int i = 0; i < layers.Last().Count; i++)
+                Costs.Add(Math.Pow(layers.Last()[i].Activation - Sample[i], 2)/2);
+
+            // Computes the slope of all of the layers (How much they affect the output layer's neurons)
+            List<List<double>> slope_layer = new List<List<double>>(layers.Count);
+
+            for (int i = 0; i < layers.Last().Count; i++)
+            {
+                slope_layer.Add(new List<double>(layers[i].Count));
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    slope_layer[i].Add(layers.Last()[i].DefaultActivation.Derivate(
+                        layers.Last()[i].Activation, layers.Last()[i].DefaultParameters));
+                }
+            }
+
+            // Computes the change factor of the weights at each layer
+            List<List<double>> change_factors = new List<List<double>>(layers.Count);
+            List<double> E = Costs;
+
+            // START HERE: https://www.analyticsvidhya.com/blog/2017/05/neural-network-from-scratch-in-python-and-r/
+            // AND HERE: https://www.analyticsvidhya.com/blog/2017/03/introduction-to-gradient-descent-algorithm-along-its-variants/
+
+            for (int i = layers.Count - 1; i >= 0; i--)
+            {
+                double temp = 0;
+                change_factors.Add(new List<double>(layers[i].Count));
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    change_factors[layers.Count - i].Add(E[j]*slope_layer[i][j]);
+                    temp += change_factors[layers.Count - i][j] * layers[i][j].Weight_in;
+                }
+            }
+
+
+
+            double Z = 0;
+            double dActFnc = 0;
+            double dCost = 0;
+            double dCdW = 0;
+            double dCdb = 0;
+            for(int i = 0; i < layers.Count; i++)
+            {
+                for(int j = 0; j < layers[i].Count; j++)
+                {
+                    // Computes the Z of the current layer's neuron --> Z = Sum(Weight * Z(L-1)) + Bias
+                    Z = layers[i][j].Bias_in;
+                    for (int k = 0; k < layers[i - 1].Count; k++)
+                        Z += layers[i][j].Weight_in * layers[i - 1][k].Activation;
+
+                    // Computes the derivative of the activation function of this layer
+                    dActFnc = layers[i][j].DefaultActivation.Derivate(Z, layers[i][j].DefaultParameters);
+
+                    // Computes the derivative of the cost function with respect to a(L) --> = 2(out - expected)
+                    dCost = 2 * (layers[i][j].Activation - Sample[j]);
+
+                    // Compute the ratios of the corresponding weights and biases
+                    dCdW = layers[i][j].InputNeurons.Sum()
+
+                }
+            }
+
+            return Costs.Sum() / Costs.Count;
         }
 
         private void OnActiveEvent(object sender, EventArgs e)

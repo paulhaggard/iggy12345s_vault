@@ -43,6 +43,7 @@ namespace Neuron_Simulation
         public double Bias_in { get => bias_out; set => bias_out = value; }         // Sets the initial bias value for the Neuron
         public double Activation { get => activation; set => activation = value; }  // The output of the Neuron
         internal ActivationFunction DefaultActivation { get => defaultActivation; set => defaultActivation = value; }   // returns the default activation function class instance
+        public ActivationParameters DefaultParameters { get => defaultParameters; set => defaultParameters = value; }
 
         // Constructors
         public Neuron(ref Neuron[] inputNeurons, double weight = 0, double bias = 0,
@@ -57,7 +58,7 @@ namespace Neuron_Simulation
             ID = NeuronCount++;                         // assigns the Neuron ID and increments the count
 
             this.DefaultActivation = defaultActivation??new Sigmoid(); // default activation function
-            this.defaultParameters = defaultParameters??new SigmoidParams(); // default activation parameters (if you are using one that requires them)
+            this.DefaultParameters = defaultParameters??new SigmoidParams(); // default activation parameters (if you are using one that requires them)
 
             this.inputNeurons = inputNeurons.ToList();
 
@@ -79,7 +80,7 @@ namespace Neuron_Simulation
             ID = NeuronCount++;                         // assigns the Neuron ID and increments the count
 
             this.DefaultActivation = defaultActivation; // default activation function
-            this.defaultParameters = defaultParameters; // default activation parameters (if you are using one that requires them)
+            this.DefaultParameters = defaultParameters; // default activation parameters (if you are using one that requires them)
 
             this.inputNeurons = inputNeurons.ToList();
 
@@ -98,7 +99,7 @@ namespace Neuron_Simulation
             bias_out = bias;                            // initial bias value
 
             this.DefaultActivation = defaultActivation; // default activation function
-            this.defaultParameters = defaultParameters; // default activation parameters
+            this.DefaultParameters = defaultParameters; // default activation parameters
 
             ID = NeuronCount++;                         // assigns the Neuron ID and increments the count
 
@@ -136,7 +137,7 @@ namespace Neuron_Simulation
                     }
                 }
                 if (temp)
-                    Activate(DefaultActivation, defaultParameters);
+                    Activate(DefaultActivation, DefaultParameters);
             }
         }
 
@@ -148,7 +149,7 @@ namespace Neuron_Simulation
             // This function doesn't provide functionality for Softmax, or Maxout, obviously
 
             type = type ?? DefaultActivation;
-            Params = Params ?? defaultParameters;
+            Params = Params ?? DefaultParameters;
 
             double temp = 0;
             for (int i = 0; i < inputNeurons.Count; i++)
