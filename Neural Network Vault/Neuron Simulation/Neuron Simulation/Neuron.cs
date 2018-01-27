@@ -33,6 +33,7 @@ namespace Neuron_Simulation
         private double activation;          // This represents how activated the neuron is
         private List<double> inputWeights;          // Weight to be passed to the next neuron
         private double bias_out;            // Bias to be passed to the next neuron
+        private double net;                 // The net output of the neuron without being activated
 
         private bool raw_input;             // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
 
@@ -55,6 +56,7 @@ namespace Neuron_Simulation
         public double Activation { get => activation; set => activation = value; }  // The output of the Neuron
         internal ActivationFunction DefaultActivation { get => defaultActivation; set => defaultActivation = value; }   // returns the default activation function class instance
         public ActivationParameters DefaultParameters { get => defaultParameters; set => defaultParameters = value; }
+        public double Net { get => net; set => net = value; }
 
         // Constructors
         public Neuron(ref Neuron[] inputNeurons, List<double> weight = null, double bias = 0,
@@ -162,11 +164,11 @@ namespace Neuron_Simulation
             type = type ?? DefaultActivation;
             Params = Params ?? DefaultParameters;
 
-            double temp = bias_out;
+            Net = bias_out;
             for (int i = 0; i < inputNeurons.Count; i++)
-                temp += (!raw_input ? inputNeurons[i].Activation : Inputs[i]) * inputWeights[i];
+                Net += (!raw_input ? inputNeurons[i].Activation : Inputs[i]) * inputWeights[i];
 
-            activation = type.Activate(temp, Params);
+            activation = type.Activate(Net, Params);
 
             OnActiveEvent(new ActivationEventArgs(Activation, ID));
 
