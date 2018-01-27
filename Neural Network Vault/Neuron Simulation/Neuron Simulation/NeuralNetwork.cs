@@ -195,6 +195,8 @@ namespace Neuron_Simulation
 
 
 
+
+
             /*
             // Computes the slope of all of the layers (How much they affect the output layer's neurons)
             List<List<double>> slope_layer = new List<List<double>>(layers.Count);
