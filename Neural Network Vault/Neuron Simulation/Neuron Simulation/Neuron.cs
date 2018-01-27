@@ -70,12 +70,15 @@ namespace Neuron_Simulation
 
             ID = NeuronCount++;                                             // assigns the Neuron ID and increments the count
 
-            this.DefaultActivation = defaultActivation??new Sigmoid(); // default activation function
-            this.DefaultParameters = defaultParameters??new SigmoidParams(); // default activation parameters (if you are using one that requires them)
+            this.defaultActivation = defaultActivation??new Sigmoid(); // default activation function
+            this.defaultParameters = defaultParameters??new SigmoidParams(); // default activation parameters (if you are using one that requires them)
 
             this.inputNeurons = inputNeurons.ToList();
+            inputs_collected = new bool[inputNeurons.Length];
+            for (int i = 0; i < inputs_collected.Length; i++)
+                inputs_collected[i] = false;
 
-            for(int i = 0; i < inputNeurons.Length; i++)
+            for (int i = 0; i < inputNeurons.Length; i++)
             {
                 inputNeurons[i].ActiveEvent += OnActivate;  // Subscribes to the input Neuron's activation events
             }
@@ -92,10 +95,13 @@ namespace Neuron_Simulation
 
             ID = NeuronCount++;                         // assigns the Neuron ID and increments the count
 
-            this.DefaultActivation = defaultActivation; // default activation function
-            this.DefaultParameters = defaultParameters; // default activation parameters (if you are using one that requires them)
+            this.defaultActivation = defaultActivation; // default activation function
+            this.defaultParameters = defaultParameters; // default activation parameters (if you are using one that requires them)
 
             this.inputNeurons = inputNeurons.ToList();
+            inputs_collected = new bool[inputNeurons.Count];
+            for (int i = 0; i < inputs_collected.Length; i++)
+                inputs_collected[i] = false;
 
             for (int i = 0; i < inputNeurons.Count; i++)
             {
@@ -108,17 +114,24 @@ namespace Neuron_Simulation
         {
             raw_input = true;
 
-            inputWeights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
+            inputWeights = weight ?? new List<double>(num_in);   // initial weight value
+            if (weight == null)
+                for (int i = 0; i < num_in; i++)
+                    inputWeights.Add(0);
+
             bias_out = bias;                            // initial bias value
 
-            this.DefaultActivation = defaultActivation; // default activation function
-            this.DefaultParameters = defaultParameters; // default activation parameters
+            this.defaultActivation = defaultActivation; // default activation function
+            this.defaultParameters = defaultParameters; // default activation parameters
 
             ID = NeuronCount++;                         // assigns the Neuron ID and increments the count
 
             Inputs = new double[num_in];
+            inputs_collected = new bool[num_in];
+            for (int i = 0; i < inputs_collected.Length; i++)
+                inputs_collected[i] = false;
 
-            for(int i = 0; i < num_in; i++)
+            for (int i = 0; i < num_in; i++)
             {
                 Inputs[i] = 0;
             }
@@ -182,12 +195,12 @@ namespace Neuron_Simulation
 
         public class ActivationEventArgs : EventArgs
         {
-            public double activation { get; set; }
+            public double Activation { get; set; }
             public long ID { get; set; }
 
             public ActivationEventArgs(double activation, long ID)
             {
-                this.activation = activation;
+                Activation = activation;
                 this.ID = ID;
             }
         }
