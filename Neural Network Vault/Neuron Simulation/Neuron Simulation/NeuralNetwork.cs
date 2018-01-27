@@ -15,11 +15,15 @@ namespace Neuron_Simulation
         private List<List<Neuron>> layers;      // The collection of physical layers of the neural network
         private int neuronCount;
         private int activationCount;
+        private double learningRate;
         
         // Constructor
-        public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null)
+        public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
+            double learningRate = 0.01)
         {
             // Creates a neural network with LayerInfo.Count layers and each Layer with int neurons.
+
+            this.learningRate = learningRate;
 
             neuronCount = LayerInfo.Sum();
 
@@ -55,9 +59,11 @@ namespace Neuron_Simulation
             }
         }
 
+        // Accessor Methods
         public List<List<Neuron>> Layers { get => layers; set => layers = value; }
+        public double LearningRate { get => learningRate; set => learningRate = value; }
 
-        public void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, List<List<double>> weight_init = null, List<List<double>> bias_init = null)
+        public void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, List<List<List<double>>> weight_init = null, List<double> bias_init = null)
         {
             // Trains the neural network
 
@@ -76,12 +82,22 @@ namespace Neuron_Simulation
                 // Generates a random weight table if one wasn't supplied
                 if (weight_init == null)
                 {
-                    weight_init = new List<List<double>>(sample_in.Count);
-                    for (int i = 0; i < sample_in.Count; i++)
+                    weight_init = new List<List<List<double>>>(Layers.Count);
+                    for (int i = 0; i < Layers.Count; i++)
                     {
-                        List<double> temp = new List<double>(layers[i].Count);
-                        for (int j = 0; j < layers[i].Count; j++)
-                            temp.Add(rndNorm.NextDouble());
+                        List<List<double>> temp = new List<List<double>>(Layers[i].Count);
+                        for (int j = 0; j < Layers[i].Count; j++)
+                        {
+                            int currentIndex;
+                            if (i == 0)
+                                currentIndex = 1;
+                            else
+                                currentIndex = Layers[i - 1].Count;
+                            List<double> temp2 = new List<double>(currentIndex);
+                            for (int k = 0; k < currentIndex; k++)
+                                temp2.Add(rndNorm.NextDouble());
+                            temp.Add(temp2);
+                        }
                         weight_init.Add(temp);
                     }
                 }
@@ -89,13 +105,10 @@ namespace Neuron_Simulation
                 // Generates a random bias table if one wasn't supplied
                 if (bias_init == null)
                 {
-                    bias_init = new List<List<double>>(sample_in.Count);
+                    bias_init = new List<double>(sample_in.Count);
                     for (int i = 0; i < sample_in.Count; i++)
                     {
-                        List<double> temp = new List<double>(layers[i].Count);
-                        for (int j = 0; j < layers[i].Count; j++)
-                            temp.Add(rndBin.NextDouble());
-                        weight_init.Add(temp);
+                        bias_init.Add(rndBin.NextDouble());
                     }
                 }
 
@@ -115,7 +128,7 @@ namespace Neuron_Simulation
                     {
                         for (int k = 0; k < layers[i].Count; k++)
                         {
-                            layers[i][k].Bias_in = bias_init[j][k];
+                            layers[i][k].Bias_in = bias_init[j];
                             layers[i][k].Weight_in = weight_init[j][k];
 
                             if (j == 0)
@@ -147,14 +160,42 @@ namespace Neuron_Simulation
 
         public double BackPropagate(List<double> Sample)
         {
+            // Follows the tutorial found here:
+            // https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
+            // For help with understanding the partial derivatives look here:
+            // https://sites.math.washington.edu/~aloveles/Math126Spring2014/PartialDerivativesPractice.pdf
+
             // Propagates the network backward, uses computed answers, compared to real answers, to update the weights and biases
             // Returns the %error the this training sample
 
             // Computes the cost of the last layer's results (%error) --> Cost = ((out - expected)^2)/2
             List<double> Costs = new List<double>(layers.Last().Count);
+            double CostTotal = 0;
             for (int i = 0; i < layers.Last().Count; i++)
                 Costs.Add(Math.Pow(layers.Last()[i].Activation - Sample[i], 2)/2);
+            foreach (double item in Costs)
+                CostTotal += item;
 
+            // Backpropagates the output layer
+            for(int i = 0; i < layers.Last().Count; i++)
+            {
+                double dEdO = -(Sample[i] - layers.Last()[i].Activation);                               // Calculates the partial derivative of the total error with respect to the output
+                double dOdN = layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Activation,  // Calculates the partial derivative of the output with respect to the net activation
+                    layers.Last()[i].DefaultParameters);
+                for (int j = 0; j < layers[layers.Count - 2].Count; j++)
+                {
+                    double dNdW = layers[layers.Count - 2][j].Activation;                                // Calculates the partial derivative of the net activation with respect to the weight
+                    double dEdW = dEdO * dOdN * dNdW;                                                    // Chain rules it all together
+                    // ^ This is the amount we would need to subtract from the current rate to make the output be correct for this sample if it came across again
+                    // But, then it wouldn't work for any other sample, so we need to multiply it by some learning rate to decrease it's impact a bit.
+
+                    layers.Last()[i].Weight_in[j] -= dEdW * learningRate;
+                }
+            }
+
+
+
+            /*
             // Computes the slope of all of the layers (How much they affect the output layer's neurons)
             List<List<double>> slope_layer = new List<List<double>>(layers.Count);
 
@@ -213,6 +254,7 @@ namespace Neuron_Simulation
 
                 }
             }
+            */
 
             return Costs.Sum() / Costs.Count;
         }
