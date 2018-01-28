@@ -9,14 +9,14 @@ namespace Neuron_Simulation
 {
     class ThreeBlue1BrownExample
     {
-        private int n_input = 2;      // Number of input neurons
+        private int n_input = 784;      // Number of input neurons
         private int n_hidden1 = 16;     // Number of hidden neurons in the first hidden layer
         private int n_hidden2 = 16;     // Number of hidden neurons in the second hidden layer
-        private int n_out = 1;         // Number of output neurons
+        private int n_out = 10;         // Number of output neurons
 
-        private int n_samples = 4;    // Number of random samples to generate to test the functionality
+        private int n_samples = 300;    // Number of random samples to generate to test the functionality
 
-        private int iterations = 3000; // Number of times to train the neural network.
+        private int iterations = 300; // Number of times to train the neural network.
 
         private NeuralNetwork net;
 
@@ -43,7 +43,7 @@ namespace Neuron_Simulation
 
             // Creates training samples
 
-            /*
+            
             for(int i = 0; i < N_samples; i++)
             {
                 sampleDataInput.Add(new List<double>(n_input));
@@ -54,8 +54,8 @@ namespace Neuron_Simulation
                 for (int j = 0; j < n_out; j++)
                     sampleDataOutput[i].Add(rndNorm.NextDouble());
             }
-            */
-
+            
+            /*
             sampleDataInput.Add(new List<double> { 0, 0 });
             sampleDataOutput.Add(new List<double> { 0 });
             sampleDataInput.Add(new List<double> { 0, 1 });
@@ -64,7 +64,7 @@ namespace Neuron_Simulation
             sampleDataOutput.Add(new List<double> { 1 });
             sampleDataInput.Add(new List<double> { 1, 1 });
             sampleDataOutput.Add(new List<double> { 0 });
-
+            */
             // Creates a test sample
             for (int j = 0; j < n_input; j++)
                 TestSample.Add(rndNorm.NextDouble());

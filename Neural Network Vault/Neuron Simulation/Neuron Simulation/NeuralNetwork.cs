@@ -323,7 +323,8 @@ namespace Neuron_Simulation
                                 for(int m = layers.Count - 2; m > i; m--)
                                 {
                                     if (m == layers.Count - 2)
-                                        dEldOl *= layers.Last()[l].Weight_in[j];    // Derivative of dNet/dOut
+                                        for(int n = 0; n < layers[m].Count; n++)
+                                            dEldOl *= layers.Last()[l].Weight_in[n];    // Derivative of dNet/dOut
                                     else
                                     {
                                         //
