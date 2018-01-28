@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neuron_Simulation.Activation_Functions
 {
     public class ActivationParameters { };
-    abstract class ActivationFunction
+    public abstract class ActivationFunction
     {
         // For information on how to figure out the standard activation function algorithms
         // Go here: https://en.wikipedia.org/wiki/Activation_function

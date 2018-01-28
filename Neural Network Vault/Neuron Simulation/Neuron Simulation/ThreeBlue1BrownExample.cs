@@ -9,7 +9,7 @@ namespace Neuron_Simulation
 {
     class ThreeBlue1BrownExample
     {
-        private int n_input = 748;      // Number of input neurons
+        private int n_input = 784;      // Number of input neurons
         private int n_hidden1 = 16;     // Number of hidden neurons in the first hidden layer
         private int n_hidden2 = 16;     // Number of hidden neurons in the second hidden layer
         private int n_out = 10;         // Number of output neurons
@@ -20,23 +20,29 @@ namespace Neuron_Simulation
 
         private NeuralNetwork net;
 
+        // Constructor
         public ThreeBlue1BrownExample()
         {
-            net = new NeuralNetwork(new List<int> { n_input, n_hidden1, n_hidden2, n_out });
+            Net = new NeuralNetwork(new List<int> { n_input, n_hidden1, n_hidden2, n_out });
         }
+
+        // Accessor Methods
+        public NeuralNetwork Net { get => net; set => net = value; }
+        public int N_samples { get => n_samples; set => n_samples = value; }
+        public int Iterations { get => iterations; set => iterations = value; }
 
         public int Test()
         {
             // Tests the neural network by throwing a random image through it
 
             // Generates random samples
-            List<List<double>> sampleDataInput = new List<List<double>>(n_samples);
-            List<List<double>> sampleDataOutput = new List<List<double>>(n_samples);
+            List<List<double>> sampleDataInput = new List<List<double>>(N_samples);
+            List<List<double>> sampleDataOutput = new List<List<double>>(N_samples);
             List<double> TestSample = new List<double>(n_input);
             NormalDistribution rndNorm = new NormalDistribution();
 
             // Creates training samples
-            for(int i = 0; i < n_samples; i++)
+            for(int i = 0; i < N_samples; i++)
             {
                 sampleDataInput.Add(new List<double>(n_input));
                 for (int j = 0; j < n_input; j++)
@@ -51,11 +57,13 @@ namespace Neuron_Simulation
             for (int j = 0; j < n_input; j++)
                 TestSample.Add(rndNorm.NextDouble());
 
+            Console.WriteLine("Starting training...");
+
             // Trains the neural network
-            net.Train(iterations, sampleDataInput, sampleDataOutput);
+            Net.Train(Iterations, sampleDataInput, sampleDataOutput);
 
             // Executes the neural network
-            return net.Calc(TestSample);
+            return Net.Calc(TestSample);
         }
     }
 }

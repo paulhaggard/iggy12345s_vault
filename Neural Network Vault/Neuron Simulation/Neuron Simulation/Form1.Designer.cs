@@ -38,7 +38,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.HiddenLayerAWeights = new System.Windows.Forms.PictureBox();
             this.HiddenLayerBWeights = new System.Windows.Forms.PictureBox();
-            this.OutputLayerWeights = new System.Windows.Forms.PictureBox();
             this.Activations = new System.Windows.Forms.Label();
             this.InputLayerActivations = new System.Windows.Forms.PictureBox();
             this.HiddenLayerAActivations = new System.Windows.Forms.PictureBox();
@@ -51,7 +50,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerBWeights)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputLayerWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerActivations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAActivations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerBActivations)).BeginInit();
@@ -91,6 +89,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Train";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // statusStrip
             // 
@@ -140,14 +139,6 @@
             this.HiddenLayerBWeights.Size = new System.Drawing.Size(115, 101);
             this.HiddenLayerBWeights.TabIndex = 5;
             this.HiddenLayerBWeights.TabStop = false;
-            // 
-            // OutputLayerWeights
-            // 
-            this.OutputLayerWeights.Location = new System.Drawing.Point(375, 473);
-            this.OutputLayerWeights.Name = "OutputLayerWeights";
-            this.OutputLayerWeights.Size = new System.Drawing.Size(115, 101);
-            this.OutputLayerWeights.TabIndex = 5;
-            this.OutputLayerWeights.TabStop = false;
             // 
             // Activations
             // 
@@ -218,7 +209,6 @@
             this.Controls.Add(this.TestNet);
             this.Controls.Add(this.Activations);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.OutputLayerWeights);
             this.Controls.Add(this.HiddenLayerBWeights);
             this.Controls.Add(this.OutputLayerActivations);
             this.Controls.Add(this.HiddenLayerBActivations);
@@ -233,13 +223,13 @@
             this.Controls.Add(this.LayoutBox);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.LayoutBox)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAWeights)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerBWeights)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputLayerWeights)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerActivations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAActivations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerBActivations)).EndInit();
@@ -260,7 +250,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox HiddenLayerAWeights;
         private System.Windows.Forms.PictureBox HiddenLayerBWeights;
-        private System.Windows.Forms.PictureBox OutputLayerWeights;
         private System.Windows.Forms.Label Activations;
         private System.Windows.Forms.PictureBox InputLayerActivations;
         private System.Windows.Forms.PictureBox HiddenLayerAActivations;

@@ -10,7 +10,7 @@ using static Neuron_Simulation.Activation_Functions.Functions.Sigmoid;
 
 namespace Neuron_Simulation
 { 
-    class Neuron
+    public class Neuron
     {
         // This class is designed around the neural network example used here:
         // https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
@@ -54,7 +54,7 @@ namespace Neuron_Simulation
         public List<double> Weight_in { get => inputWeights; set => inputWeights = value; }   // Sets the initial weight value for the Neuron
         public double Bias_in { get => bias_out; set => bias_out = value; }         // Sets the initial bias value for the Neuron
         public double Activation { get => activation; set => activation = value; }  // The output of the Neuron
-        internal ActivationFunction DefaultActivation { get => defaultActivation; set => defaultActivation = value; }   // returns the default activation function class instance
+        public ActivationFunction DefaultActivation { get => defaultActivation; set => defaultActivation = value; }   // returns the default activation function class instance
         public ActivationParameters DefaultParameters { get => defaultParameters; set => defaultParameters = value; }
         public double Net { get => net; set => net = value; }
 
@@ -127,6 +127,8 @@ namespace Neuron_Simulation
             ID = NeuronCount++;                         // assigns the Neuron ID and increments the count
 
             Inputs = new double[num_in];
+            for (int i = 0; i < num_in; i++)
+                Inputs[i] = 0;
             inputs_collected = new bool[num_in];
             for (int i = 0; i < inputs_collected.Length; i++)
                 inputs_collected[i] = false;
@@ -178,7 +180,7 @@ namespace Neuron_Simulation
             Params = Params ?? DefaultParameters;
 
             Net = bias_out;
-            for (int i = 0; i < inputNeurons.Count; i++)
+            for (int i = 0; i < ((!raw_input) ? inputNeurons.Count : Inputs.Length); i++)
                 Net += (!raw_input ? inputNeurons[i].Activation : Inputs[i]) * inputWeights[i];
 
             activation = type.Activate(Net, Params);
