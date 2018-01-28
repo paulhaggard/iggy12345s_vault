@@ -9,14 +9,14 @@ namespace Neuron_Simulation
 {
     class ThreeBlue1BrownExample
     {
-        private int n_input = 784;      // Number of input neurons
-        private int n_hidden1 = 16;     // Number of hidden neurons in the first hidden layer
-        private int n_hidden2 = 16;     // Number of hidden neurons in the second hidden layer
-        private int n_out = 10;         // Number of output neurons
+        private int n_input = 2;      // Number of input neurons
+        private int n_hidden1 = 3;     // Number of hidden neurons in the first hidden layer
+        private int n_hidden2 = 3;     // Number of hidden neurons in the second hidden layer
+        private int n_out = 1;         // Number of output neurons
 
-        private int n_samples = 300;    // Number of random samples to generate to test the functionality
+        private int n_samples = 4;    // Number of random samples to generate to test the functionality
 
-        private int iterations = 10000; // Number of times to train the neural network.
+        private int iterations = 3000; // Number of times to train the neural network.
 
         private NeuralNetwork net;
 
@@ -31,7 +31,7 @@ namespace Neuron_Simulation
         public int N_samples { get => n_samples; set => n_samples = value; }
         public int Iterations { get => iterations; set => iterations = value; }
 
-        public int Test()
+        public void Test()
         {
             // Tests the neural network by throwing a random image through it
 
@@ -42,6 +42,8 @@ namespace Neuron_Simulation
             NormalDistribution rndNorm = new NormalDistribution();
 
             // Creates training samples
+
+            /*
             for(int i = 0; i < N_samples; i++)
             {
                 sampleDataInput.Add(new List<double>(n_input));
@@ -52,6 +54,16 @@ namespace Neuron_Simulation
                 for (int j = 0; j < n_out; j++)
                     sampleDataOutput[i].Add(rndNorm.NextDouble());
             }
+            */
+
+            sampleDataInput.Add(new List<double> { 0, 0 });
+            sampleDataOutput.Add(new List<double> { 0 });
+            sampleDataInput.Add(new List<double> { 0, 1 });
+            sampleDataOutput.Add(new List<double> { 1 });
+            sampleDataInput.Add(new List<double> { 1, 0 });
+            sampleDataOutput.Add(new List<double> { 1 });
+            sampleDataInput.Add(new List<double> { 1, 1 });
+            sampleDataOutput.Add(new List<double> { 0 });
 
             // Creates a test sample
             for (int j = 0; j < n_input; j++)
@@ -63,7 +75,7 @@ namespace Neuron_Simulation
             Net.Train(Iterations, sampleDataInput, sampleDataOutput);
 
             // Executes the neural network
-            return Net.Calc(TestSample);
+            //return Net.Calc(TestSample);
         }
     }
 }

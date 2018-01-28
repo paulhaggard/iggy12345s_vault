@@ -45,6 +45,8 @@
             this.OutputLayerActivations = new System.Windows.Forms.PictureBox();
             this.TestNet = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ErrorLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutBox)).BeginInit();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).BeginInit();
@@ -189,6 +191,7 @@
             this.TestNet.TabIndex = 8;
             this.TestNet.Text = "Test Network";
             this.TestNet.UseVisualStyleBackColor = true;
+            this.TestNet.Click += new System.EventHandler(this.TestNet_Click);
             // 
             // Exit
             // 
@@ -200,11 +203,30 @@
             this.Exit.UseVisualStyleBackColor = true;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(104, 445);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Current Error:";
+            // 
+            // ErrorLabel
+            // 
+            this.ErrorLabel.AutoSize = true;
+            this.ErrorLabel.Location = new System.Drawing.Point(180, 445);
+            this.ErrorLabel.Name = "ErrorLabel";
+            this.ErrorLabel.Size = new System.Drawing.Size(0, 13);
+            this.ErrorLabel.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 616);
+            this.Controls.Add(this.ErrorLabel);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.TestNet);
             this.Controls.Add(this.Activations);
@@ -257,6 +279,8 @@
         private System.Windows.Forms.PictureBox OutputLayerActivations;
         private System.Windows.Forms.Button TestNet;
         private System.Windows.Forms.Button Exit;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label ErrorLabel;
     }
 }
 

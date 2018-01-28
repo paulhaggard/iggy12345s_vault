@@ -74,7 +74,7 @@ namespace Neuron_Simulation
         
         // Constructor
         public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
-            double learningRate = 0.01)
+            double learningRate = 1)
         {
             // Creates a neural network with LayerInfo.Count layers and each Layer with int neurons.
 
@@ -120,16 +120,14 @@ namespace Neuron_Simulation
         public List<List<Neuron>> Layers { get => layers; set => layers = value; }
         public double LearningRate { get => learningRate; set => learningRate = value; }
 
-        public int Calc(List<double> inputs)
+        public List<double> Calc(List<double> inputs)
         {
             LoadSample(inputs);
             ForwardPropagate();
-            int temp = 0;
-            int iter = 0;
-            foreach (Neuron item in layers.Last())
+            List<double> temp = new List<double>(layers.Last().Count);
+            foreach(Neuron neuron in layers.Last())
             {
-                temp = (item.Activation > temp) ? iter : temp;
-                iter++;
+                temp.Add(neuron.Activation);
             }
 
             return temp;
@@ -156,7 +154,7 @@ namespace Neuron_Simulation
                 for (int iter = 0; iter < iterations; iter++)
                 {
                     // Generates the inital weight and bias tables
-                    Console.WriteLine("Iteration: {0}", iter);
+                    //Console.WriteLine("Iteration: {0}", iter);
 
                     if (Reset)
                     {
@@ -200,7 +198,7 @@ namespace Neuron_Simulation
                         for (int i = 0; i < layers.Count; i++)
                             for (int j = 0; j < layers[i].Count; j++)
                                 layers[i][j].ActiveEvent += OnActiveEvent;
-                        Console.WriteLine("Subscribed to the neurons!");
+                        //Console.WriteLine("Subscribed to the neurons!");
                     }
 
                     // Begins iterations
@@ -209,7 +207,7 @@ namespace Neuron_Simulation
                         activationCount = 0; // Resets the activationCount
                                              //dCost = 0;
 
-                        Console.WriteLine("- Sample: {0}", i);
+                        //Console.WriteLine("- Sample: {0}", i);
 
                         // Assigns the biases, and weights
                         if ((iter == 0) && Reset)
@@ -371,7 +369,7 @@ namespace Neuron_Simulation
                         dOdNl = layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters);
 
                         // Calculates dNdWl
-                        dNdWl = layers[i - 1][j].Activation;
+                        dNdWl = layers[i - 1][k].Activation;
 
                         // Chains it all together
                         double dEdW = dEdOl * dOdNl * dNdWl;
