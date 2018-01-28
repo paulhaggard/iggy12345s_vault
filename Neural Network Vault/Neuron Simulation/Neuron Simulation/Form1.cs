@@ -32,7 +32,7 @@ namespace Neuron_Simulation
         public void IncrementProgressBar(double Error)
         {
             progressBar1.Increment(1);
-            //ErrorLabel.Text = Error.ToString();
+            ErrorLabel.Text = Error.ToString();
         }
 
         private ThreeBlue1BrownExample networkTest;
@@ -123,6 +123,7 @@ namespace Neuron_Simulation
 
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush, 1);
+            
 
             using (Graphics g = Graphics.FromImage(layout))
             {
@@ -164,7 +165,7 @@ namespace Neuron_Simulation
                 int drawSize_y = (int)(InputLayerActivations.Size.Height / Math.Sqrt(layers[0].Count));
                 foreach (Neuron neuron in layers[0])
                 {
-                    pen.Color = Color.FromArgb((int)(neuron.Activation * 255), (int)(neuron.Activation * 200), (int)(neuron.Activation * 255));
+                    pen.Color = Color.FromArgb(255, (int)(neuron.Activation * 255), (int)(neuron.Activation * 200), (int)(neuron.Activation * 255));
                     g.FillRectangle(pen.Brush, new Rectangle(new Point(i * drawSize_x, j * drawSize_y), new Size(drawSize_x, drawSize_y)));
                     if(++i > Math.Sqrt(layers[0].Count)-1)
                     {
@@ -191,7 +192,7 @@ namespace Neuron_Simulation
                     i = 0;
                     foreach (double weight in neuron.Weight_in)
                     {
-                        pen.Color = Color.FromArgb((weight <= 0) ? 200 : 0, (Math.Abs(weight) > 1) ? 255 : (int)(Math.Abs(weight) * 255), (weight > 0) ? 200 : 0);
+                        pen.Color = Color.FromArgb(255, (weight <= 0) ? 200 : 0, (Math.Abs(weight) > 1) ? 255 : (int)(Math.Abs(weight) * 255), (weight > 0) ? 200 : 0);
                         g.FillRectangle(pen.Brush, new Rectangle(new Point(i++ * drawSize_x, j * drawSize_y), new Size(drawSize_x, drawSize_y)));
                     }
                     j++;
@@ -209,7 +210,7 @@ namespace Neuron_Simulation
                 int drawSize_y = (int)(HiddenLayerAActivations.Size.Height / Math.Sqrt(layers[1].Count));
                 foreach (Neuron neuron in layers[1])
                 {
-                    pen.Color = Color.FromArgb((int)(neuron.Activation * 255), (int)(neuron.Activation * 200), (int)(neuron.Activation * 255));
+                    pen.Color = Color.FromArgb(255, (int)(neuron.Activation * 255), (int)(neuron.Activation * 200), (int)(neuron.Activation * 255));
                     g.FillRectangle(pen.Brush, new Rectangle(new Point(i * drawSize_x, j * drawSize_y), new Size(drawSize_x, drawSize_y)));
                     if (++i > Math.Sqrt(layers[1].Count) - 1)
                     {
@@ -232,7 +233,7 @@ namespace Neuron_Simulation
                     i = 0;
                     foreach (double weight in neuron.Weight_in)
                     {
-                        pen.Color = Color.FromArgb((weight <= 0) ? 200 : 0, (Math.Abs(weight) > 1) ? 255 : (int)(Math.Abs(weight) * 255), (weight > 0) ? 200 : 0);
+                        pen.Color = Color.FromArgb(255, (weight <= 0) ? 200 : 0, (Math.Abs(weight) > 1) ? 255 : (int)(Math.Abs(weight) * 255), (weight > 0) ? 200 : 0);
                         g.FillRectangle(pen.Brush, new Rectangle(new Point(i++ * drawSize_x, j * drawSize_y), new Size(drawSize_x, drawSize_y)));
                     }
                     j++;
@@ -250,7 +251,7 @@ namespace Neuron_Simulation
                 int drawSize_y = (int)(HiddenLayerBActivations.Size.Height / Math.Sqrt(layers[2].Count));
                 foreach (Neuron neuron in layers[2])
                 {
-                    pen.Color = Color.FromArgb((int)(neuron.Activation * 255), (int)(neuron.Activation * 200), (int)(neuron.Activation * 255));
+                    pen.Color = Color.FromArgb(255, (int)(neuron.Activation * 255), (int)(neuron.Activation * 200), (int)(neuron.Activation * 255));
                     g.FillRectangle(pen.Brush, new Rectangle(new Point(i * drawSize_x, j * drawSize_y), new Size(drawSize_x, drawSize_y)));
                     if (++i > Math.Sqrt(layers[1].Count) - 1)
                     {
@@ -273,7 +274,7 @@ namespace Neuron_Simulation
                     i = 0;
                     foreach (double weight in neuron.Weight_in)
                     {
-                        pen.Color = Color.FromArgb((weight <= 0) ? 200 : 0, (Math.Abs(weight) > 1) ? 255 : (int)(Math.Abs(weight) * 255), (weight > 0) ? 200 : 0);
+                        pen.Color = Color.FromArgb(255, (weight <= 0) ? 200 : 0, (Math.Abs(weight) > 1) ? 255 : (int)(Math.Abs(weight) * 255), (weight > 0) ? 200 : 0);
                         g.FillRectangle(pen.Brush, new Rectangle(new Point(i++ * drawSize_x, j * drawSize_y), new Size(drawSize_x, drawSize_y)));
                     }
                     j++;
@@ -291,7 +292,7 @@ namespace Neuron_Simulation
                 int drawSize_y = (int)(HiddenLayerBActivations.Size.Height / Math.Sqrt(layers[1].Count));
                 foreach (Neuron neuron in layers[2])
                 {
-                    pen.Color = Color.FromArgb((int)(neuron.Activation * 255), (int)(neuron.Activation * 200), (int)(neuron.Activation * 255));
+                    pen.Color = Color.FromArgb(255, (int)(neuron.Activation * 255), (int)(neuron.Activation * 200), (int)(neuron.Activation * 255));
                     g.FillRectangle(pen.Brush, new Rectangle(new Point(i * drawSize_x, j * drawSize_y), new Size(drawSize_x, drawSize_y)));
                     if (++i > Math.Sqrt(layers[1].Count - 1))
                     {

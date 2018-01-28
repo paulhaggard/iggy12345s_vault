@@ -10,8 +10,8 @@ namespace Neuron_Simulation
     class ThreeBlue1BrownExample
     {
         private int n_input = 2;      // Number of input neurons
-        private int n_hidden1 = 3;     // Number of hidden neurons in the first hidden layer
-        private int n_hidden2 = 3;     // Number of hidden neurons in the second hidden layer
+        private int n_hidden1 = 16;     // Number of hidden neurons in the first hidden layer
+        private int n_hidden2 = 16;     // Number of hidden neurons in the second hidden layer
         private int n_out = 1;         // Number of output neurons
 
         private int n_samples = 4;    // Number of random samples to generate to test the functionality
@@ -69,7 +69,7 @@ namespace Neuron_Simulation
             for (int j = 0; j < n_input; j++)
                 TestSample.Add(rndNorm.NextDouble());
 
-            Console.WriteLine("Starting training...");
+            //Console.WriteLine("Starting training...");
 
             // Trains the neural network
             Net.Train(Iterations, sampleDataInput, sampleDataOutput);

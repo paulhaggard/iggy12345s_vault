@@ -280,7 +280,7 @@
         private System.Windows.Forms.Button TestNet;
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label ErrorLabel;
+        public System.Windows.Forms.Label ErrorLabel;
     }
 }
 
