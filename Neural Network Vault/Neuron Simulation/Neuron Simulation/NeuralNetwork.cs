@@ -74,7 +74,7 @@ namespace Neuron_Simulation
         
         // Constructor
         public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
-            double learningRate = 0.01)
+            double learningRate = 0.5)
         {
             // Creates a neural network with LayerInfo.Count layers and each Layer with int neurons.
 
