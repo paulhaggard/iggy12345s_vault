@@ -286,7 +286,7 @@ namespace Neuron_Simulation
 
             List<double> DeltaK = new List<double>(layers.Last().Count);  // Creates a list of Deltailons used for the output layers.
             for (int i = 0; i < layers.Last().Count; i++)
-                DeltaK.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Activation, layers.Last()[i].DefaultParameters) * (Sample[i] - layers.Last()[i].Activation));
+                DeltaK.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Net, layers.Last()[i].DefaultParameters) * (Sample[i] - layers.Last()[i].Activation));
 
             List<List<double>> DeltaH = new List<List<double>>(layers.Count); // Creates a 2-dimensional map of every weight in the matrix.
 
