@@ -245,7 +245,14 @@ namespace Neuron_Simulation
             // Causes all of the Neurons to fire.
             foreach (Neuron item in layers[0])
             {
-                item.Activate();
+                // Creates a personalized thread for each neuron and then activates it.
+                Thread ActivationThread = new Thread(new ThreadStart(NeuronActivate));
+                ActivationThread.Start();
+
+                void NeuronActivate()
+                {
+                    item.Activate();
+                }
             }
 
             while (activationCount < neuronCount) ; // Waits until all ActivationFunction are complete
@@ -306,6 +313,7 @@ namespace Neuron_Simulation
                         double dNdWl = 0;   // Derivative of the net ouput of the current layer with respect to the weight in question
 
                         // Calculates dEdOl
+                        // This is where the b neuron stuff starts
                         for(int l = 0; l < layers.Last().Count; l++)
                         {
                             // calculates the partial derivative of the total error with respect to the output of the neuron attached to the current weight
@@ -315,53 +323,50 @@ namespace Neuron_Simulation
 
                             // We can't iterate on the output layer because it's essential to calculation so if the current layer is equal to the second to last layer
                             // Then do this instead.
+                            double sum = 0;
                             if(i == layers.Count - 2)
                                 dEldOl *= layers.Last()[l].Weight_in[j];    // Derivative of dNet/dOut
                             else
                             {
+                                double temp = 1;
                                 // Otherwise we need to iterate through and chain together every layer betwen the current one and the output
                                 for(int m = layers.Count - 2; m > i; m--)
                                 {
-                                    if (m == layers.Count - 2)
-                                        for(int n = 0; n < layers[m].Count; n++)
-                                            dEldOl *= layers.Last()[l].Weight_in[n];    // Derivative of dNet/dOut
-                                    else
+                                    for (int n = 0; n < layers[m].Count; n++)
                                     {
-                                        //
-                                        for(int n = 0; n < layers[m].Count; n++)
+                                        /*  i = the current layer
+                                         *  j = the current neuron in the current layer
+                                         *  k = the current weight of the current neuron on the current layer
+                                         *  l = the current ouput neuron of the ouput layer
+                                         *  m = the current layer between the output layer and the current layer (i)
+                                         *  n = the current neuron of the current layer between the output layer and the current layer (m)
+                                         *  o = the current neuron of the next layer between the output layer and the current layer (m + 1)
+                                         */
+
+                                        double dNdOl = 1;
+                                        for (int o = 0; o < layers[m + 1].Count; o++)
                                         {
-                                            /*  i = the current layer
-                                             *  j = the current neuron in the current layer
-                                             *  k = the current weight of the current neuron on the current layer
-                                             *  l = the current ouput neuron of the ouput layer
-                                             *  m = the current layer between the output layer and the current layer (i)
-                                             *  n = the current neuron of the current layer between the output layer and the current layer (m)
-                                             *  o = the current neuron of the next layer between the output layer and the current layer (m + 1)
-                                             */
-
-                                            double dNdOl = 1;
-                                            for(int o = 0; o < layers[m+1].Count; o++)
-                                            {
-                                                // Chains the weights of all of the next layer's neurons that connect with this one (all of them)
-                                                dNdOl *= layers[m + 1][o].Weight_in[n];
-                                            }
-
-                                            // Chains the derivative of the activation function of each neuron in the current layer m
-                                            double dOldNl = layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters);
-
-                                            // If the layer isn't the layer right next to the current layer i, then we don't need to chain the weights of layer m and layer i
-                                            // Because that'll be covered by the next iteration anyway.
-                                            if(m == i + 1)
-                                            {
-                                                dOldNl *= layers[m][n].Weight_in[j];
-                                            }
-
-                                            // Chaining it all together
-                                            dEldOl *= dNdOl * dOldNl;
+                                            // Chains the weights of all of the next layer's neurons that connect with this one (all of them)
+                                            dNdOl *= layers[m + 1][o].Weight_in[n];
                                         }
+
+                                        // Chains the derivative of the activation function of each neuron in the current layer m
+                                        double dOldNl = layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters);
+
+                                        // If the layer isn't the layer right next to the current layer i, then we don't need to chain the weights of layer m and layer i
+                                        // Because that'll be covered by the next iteration anyway.
+                                        if (m == i + 1)
+                                        {
+                                            dOldNl *= layers[m][n].Weight_in[j];
+                                        }
+
+                                        // Chaining it all together
+                                        temp *= dNdOl * dOldNl;
                                     }
                                 }
+                                sum += temp;
                             }
+                            dEldOl *= sum;
 
                             dEdOl += dEldOl;    // Sums up the derivatives of all of the output layer's errors with respect to the output of the layer in question
                         }

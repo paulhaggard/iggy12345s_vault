@@ -13,3 +13,17 @@ G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neu
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron Simulation.csproj.CoreCompileInputs.cache
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron Simulation.exe
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron Simulation.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\bin\Debug\Neuron Simulation.exe.config
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\bin\Debug\Neuron Simulation.exe
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\bin\Debug\Neuron Simulation.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\bin\Debug\Troschuetz.Random.xml
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\bin\Debug\de\Troschuetz.Random.resources.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\bin\Debug\es\Troschuetz.Random.resources.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\bin\Debug\fr\Troschuetz.Random.resources.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron Simulation.csprojResolveAssemblyReference.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron_Simulation.Form1.resources
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron_Simulation.Properties.Resources.resources
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron Simulation.csproj.GenerateResource.Cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron Simulation.csproj.CoreCompileInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron Simulation.exe
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Simulation\obj\Debug\Neuron Simulation.pdb

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Neuron_Simulation.Activation_Functions.ActivationFunction;
 
 namespace Neuron_Simulation.Activation_Functions.Functions
 {
