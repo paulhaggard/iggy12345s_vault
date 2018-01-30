@@ -181,7 +181,7 @@ namespace Neuron_Simulation
 
             Net = bias_out;
             for (int i = 0; i < ((!raw_input) ? inputNeurons.Count : Inputs.Length); i++)
-                Net += (!raw_input ? inputNeurons[i].Activation : Inputs[i]) * inputWeights[i];
+                Net += (!raw_input ? inputNeurons[i].Activation : Inputs[i]) * (!raw_input ? inputWeights[i] : 1);
 
             activation = type.Activate(Net, Params);
 

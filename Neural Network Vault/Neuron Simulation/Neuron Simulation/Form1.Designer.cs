@@ -32,8 +32,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.EngineStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.InputLayerWeights = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.HiddenLayerAWeights = new System.Windows.Forms.PictureBox();
@@ -48,7 +46,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.ErrorLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutBox)).BeginInit();
-            this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerBWeights)).BeginInit();
@@ -92,22 +89,6 @@
             this.button1.Text = "Train";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.EngineStatus});
-            this.statusStrip.Location = new System.Drawing.Point(0, 594);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(930, 22);
-            this.statusStrip.TabIndex = 4;
-            this.statusStrip.Text = "Loading...";
-            // 
-            // EngineStatus
-            // 
-            this.EngineStatus.Name = "EngineStatus";
-            this.EngineStatus.Size = new System.Drawing.Size(59, 17);
-            this.EngineStatus.Text = "Loading...";
             // 
             // InputLayerWeights
             // 
@@ -238,7 +219,6 @@
             this.Controls.Add(this.HiddenLayerAWeights);
             this.Controls.Add(this.InputLayerActivations);
             this.Controls.Add(this.InputLayerWeights);
-            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
@@ -247,8 +227,6 @@
             this.Text = "Form1";
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.LayoutBox)).EndInit();
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAWeights)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerBWeights)).EndInit();
@@ -266,8 +244,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.PictureBox LayoutBox;
-        private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel EngineStatus;
         private System.Windows.Forms.PictureBox InputLayerWeights;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox HiddenLayerAWeights;

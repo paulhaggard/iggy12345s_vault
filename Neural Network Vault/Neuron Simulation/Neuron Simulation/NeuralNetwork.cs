@@ -134,7 +134,7 @@ namespace Neuron_Simulation
         }
 
         // Training and propagation methods
-        public void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, bool Reset = false, List<List<List<double>>> weight_init = null, List<double> bias_init = null)
+        public void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0.01,  bool Reset = false, List<List<List<double>>> weight_init = null, List<double> bias_init = null)
         {
             // Trains the neural network
 
@@ -151,6 +151,7 @@ namespace Neuron_Simulation
 
             void subTrain()
             {
+                double Error = 0;
                 for (int iter = 0; iter < iterations; iter++)
                 {
                     // Generates the inital weight and bias tables
@@ -227,13 +228,17 @@ namespace Neuron_Simulation
 
                         ForwardPropagate(); // propagates the network forward
 
-                        double Error = BackPropagate(sample_in[i]);    // Backpropagates the network
+                        Error = BackPropagate(sample_in[i]);    // Backpropagates the network
 
                         // Sends all of this iteration's data back to the observers
                         TrainingUpdateEventArgs temp = new TrainingUpdateEventArgs(iter, i, layers, Error);
 
                         OnTrainingUpdateEvent(temp);
+                        if (Error <= errorThreshold)
+                            break;
                     }
+                    if (Error <= errorThreshold)
+                        break;
                 }
             }
         }
@@ -265,6 +270,9 @@ namespace Neuron_Simulation
             // For help with understanding the partial derivatives look here:
             // https://sites.math.washington.edu/~aloveles/Math126Spring2014/PartialDerivativesPractice.pdf
 
+            // ^ Is out of date, use this instead now vvv
+            // http://pandamatak.com/people/anand/771/html/node37.html
+
             // Propagates the network backward, uses computed answers, compared to real answers, to update the weights and biases
             // Returns the %error the this training sample
 
@@ -276,121 +284,58 @@ namespace Neuron_Simulation
             foreach (double item in Costs)
                 CostTotal += item;
 
-            // Backpropagates the output layer
-            // also generates lists of derivative solutions that are used in later calculations
-            List<double> dEdO = new List<double>(layers.Last().Count);
-            List<double> dOdN = new List<double>(layers.Last().Count);
+            List<double> DeltaK = new List<double>(layers.Last().Count);  // Creates a list of Deltailons used for the output layers.
             for (int i = 0; i < layers.Last().Count; i++)
+                DeltaK.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Activation, layers.Last()[i].DefaultParameters) * (Sample[i] - layers.Last()[i].Activation));
+
+            List<List<double>> DeltaH = new List<List<double>>(layers.Count); // Creates a 2-dimensional map of every weight in the matrix.
+
+            // START HERE: https://stackoverflow.com/questions/2190732/understanding-neural-network-backpropagation?rq=1
+            // ^ On the second response
+
+            for (int i = layers.Count - 1; i >= 0; i--)
             {
-                dEdO.Add(-(Sample[i] - layers.Last()[i].Activation));                               // Calculates the partial derivative of the total error with respect to the output
-                dOdN.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Activation,  // Calculates the partial derivative of the output with respect to the net activation
-                    layers.Last()[i].DefaultParameters));
-                for (int j = 0; j < layers[layers.Count - 2].Count; j++)
-                {
-                    double dNdW = layers[layers.Count - 2][j].Activation;                                // Calculates the partial derivative of the net activation with respect to the weight
-                    double dEdW = dEdO[i] * dOdN[i] * dNdW;                                                    // Chain rules it all together
-                    // ^ This is the amount we would need to subtract from the current rate to make the output be correct for this sample if it came across again
-                    // But, then it wouldn't work for any other sample, so we need to multiply it by some learning rate to decrease it's impact a bit.
-
-                    layers.Last()[i].Weight_in[j] -= dEdW * learningRate;
-                }
-            }
-
-            // Back propagates the rest of the layers for their weight and bias values
-            for(int i = layers.Count - 2; i > 0; i--)
-            {
-                // Run backwards through every layer and propagate them using the math example from the 'Back Propagation Math' folder's pictures
-                // Must iterate for every layer starting from the second to last one, and stopping at the layer before the input layer
-
-                // Back propagates the weight and bias values
+                // Does the physical backpropagation
+                DeltaH.Add(new List<double>(layers[i].Count));
                 for(int j = 0; j < layers[i].Count; j++)
                 {
-                    // calculate the partial derivatives for each of the weights attached to each neuron in the layer
                     for(int k = 0; k < layers[i][j].Weight_in.Count; k++)
                     {
-                        double dEdOl = 0;   // Derivative of the total error with respect to the output of the current layer
-                        double dOdNl = 0;   // Derivative of the ouptut of the current layer with respect to the net output of the current layer
-                        double dNdWl = 0;   // Derivative of the net ouput of the current layer with respect to the weight in question
+                        /* Variable meanings:
+                         * i = current layer
+                         * j = current neuron of current layer
+                         * k = current input weight of current neuron from current layer
+                         * l = current neuron from next layer
+                         */
 
-                        // Calculates dEdOl
-                        // This is where the b neuron stuff starts
-                        for(int l = 0; l < layers.Last().Count; l++)
+                        double sum = 0;
+                        if (i == layers.Count - 1)
                         {
-                            // calculates the partial derivative of the total error with respect to the output of the neuron attached to the current weight
-
-                            double dEldOl = dEdO[l]*dOdN[l];  // Derivative of the current output neuron's error with respect to the output of the layer in question
-                            // ^ must be chained with every neuron and layer that it comes in contact with that uses the weight in question in it's output calculation
-
-                            // We can't iterate on the output layer because it's essential to calculation so if the current layer is equal to the second to last layer
-                            // Then do this instead.
-                            double sum = 0;
-                            if(i == layers.Count - 2)
-                                dEldOl *= layers.Last()[l].Weight_in[j];    // Derivative of dNet/dOut
-                            else
+                            // Back propagates the output layer
+                            DeltaH[(layers.Count - 1) - i].Add(DeltaK[j]);
+                            sum += layers[i][j].Weight_in[k] * DeltaK[j];
+                        }
+                        else
+                        {
+                            for (int l = 0; l < layers[i + 1].Count; l++)
                             {
-                                double temp = 1;
-                                // Otherwise we need to iterate through and chain together every layer betwen the current one and the output
-                                for(int m = layers.Count - 2; m > i; m--)
-                                {
-                                    for (int n = 0; n < layers[m].Count; n++)
-                                    {
-                                        /*  i = the current layer
-                                         *  j = the current neuron in the current layer
-                                         *  k = the current weight of the current neuron on the current layer
-                                         *  l = the current ouput neuron of the ouput layer
-                                         *  m = the current layer between the output layer and the current layer (i)
-                                         *  n = the current neuron of the current layer between the output layer and the current layer (m)
-                                         *  o = the current neuron of the next layer between the output layer and the current layer (m + 1)
-                                         */
-
-                                        double dNdOl = 1;
-                                        for (int o = 0; o < layers[m + 1].Count; o++)
-                                        {
-                                            // Chains the weights of all of the next layer's neurons that connect with this one (all of them)
-                                            dNdOl *= layers[m + 1][o].Weight_in[n];
-                                        }
-
-                                        // Chains the derivative of the activation function of each neuron in the current layer m
-                                        double dOldNl = layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters);
-
-                                        // If the layer isn't the layer right next to the current layer i, then we don't need to chain the weights of layer m and layer i
-                                        // Because that'll be covered by the next iteration anyway.
-                                        if (m == i + 1)
-                                        {
-                                            dOldNl *= layers[m][n].Weight_in[j];
-                                        }
-
-                                        // Chaining it all together
-                                        temp *= dNdOl * dOldNl;
-                                    }
-                                }
-                                sum += temp;
+                                // Sums up all of the weights downstream from layer i, neuron j, weight k
+                                sum += layers[i + 1][l].Weight_in[j] * DeltaH[((layers.Count - 1) - i) - 1][l];
                             }
-                            dEldOl *= sum;
-
-                            dEdOl += dEldOl;    // Sums up the derivatives of all of the output layer's errors with respect to the output of the layer in question
                         }
 
-                        // Calculates dOdNl
-                        dOdNl = layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters);
+                        DeltaH[(layers.Count - 1) - i].Add(sum * layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters)); // Back Propagates every layer and stores it's error data for the next layer
 
-                        // Calculates dNdWl
-                        dNdWl = layers[i - 1][k].Activation;
-
-                        // Chains it all together
-                        double dEdW = dEdOl * dOdNl * dNdWl;
-
-                        // Updates the weight of the current neuron
-                        layers[i][j].Weight_in[k] -= dEdW * learningRate;
-
-                        // Back propagates the bias values
-                        // This uses all of the values from the previous section, except dNdWl = 1
-                        layers[i][j].Bias_in -= dEdOl * dOdNl * learningRate;
+                        if (i > 0)
+                        {
+                            // Doesn't work if it's the input layer, for that, we'll have to use the input instead.
+                            layers[i][j].Weight_in[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
+                        }
                     }
                 }
-
             }
 
+            
             return CostTotal;
         }
 
@@ -400,7 +345,7 @@ namespace Neuron_Simulation
 
             // Sets up the Normal Distribution random number generator
             NormalDistribution rndNorm = new NormalDistribution();
-            rndNorm.Sigma = 0.1;
+            rndNorm.Sigma = 0.05;
             rndNorm.Mu = 0;
 
             // Sets up the binomial distribution random number generator

@@ -19,7 +19,6 @@ namespace Neuron_Simulation
         {
             // Executes every time the network finishes a training sample
             DrawNetwork(result.Layers);
-            EngineStatus.Text = "Finished Iteration " + result.Iteration + ": Sample " + result.SampleNum;
             if(this.progressBar1.InvokeRequired)
             {
                 IncrementProgressBarCallback d = new IncrementProgressBarCallback(IncrementProgressBar);
@@ -42,7 +41,6 @@ namespace Neuron_Simulation
         public Form1()
         {
             InitializeComponent();
-            EngineStatus.Text = "Loading...";
             // Loads all of the memory we need to run this network
             // Generates the neural network
             networkTest = new ThreeBlue1BrownExample();
@@ -72,8 +70,6 @@ namespace Neuron_Simulation
             progressBar1.Minimum = 0;
             progressBar1.Value = 0;
             progressBar1.Visible = false;
-
-            EngineStatus.Text = "Ready!";
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -84,7 +80,6 @@ namespace Neuron_Simulation
         private void button1_Click(object sender, EventArgs e)
         {
             // Starts the training
-            EngineStatus.Text = "Testing!";
             progressBar1.Value = 0;
             progressBar1.Visible = true;
             networkTest.Test();
@@ -311,7 +306,6 @@ namespace Neuron_Simulation
         private void TestNet_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Testing the network...");
-            EngineStatus.Text = "Testing with samples";
             int a, b;
             a = 0;
             b = 0;
