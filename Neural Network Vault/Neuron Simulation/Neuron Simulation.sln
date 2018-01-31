@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neuron Simulation", "Neuron Simulation\Neuron Simulation.csproj", "{606A9114-E3D2-4570-AAFF-2E63AB3ADFA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debugging Console App", "Debugging Console App\Debugging Console App.csproj", "{92F99C9E-32C5-43BF-A5DE-D09D4B4EAF9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{606A9114-E3D2-4570-AAFF-2E63AB3ADFA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{606A9114-E3D2-4570-AAFF-2E63AB3ADFA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{606A9114-E3D2-4570-AAFF-2E63AB3ADFA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92F99C9E-32C5-43BF-A5DE-D09D4B4EAF9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92F99C9E-32C5-43BF-A5DE-D09D4B4EAF9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92F99C9E-32C5-43BF-A5DE-D09D4B4EAF9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92F99C9E-32C5-43BF-A5DE-D09D4B4EAF9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

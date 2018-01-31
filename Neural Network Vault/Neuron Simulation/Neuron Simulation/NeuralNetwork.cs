@@ -66,6 +66,7 @@ namespace Neuron_Simulation
 
         // Properties
         private List<List<Neuron>> layers;      // The collection of physical layers of the neural network
+        private List<double> biases;            // The collection of biases for each layer
         private int neuronCount;
         private int activationCount;
         private bool hasSubscribed = false; // state of whether the network has subscribed to the neurons' activation events or not.
@@ -73,12 +74,14 @@ namespace Neuron_Simulation
         private Thread trainingThread;
         
         // Constructor
-        public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
+        public NeuralNetwork(List<int> LayerInfo, List<double> biasInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
             double learningRate = 0.5)
         {
             // Creates a neural network with LayerInfo.Count layers and each Layer with int neurons.
 
             this.learningRate = learningRate;
+
+            biases = biasInfo;
 
             neuronCount = LayerInfo.Sum();
 
@@ -196,17 +199,13 @@ namespace Neuron_Simulation
                     if (!hasSubscribed)
                     {
                         // Subscribes to each Activation event of the Neurons
-                        for (int i = 0; i < layers.Count; i++)
-                            for (int j = 0; j < layers[i].Count; j++)
-                                layers[i][j].ActiveEvent += OnActiveEvent;
+                        Subscribe();
                         ////Console.WriteLine("Subscribed to the neurons!");
                     }
 
                     // Begins iterations
                     for (int i = 0; i < sample_in.Count; i++)
                     {
-                        activationCount = 0; // Resets the activationCount
-                                             //dCost = 0;
 
                         ////Console.WriteLine("- Sample: {0}", i);
 
@@ -218,7 +217,7 @@ namespace Neuron_Simulation
                                 for (int k = 0; k < layers[j].Count; k++)
                                 {
                                     // Re-initializes the network's biases and weights if the reset boolean is true and this is the first iteration
-                                    layers[j][k].Bias_in = bias_init[j];
+                                    biases[j] = bias_init[j];
                                     layers[j][k].Weight_in = weight_init[j][k];
                                 }
                             }
@@ -228,7 +227,7 @@ namespace Neuron_Simulation
 
                         ForwardPropagate(); // propagates the network forward
 
-                        Error = BackPropagate(sample_in[i]);    // Backpropagates the network
+                        Error = BackPropagate(sample_out[i]);    // Backpropagates the network
 
                         // Sends all of this iteration's data back to the observers
                         TrainingUpdateEventArgs temp = new TrainingUpdateEventArgs(iter, i, layers, Error);
@@ -245,7 +244,11 @@ namespace Neuron_Simulation
 
         public void ForwardPropagate()
         {
+            // TODO: figure out how to implement biases into this, since there's one per layer, and is only added once
+
             // Propagates the network forward, computes an answer
+
+            activationCount = 0;    // Resets the activation count
 
             // Causes all of the Neurons to fire.
             foreach (Neuron item in layers[0])
@@ -272,6 +275,8 @@ namespace Neuron_Simulation
 
             // ^ Is out of date, use this instead now vvv
             // http://pandamatak.com/people/anand/771/html/node37.html
+            // And this one for bias back propagation
+            // https://theclevermachine.wordpress.com/2014/09/06/derivation-error-backpropagation-gradient-descent-for-neural-networks/
 
             // Propagates the network backward, uses computed answers, compared to real answers, to update the weights and biases
             // Returns the %error the this training sample
@@ -286,19 +291,19 @@ namespace Neuron_Simulation
 
             List<double> DeltaK = new List<double>(layers.Last().Count);  // Creates a list of Deltailons used for the output layers.
             for (int i = 0; i < layers.Last().Count; i++)
-                DeltaK.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Net, layers.Last()[i].DefaultParameters) * (Sample[i] - layers.Last()[i].Activation));
+                DeltaK.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Activation, layers.Last()[i].DefaultParameters) * (Sample[i] - layers.Last()[i].Activation));
 
-            List<List<double>> DeltaH = new List<List<double>>(layers.Count); // Creates a 2-dimensional map of every weight in the matrix.
-
-            // START HERE: https://stackoverflow.com/questions/2190732/understanding-neural-network-backpropagation?rq=1
-            // ^ On the second response
+            List<List<double>> DeltaH = new List<List<double>>(layers.Count);   // Creates a 2-dimensional map of every weight in the matrix.
+            List<double> DeltaB = new List<double>(layers.Count);               // Creates a map for the biases in the network.
 
             for (int i = layers.Count - 1; i >= 0; i--)
             {
                 // Does the physical backpropagation
                 DeltaH.Add(new List<double>(layers[i].Count));
+                double DeltaBTemp = 0;  // Temp number to hold the sum of the changes needed to be made to the bias for the layer
                 for(int j = 0; j < layers[i].Count; j++)
                 {
+                    DeltaBTemp += 
                     for(int k = 0; k < layers[i][j].Weight_in.Count; k++)
                     {
                         /* Variable meanings:
@@ -354,11 +359,11 @@ namespace Neuron_Simulation
             // Assigns the biases, and weights
             for (int j = 0; j < layers.Count; j++)
             {
+                biases[j] = rndBin.NextDouble();
                 for (int k = 0; k < layers[j].Count; k++)
                 {
                     // Initializes the network's biases and weights
                     
-                    layers[j][k].Bias_in = rndBin.NextDouble();
                     List<double> temp = new List<double>(layers[j][k].Weight_in.Capacity);
                     for (int l = 0; l < layers[j][k].Weight_in.Capacity; l++)
                         temp.Add(rndNorm.NextDouble());
@@ -372,12 +377,21 @@ namespace Neuron_Simulation
             activationCount++; // symbolizes that a neuron has fired
         }
 
-        private void LoadSample(List<double> Sample)
+        public void LoadSample(List<double> Sample)
         {
             for (int i = 0; i < layers[0].Count; i++)
             {
                 layers[0][i].Inputs[0] = Sample[i];
             }
+        }
+
+        public void Subscribe()
+        {
+            // Causes the neural network to subscribe to all of it's neuron's activation events
+            // Subscribes to each Activation event of the Neurons
+            for (int i = 0; i < layers.Count; i++)
+                for (int j = 0; j < layers[i].Count; j++)
+                    layers[i][j].ActiveEvent += OnActiveEvent;
         }
     }
 }
