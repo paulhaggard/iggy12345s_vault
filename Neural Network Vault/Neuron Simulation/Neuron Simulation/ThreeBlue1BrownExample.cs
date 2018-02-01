@@ -17,7 +17,7 @@ namespace Neuron_Simulation
 
         private int n_samples = 4;    // Number of random samples to generate to test the functionality
 
-        private int iterations = 3000; // Number of times to train the neural network.
+        private int iterations = 300; // Number of times to train the neural network.
 
         private NeuralNetwork net;
 

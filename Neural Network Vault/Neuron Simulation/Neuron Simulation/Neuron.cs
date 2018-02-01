@@ -33,6 +33,7 @@ namespace Neuron_Simulation
         private double activation;          // This represents how activated the neuron is
         private List<double> inputWeights;          // Weight to be passed to the next neuron
         private double net;                 // The net output of the neuron without being activated
+        private double bias;                // The bias of the neuron
 
         private bool raw_input;             // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
 
@@ -56,6 +57,7 @@ namespace Neuron_Simulation
         public ActivationParameters DefaultParameters { get => defaultParameters; set => defaultParameters = value; }
         public double Net { get => net; set => net = value; }
         public long ID { get => id; set => id = value; }
+        public double Bias { get => bias; set => bias = value; }
 
         // Constructors
         public Neuron(ref Neuron[] inputNeurons, List<double> weight = null, double bias = 0,
@@ -65,6 +67,11 @@ namespace Neuron_Simulation
             raw_input = false;
 
             inputWeights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
+            if (weight == null)
+                for (int i = 0; i < inputNeurons.Count(); i++)
+                    inputWeights.Add(0);
+
+            this.bias = bias;
 
             id = NeuronCount++;                                             // assigns the Neuron ID and increments the count
 
@@ -89,6 +96,11 @@ namespace Neuron_Simulation
             raw_input = false;
 
             inputWeights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
+            if (weight == null)
+                for (int i = 0; i < inputNeurons.Count; i++)
+                    inputWeights.Add(0);
+
+            this.bias = bias;
 
             id = NeuronCount++;                         // assigns the Neuron ID and increments the count
 
@@ -106,15 +118,12 @@ namespace Neuron_Simulation
             }
         }
 
-        public Neuron(int num_in = 1, List<double> weight = null, double bias = 0,
+        public Neuron(int num_in = 1, double bias = 0,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             raw_input = true;
 
-            inputWeights = weight ?? new List<double>(num_in);   // initial weight value
-            if (weight == null)
-                for (int i = 0; i < num_in; i++)
-                    inputWeights.Add(0);
+            this.bias = bias;
 
 
             this.defaultActivation = defaultActivation ?? new Sigmoid(); // default activation function
@@ -175,7 +184,7 @@ namespace Neuron_Simulation
             type = type ?? DefaultActivation;
             Params = Params ?? DefaultParameters;
 
-            Net = 0;
+            Net = bias;
             for (int i = 0; i < ((!raw_input) ? inputNeurons.Count : Inputs.Length); i++)
                 Net += (!raw_input ? inputNeurons[i].Activation : Inputs[i]) * (!raw_input ? inputWeights[i] : 1);
 

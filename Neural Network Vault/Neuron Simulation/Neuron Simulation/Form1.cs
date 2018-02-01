@@ -44,7 +44,7 @@ namespace Neuron_Simulation
             // Loads all of the memory we need to run this network
             // Generates the neural network
             networkTest = new ThreeBlue1BrownExample();
-            networkTest.Net.GenWeightsAndBiases();  // Populates the weights and biases of the neurons.
+            networkTest.Net.GenWeightsAndBiases();
             networkTest.Net.TrainingUpdateEvent += OnTrainingUpdateEvent;
 
             // Stores a list of all of the coordinates of each neuron's position on the layout display.

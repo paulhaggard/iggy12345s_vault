@@ -66,7 +66,6 @@ namespace Neuron_Simulation
 
         // Properties
         private List<List<Neuron>> layers;      // The collection of physical layers of the neural network
-        private List<double> biases;            // The collection of biases for each layer
         private int neuronCount;
         private int activationCount;
         private bool hasSubscribed = false; // state of whether the network has subscribed to the neurons' activation events or not.
@@ -74,14 +73,12 @@ namespace Neuron_Simulation
         private Thread trainingThread;
         
         // Constructor
-        public NeuralNetwork(List<int> LayerInfo, List<double> biasInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
+        public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
             double learningRate = 0.5)
         {
             // Creates a neural network with LayerInfo.Count layers and each Layer with int neurons.
 
             this.learningRate = learningRate;
-
-            biases = biasInfo;
 
             neuronCount = LayerInfo.Sum();
 
@@ -137,7 +134,7 @@ namespace Neuron_Simulation
         }
 
         // Training and propagation methods
-        public void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0.01,  bool Reset = false, List<List<List<double>>> weight_init = null, List<double> bias_init = null)
+        public void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0.01,  bool Reset = false)
         {
             // Trains the neural network
 
@@ -162,38 +159,7 @@ namespace Neuron_Simulation
 
                     if (Reset)
                     {
-                        // Generates a random weight table if one wasn't supplied
-                        if (weight_init == null)
-                        {
-                            weight_init = new List<List<List<double>>>(Layers.Count);
-                            for (int i = 0; i < Layers.Count; i++)
-                            {
-                                List<List<double>> temp = new List<List<double>>(Layers[i].Count);
-                                for (int j = 0; j < Layers[i].Count; j++)
-                                {
-                                    int currentIndex;
-                                    if (i == 0)
-                                        currentIndex = 1;
-                                    else
-                                        currentIndex = Layers[i - 1].Count;
-                                    List<double> temp2 = new List<double>(currentIndex);
-                                    for (int k = 0; k < currentIndex; k++)
-                                        temp2.Add(rndNorm.NextDouble());
-                                    temp.Add(temp2);
-                                }
-                                weight_init.Add(temp);
-                            }
-                        }
-
-                        // Generates a random bias table if one wasn't supplied
-                        if (bias_init == null)
-                        {
-                            bias_init = new List<double>(sample_in.Count);
-                            for (int i = 0; i < sample_in.Count; i++)
-                            {
-                                bias_init.Add(rndBin.NextDouble());
-                            }
-                        }
+                        GenWeightsAndBiases();
                     }
 
                     if (!hasSubscribed)
@@ -209,20 +175,6 @@ namespace Neuron_Simulation
 
                         ////Console.WriteLine("- Sample: {0}", i);
 
-                        // Assigns the biases, and weights
-                        if ((iter == 0) && Reset)
-                        {
-                            for (int j = 0; j < layers.Count; j++)
-                            {
-                                for (int k = 0; k < layers[j].Count; k++)
-                                {
-                                    // Re-initializes the network's biases and weights if the reset boolean is true and this is the first iteration
-                                    biases[j] = bias_init[j];
-                                    layers[j][k].Weight_in = weight_init[j][k];
-                                }
-                            }
-                        }
-
                         LoadSample(sample_in[i]);   // Assigns the inputs
 
                         ForwardPropagate(); // propagates the network forward
@@ -233,11 +185,11 @@ namespace Neuron_Simulation
                         TrainingUpdateEventArgs temp = new TrainingUpdateEventArgs(iter, i, layers, Error);
 
                         OnTrainingUpdateEvent(temp);
-                        if (Error <= errorThreshold)
-                            break;
+                        //if (Error <= errorThreshold)
+                            //break;
                     }
-                    if (Error <= errorThreshold)
-                        break;
+                    //if (Error <= errorThreshold)
+                        //break;
                 }
             }
         }
@@ -291,19 +243,17 @@ namespace Neuron_Simulation
 
             List<double> DeltaK = new List<double>(layers.Last().Count);  // Creates a list of Deltailons used for the output layers.
             for (int i = 0; i < layers.Last().Count; i++)
-                DeltaK.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Activation, layers.Last()[i].DefaultParameters) * (Sample[i] - layers.Last()[i].Activation));
+                DeltaK.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Net, layers.Last()[i].DefaultParameters) * (Sample[i] - layers.Last()[i].Activation));
 
             List<List<double>> DeltaH = new List<List<double>>(layers.Count);   // Creates a 2-dimensional map of every weight in the matrix.
             List<double> DeltaB = new List<double>(layers.Count);               // Creates a map for the biases in the network.
 
-            for (int i = layers.Count - 1; i >= 0; i--)
+            for (int i = layers.Count - 1; i > 0; i--)
             {
                 // Does the physical backpropagation
                 DeltaH.Add(new List<double>(layers[i].Count));
-                double DeltaBTemp = 0;  // Temp number to hold the sum of the changes needed to be made to the bias for the layer
                 for(int j = 0; j < layers[i].Count; j++)
                 {
-                    DeltaBTemp += 
                     for(int k = 0; k < layers[i][j].Weight_in.Count; k++)
                     {
                         /* Variable meanings:
@@ -318,7 +268,9 @@ namespace Neuron_Simulation
                         {
                             // Back propagates the output layer
                             DeltaH[(layers.Count - 1) - i].Add(DeltaK[j]);
-                            sum += layers[i][j].Weight_in[k] * DeltaK[j];
+                            sum += layers[i-1][k].Activation * DeltaK[j];
+                            layers[i][j].Bias -= DeltaK[j];
+                            layers[i][j].Weight_in[k] -= learningRate * DeltaH[(layers.Count - 1) - i][j]; //* layers[i - 1][k].Activation;
                         }
                         else
                         {
@@ -327,17 +279,30 @@ namespace Neuron_Simulation
                                 // Sums up all of the weights downstream from layer i, neuron j, weight k
                                 sum += layers[i + 1][l].Weight_in[j] * DeltaH[((layers.Count - 1) - i) - 1][l];
                             }
-                        }
-
-                        DeltaH[(layers.Count - 1) - i].Add(sum * layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters)); // Back Propagates every layer and stores it's error data for the next layer
-
-                        if (i > 0)
-                        {
-                            // Doesn't work if it's the input layer, for that, we'll have to use the input instead.
-                            layers[i][j].Weight_in[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
+                            // Calculates the delta for this weight on this neuron
+                            DeltaH[(layers.Count - 1) - i].Add(sum * layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters));
+                            // assigns said delta to the weight if the current layer isn't the input layer
+                            layers[i][j].Weight_in[k] -= learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
+                            // Adjusts the bias
+                            layers[i][j].Bias -= DeltaH[(layers.Count - 1) - i][j];
                         }
                     }
                 }
+            }
+
+            for(int i = 0; i < layers[0].Count; i++)
+            {
+                // Performs back propagation on the input layer biases
+
+                double sum = 0;
+                for (int l = 0; l < layers[1].Count; l++)
+                {
+                    // Sums up all of the weights downstream from layer i, neuron j, weight k
+                    sum += layers[1][l].Weight_in[i] * DeltaH[layers.Count - 2][l];
+                }
+
+                // Adjusts the bias
+                layers[0][i].Bias -= sum * layers[0][i].DefaultActivation.Derivate(layers[0][i].Net, layers[0][i].DefaultParameters);
             }
 
             
@@ -357,9 +322,8 @@ namespace Neuron_Simulation
             BinomialDistribution rndBin = new BinomialDistribution();
 
             // Assigns the biases, and weights
-            for (int j = 0; j < layers.Count; j++)
+            for (int j = 1; j < layers.Count; j++)
             {
-                biases[j] = rndBin.NextDouble();
                 for (int k = 0; k < layers[j].Count; k++)
                 {
                     // Initializes the network's biases and weights
@@ -368,6 +332,7 @@ namespace Neuron_Simulation
                     for (int l = 0; l < layers[j][k].Weight_in.Capacity; l++)
                         temp.Add(rndNorm.NextDouble());
                     layers[j][k].Weight_in = temp;
+                    layers[j][k].Bias = rndBin.NextDouble();
                 }
             }
         }
