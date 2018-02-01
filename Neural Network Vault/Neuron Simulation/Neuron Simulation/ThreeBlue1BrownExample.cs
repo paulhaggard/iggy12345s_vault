@@ -10,14 +10,14 @@ namespace Neuron_Simulation
     class ThreeBlue1BrownExample
     {
         private int n_input = 2;      // Number of input neurons
-        private int n_hidden1 = 50;     // Number of hidden neurons in the first hidden layer
-        private int n_hidden2 = 50;     // Number of hidden neurons in the second hidden layer
+        private int n_hidden1 = 16;     // Number of hidden neurons in the first hidden layer
+        private int n_hidden2 = 16;     // Number of hidden neurons in the second hidden layer
         private int n_out = 1;         // Number of output neurons
         private double errorThreshold = 0.001;   // tolerance of acceptable error
 
         private int n_samples = 4;    // Number of random samples to generate to test the functionality
 
-        private int iterations = 300; // Number of times to train the neural network.
+        private int iterations = 100; // Number of times to train the neural network.
 
         private NeuralNetwork net;
 

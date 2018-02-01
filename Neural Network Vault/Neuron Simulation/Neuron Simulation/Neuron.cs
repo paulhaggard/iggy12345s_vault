@@ -192,6 +192,9 @@ namespace Neuron_Simulation
 
             OnActiveEvent(new ActivationEventArgs(Activation, id));
 
+            for (int i = 0; i < inputs_collected.Length; i++)
+                inputs_collected[i] = false;
+
             return Activation;
         }
 
