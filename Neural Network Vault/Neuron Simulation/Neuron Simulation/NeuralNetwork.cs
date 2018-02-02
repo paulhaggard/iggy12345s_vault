@@ -269,7 +269,7 @@ namespace Neuron_Simulation
                             // Back propagates the output layer
                             DeltaH[(layers.Count - 1) - i].Add(DeltaK[j]);
                             sum += layers[i-1][k].Activation * DeltaK[j];
-                            layers[i][j].Bias -= DeltaK[j];
+                            layers[i][j].Bias -= learningRate * DeltaK[j];
                             layers[i][j].Weight_in[k] -= learningRate * DeltaH[(layers.Count - 1) - i][j]; //* layers[i - 1][k].Activation;
                         }
                         else
@@ -284,7 +284,7 @@ namespace Neuron_Simulation
                             // assigns said delta to the weight if the current layer isn't the input layer
                             layers[i][j].Weight_in[k] -= learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
                             // Adjusts the bias
-                            layers[i][j].Bias -= DeltaH[(layers.Count - 1) - i][j];
+                            layers[i][j].Bias -= learningRate * DeltaH[(layers.Count - 1) - i][j];
                         }
                     }
                 }
