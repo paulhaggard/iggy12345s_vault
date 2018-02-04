@@ -61,15 +61,17 @@ namespace NeuralNetworkFundamentals
         private int activationCount;
         private bool hasSubscribed = false; // state of whether the network has subscribed to the neurons' activation events or not.
         private double learningRate;
+        private double momentum;
         private Thread trainingThread;
-        
+
         // Constructor
         public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
-            double learningRate = 0.5)
+            double learningRate = 0.5, double momentum = 0)
         {
             // Creates a neural network with LayerInfo.Count layers and each Layer with int neurons.
 
             this.learningRate = learningRate;
+            this.momentum = momentum;
 
             neuronCount = LayerInfo.Sum();
 
@@ -134,7 +136,7 @@ namespace NeuralNetworkFundamentals
 
             // Sets up the Normal Distribution random number generator
             NormalDistribution rndNorm = new NormalDistribution();
-            rndNorm.Sigma = 0.05;
+            rndNorm.Sigma = 0.5;
             rndNorm.Mu = 0;
 
             // Sets up the binomial distribution random number generator
@@ -172,7 +174,7 @@ namespace NeuralNetworkFundamentals
             rndNorm.Mu = 0;
 
             // Assigns the biases, and weights
-            for (int i = 1; i < layers.Count; i++)
+            for (int i = 1; i < layers.Count - 1; i++)
             {
                 for (int j = 0; j < layers[i].Count; j++)
                 {
@@ -341,9 +343,9 @@ namespace NeuralNetworkFundamentals
                          */
 
                     if (i == layers.Count - 1)
-                        layers[i][j].AssignError(learningRate, Sample[j]);
+                        layers[i][j].AssignError(momentum, learningRate, Sample[j]);
                     else
-                        layers[i][j].AssignError(learningRate, nextLayerNeurons: layers[i + 1]);
+                        layers[i][j].AssignError(momentum, learningRate, nextLayerNeurons: layers[i + 1]);
                 }
             }
 

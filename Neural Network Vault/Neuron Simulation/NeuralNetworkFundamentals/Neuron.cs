@@ -34,6 +34,7 @@ namespace NeuralNetworkFundamentals
         private double net;                 // The net output of the neuron without being activated
         private double bias;                // The bias of the neuron
         private double error;               // Contains the error of the neuron
+        private double prevError;           // previous error, used for momentum
 
         private bool inputLayer;            // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
         private bool outputLayer;           // Determines if the outputs of this neuron are the final stage of the network, determines what kind of backpropagation to use
@@ -96,6 +97,7 @@ namespace NeuralNetworkFundamentals
             this.bias = bias;
 
             error = 0;  // initializes error value
+            prevError = 0;
 
             this.defaultActivation = defaultActivation ?? new Sigmoid(); // default activation function
             this.defaultParameters = defaultParameters ?? new SigmoidParams(); // default activation parameters
@@ -215,22 +217,23 @@ namespace NeuralNetworkFundamentals
             bias = rnd.NextDouble();
         }
 
-        public void AdjustValues(double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
+        public void AdjustValues(double momentum = 1, double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
         {
             // Backpropagates the values of the weights and biases based on the error of this neuron
             if (!inputLayer)
             {
                 for (int i = 0; i < weights.Count; i++)
                 {
-                    weights[i] += learningRate * error * inputs[i];
+                    weights[i] += momentum * prevError + learningRate * error * inputs[i];
                 }
             }
-            bias += learningRate * error;
+            bias += momentum * prevError + learningRate * error;
         }
 
-        public void AssignError(double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
+        public void AssignError(double momentum = 1, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
         {
-            error = defaultActivation.Derivate(activation, defaultParameters);
+            prevError = error;
+            error = -1 * defaultActivation.Derivate(activation, defaultParameters);
             if(nextLayerNeurons == null)
             {
                 // Performs error calculation for output neurons
@@ -248,10 +251,10 @@ namespace NeuralNetworkFundamentals
                 if (outputNeurons == null)
                     PopulateOutputIndices(nextLayerNeurons);
 
-                double sum = 1;
+                double sum = 0;
                 for(int i = 0; i < nextLayerNeurons.Count; i++)
                 {
-                    sum *= nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Error;
+                    sum += nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Error;
                 }
                 error *= sum;
             }
@@ -276,7 +279,7 @@ namespace NeuralNetworkFundamentals
             }
 
             if (AdjustValues)
-                this.AdjustValues(learningRate, ExpectedOutput, nextLayerNeurons);
+                this.AdjustValues(momentum, learningRate, ExpectedOutput, nextLayerNeurons);
         }
 
         protected virtual void OnActiveEvent(ActivationEventArgs e)
