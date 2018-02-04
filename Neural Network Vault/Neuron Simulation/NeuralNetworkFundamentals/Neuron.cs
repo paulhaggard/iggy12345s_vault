@@ -29,7 +29,7 @@ namespace NeuralNetworkFundamentals
 
         // Properties
         private double activation;          // This represents how activated the neuron is
-        private List<double> inputWeights;          // Weight to be passed to the next neuron
+        private List<double> weights;          // Weight to be passed to the next neuron
         private double net;                 // The net output of the neuron without being activated
         private double bias;                // The bias of the neuron
 
@@ -49,7 +49,7 @@ namespace NeuralNetworkFundamentals
 
         // Accessor Methods
         public double RawInput { get => rawInput; set => rawInput = value; }            // Sets the inputs to the Neuron
-        public List<double> Weight_in { get => inputWeights; set => inputWeights = value; }   // Sets the initial weight value for the Neuron
+        public List<double> Weights { get => weights; set => weights = value; }   // Sets the initial weight value for the Neuron
         public double Activation { get => activation; set => activation = value; }  // The output of the Neuron
         public ActivationFunction DefaultActivation { get => defaultActivation; set => defaultActivation = value; }   // returns the default activation function class instance
         public ActivationParameters DefaultParameters { get => defaultParameters; set => defaultParameters = value; }
@@ -64,10 +64,10 @@ namespace NeuralNetworkFundamentals
             // Creates a new neuron and links it to all of it's input Neurons
             inputLayer = false;
 
-            inputWeights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
+            weights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
             if (weight == null)
                 for (int i = 0; i < inputNeurons.Count(); i++)
-                    inputWeights.Add(0);
+                    weights.Add(0);
 
             this.bias = bias;
 
@@ -93,10 +93,10 @@ namespace NeuralNetworkFundamentals
             // Creates a new neuron and links it to all of it's input Neurons
             inputLayer = false;
 
-            inputWeights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
+            weights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
             if (weight == null)
                 for (int i = 0; i < inputNeurons.Count; i++)
-                    inputWeights.Add(0);
+                    weights.Add(0);
 
             this.bias = bias;
 
@@ -178,7 +178,7 @@ namespace NeuralNetworkFundamentals
                 // Input layers don't have weights and activation functions, that's why they get an exclusive case
                 Net = bias;
                 for (int i = 0; i < (inputNeurons.Count); i++)
-                    Net += (inputNeurons[i].Activation) * (inputWeights[i]);
+                    Net += (inputNeurons[i].Activation) * (weights[i]);
                 for (int i = 0; i < inputs_collected.Length; i++)
                     inputs_collected[i] = false;
                 activation = type.Activate(Net, Params);
