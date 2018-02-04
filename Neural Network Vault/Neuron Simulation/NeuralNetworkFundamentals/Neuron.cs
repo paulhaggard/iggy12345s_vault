@@ -258,6 +258,7 @@ namespace NeuralNetworkFundamentals
 
             void PopulateOutputIndices(List<Neuron> nextLayer)
             {
+                outputNeurons = new List<int>(nextLayer.Count);
                 for(int i = 0; i < nextLayer.Count; i++)
                 {
                     if (nextLayer[i].inputNeurons.Contains(id))
