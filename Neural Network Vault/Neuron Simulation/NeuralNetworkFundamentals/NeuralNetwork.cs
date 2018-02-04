@@ -10,24 +10,27 @@ using Troschuetz.Random;
 
 namespace NeuralNetworkFundamentals
 {
-    public struct trainingResult
+    public class TrainingUpdateEventArgs : EventArgs
     {
         int iteration;
         int sampleNum;
         List<List<Neuron>> layers;
         double error;
+        bool finished;
 
         public int Iteration { get => iteration; set => iteration = value; }
         public int SampleNum { get => sampleNum; set => sampleNum = value; }
         public double Error { get => error; set => error = value; }
         public List<List<Neuron>> Layers { get => layers; set => layers = value; }
+        public bool Finished { get => finished; set => finished = value; }
 
-        public trainingResult(int iteration, int sampleNum, List<List<Neuron>> layers, double error)
+        public TrainingUpdateEventArgs(int iteration, int sampleNum, List<List<Neuron>> layers, double error, bool finished)
         {
             this.iteration = iteration;
             this.sampleNum = sampleNum;
             this.layers = layers;
             this.error = error;
+            this.finished = finished;
         }
     }
 
@@ -45,35 +48,11 @@ namespace NeuralNetworkFundamentals
 
         public delegate void TrainingFinishEventHandler(object sender);
 
-        public event TrainingFinishEventHandler TrainingFinishEvent; // Triggered every time this network finishes a sample during training.
+        public event TrainingFinishEventHandler TrainingFinishEvent; // Triggered every time this network finishes training.
 
         public void OnTrainingFinishEvent()
         {
             TrainingFinishEvent?.Invoke(this);
-        }
-
-        public class TrainingUpdateEventArgs : EventArgs
-        {
-            int iteration;
-            int sampleNum;
-            List<List<Neuron>> layers;
-            double error;
-            bool finished;
-
-            public int Iteration { get => iteration; set => iteration = value; }
-            public int SampleNum { get => sampleNum; set => sampleNum = value; }
-            public double Error { get => error; set => error = value; }
-            public List<List<Neuron>> Layers { get => layers; set => layers = value; }
-            public bool Finished { get => finished; set => finished = value; }
-
-            public TrainingUpdateEventArgs(int iteration, int sampleNum, List<List<Neuron>> layers, double error, bool finished)
-            {
-                this.iteration = iteration;
-                this.sampleNum = sampleNum;
-                this.layers = layers;
-                this.error = error;
-                this.finished = finished;
-            }
         }
 
         // Properties
@@ -273,7 +252,7 @@ namespace NeuralNetworkFundamentals
                 DeltaH.Add(new List<double>(layers[i].Count));
                 for(int j = 0; j < layers[i].Count; j++)
                 {
-                    for(int k = 0; k < layers[i][j].Weight_in.Count; k++)
+                    for(int k = 0; k < layers[i][j].Weights.Count; k++)
                     {
                         /* Variable meanings:
                          * i = current layer
@@ -289,19 +268,19 @@ namespace NeuralNetworkFundamentals
                             DeltaH[(layers.Count - 1) - i].Add(DeltaK[j]);
                             sum += layers[i - 1][k].Activation;
                             layers[i][j].Bias += learningRate * DeltaK[j];
-                            layers[i][j].Weight_in[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * sum; //* layers[i - 1][k].Activation;
+                            layers[i][j].Weights[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * sum; //* layers[i - 1][k].Activation;
                         }
                         else
                         {
                             for (int l = 0; l < layers[i + 1].Count; l++)
                             {
                                 // Sums up all of the weights downstream from layer i, neuron j, weight k
-                                sum += layers[i + 1][l].Weight_in[j] * DeltaH[((layers.Count - 1) - i) - 1][l];
+                                sum += layers[i + 1][l].Weights[j] * DeltaH[((layers.Count - 1) - i) - 1][l];
                             }
                             // Calculates the delta for this weight on this neuron
                             DeltaH[(layers.Count - 1) - i].Add(sum * layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters));
                             // assigns said delta to the weight if the current layer isn't the input layer
-                            layers[i][j].Weight_in[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
+                            layers[i][j].Weights[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
                             // Adjusts the bias
                             layers[i][j].Bias += learningRate * DeltaH[(layers.Count - 1) - i][j];
                         }
@@ -317,7 +296,7 @@ namespace NeuralNetworkFundamentals
                 for (int l = 0; l < layers[1].Count; l++)
                 {
                     // Sums up all of the weights downstream from layer i, neuron j, weight k
-                    sum += layers[1][l].Weight_in[i] * DeltaH[layers.Count - 2][l];
+                    sum += layers[1][l].Weights[i] * DeltaH[layers.Count - 2][l];
                 }
 
                 // Adjusts the bias
@@ -349,10 +328,10 @@ namespace NeuralNetworkFundamentals
                 {
                     // Initializes the network's biases and weights
                     
-                    List<double> temp = new List<double>(layers[j][k].Weight_in.Capacity);
-                    for (int l = 0; l < layers[j][k].Weight_in.Capacity; l++)
+                    List<double> temp = new List<double>(layers[j][k].Weights.Capacity);
+                    for (int l = 0; l < layers[j][k].Weights.Capacity; l++)
                         temp.Add(rndNorm.NextDouble());
-                    layers[j][k].Weight_in = (weights == null) ? temp : weights[j][k];
+                    layers[j][k].Weights = (weights == null) ? temp : weights[j][k];
                     layers[j][k].Bias = (biases == null) ? rndBin.NextDouble() : biases[j][k];
                 }
             }
@@ -379,10 +358,10 @@ namespace NeuralNetworkFundamentals
                 {
                     // Initializes the network's biases and weights
 
-                    List<double> temp = new List<double>(layers[j][k].Weight_in.Capacity);
-                    for (int l = 0; l < layers[j][k].Weight_in.Capacity; l++)
+                    List<double> temp = new List<double>(layers[j][k].Weights.Capacity);
+                    for (int l = 0; l < layers[j][k].Weights.Capacity; l++)
                         temp.Add(rndNorm.NextDouble());
-                    layers[j][k].Weight_in = (weights == null) ? temp : weights[j - 1][k];
+                    layers[j][k].Weights = (weights == null) ? temp : weights[j - 1][k];
                 }
             }
         }
@@ -413,7 +392,7 @@ namespace NeuralNetworkFundamentals
                 temp.Add(new List<List<double>>(layers[i].Count));
                 for(int j = 0; j < layers[i].Count; j++)
                 {
-                    temp[i].Add(layers[i][j].Weight_in);
+                    temp[i].Add(layers[i][j].Weights);
                 }
             }
             return temp;
