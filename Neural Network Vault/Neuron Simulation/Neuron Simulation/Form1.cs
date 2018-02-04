@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using static Neuron_Simulation.NeuralNetwork;
 
@@ -18,7 +18,7 @@ namespace Neuron_Simulation
         public void OnTrainingUpdateEvent(object sender, TrainingUpdateEventArgs result)
         {
             // Executes every time the network finishes a training sample
-            DrawNetwork(result.Layers);
+            DrawingQueue.Enqueue(result.Layers);    // Adds this layer set to the queue to be drawn
             if(this.progressBar1.InvokeRequired)
             {
                 IncrementProgressBarCallback d = new IncrementProgressBarCallback(IncrementProgressBar);
@@ -37,15 +37,32 @@ namespace Neuron_Simulation
         private Test networkTest;
         private List<List<Tuple<int, int>>> neuronCoord;
         private int plotSize;
+        private List<List<List<double>>> prevWeights;
+        private bool IsDrawing;
+        private Thread DrawingControllerThread;
+        private Queue<List<List<Neuron>>> DrawingQueue;
+        private bool IsExitting;
 
         public Form1()
         {
             InitializeComponent();
             // Loads all of the memory we need to run this network
+            IsExitting = false;
             // Generates the neural network
             networkTest = new Test();
             networkTest.Net.GenWeightsAndBiases();
             networkTest.Net.TrainingUpdateEvent += OnTrainingUpdateEvent;
+
+            // Populates the weight and prevWeight lists
+            prevWeights = new List<List<List<double>>>(networkTest.Net.Layers.Count);
+            for (int i = 0; i < networkTest.Net.Layers.Count; i++)
+            {
+                prevWeights.Add(new List<List<double>>(networkTest.Net.Layers[i].Count));
+                for (int j = 0; j < networkTest.Net.Layers[i].Count; j++)
+                {
+                    prevWeights[i].Add(networkTest.Net.Layers[i][j].Weight_in);
+                }
+            }
 
             // Stores a list of all of the coordinates of each neuron's position on the layout display.
             plotSize = 5;
@@ -53,6 +70,7 @@ namespace Neuron_Simulation
             GenNeuronCoord();
 
             // sets all the images up
+            IsDrawing = false;
             InputLayerActivations.Image = new Bitmap(InputLayerActivations.Width, InputLayerActivations.Height);
             InputLayerWeights.Image = new Bitmap(InputLayerWeights.Width, InputLayerWeights.Height);
             HiddenLayerAActivations.Image = new Bitmap(HiddenLayerAActivations.Width, HiddenLayerAActivations.Height);
@@ -61,6 +79,9 @@ namespace Neuron_Simulation
             HiddenLayerBWeights.Image = new Bitmap(HiddenLayerBWeights.Width, HiddenLayerBWeights.Height);
             OutputLayerActivations.Image = new Bitmap(OutputLayerActivations.Width, OutputLayerActivations.Height);
             LayoutBox.Image = new Bitmap(LayoutBox.Width, LayoutBox.Height);
+
+            // Sets up the thread that will control graphics
+            DrawingQueue = new Queue<List<List<Neuron>>>();
 
             // Draws the neural network onto the bitmaps and updates the activations and weight displays
             DrawNetwork(networkTest.Net.Layers);
@@ -74,6 +95,7 @@ namespace Neuron_Simulation
 
         private void Exit_Click(object sender, EventArgs e)
         {
+            IsExitting = true;
             Dispose();
         }
 
@@ -82,7 +104,7 @@ namespace Neuron_Simulation
             // Starts the training
             progressBar1.Value = 0;
             progressBar1.Visible = true;
-            networkTest.Test();
+            networkTest.RunTest();
         }
 
         private void GenNeuronCoord()
@@ -103,6 +125,25 @@ namespace Neuron_Simulation
             }
         }
 
+        private void DrawingController()
+        {
+            while(!IsExitting)
+            {
+                // Continuously checks the drawing queue and draws anything it finds.
+                if (DrawingQueue.Count > 0 && !IsDrawing)
+                {
+                    IsDrawing = true;   //  Updates that the draw is currently drawing and cannot be used right now.
+                    Thread DrawingThread = new Thread(new ThreadStart(DrawNetworkStart));
+                    DrawingThread.Start();
+                }
+            }
+            
+            void DrawNetworkStart()
+            {
+                DrawNetwork(DrawingQueue.Dequeue());
+            }
+        }
+
         private void DrawNetwork(List<List<Neuron>> layers)
         {
             Image layout = LayoutBox.Image;
@@ -118,7 +159,6 @@ namespace Neuron_Simulation
 
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush, 1);
-            
 
             using (Graphics g = Graphics.FromImage(layout))
             {
@@ -294,6 +334,15 @@ namespace Neuron_Simulation
                         i = 0;
                         j++;
                     }
+                }
+            }
+
+            // Saves the current weights for comparison later
+            for (int i = 0; i < networkTest.Net.Layers.Count; i++)
+            {
+                for (int j = 0; j < networkTest.Net.Layers[i].Count; j++)
+                {
+                    prevWeights[i][j] = networkTest.Net.Layers[i][j].Weight_in;
                 }
             }
         }

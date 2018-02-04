@@ -10,9 +10,10 @@ namespace Neuron_Simulation
     class Test
     {
         private int n_input = 2;      // Number of input neurons
-        private int n_hidden1 = 16;     // Number of hidden neurons in the first hidden layer
-        private int n_hidden2 = 16;     // Number of hidden neurons in the second hidden layer
-        private int n_out = 1;         // Number of output neurons
+        private int n_hidden1 = 3;     // Number of hidden neurons in the first hidden layer
+        private int n_hidden2 = 3;     // Number of hidden neurons in the second hidden layer
+        private int n_hidden3 = 3;      // Number of hidden neurons in the third hidden layer
+        private int n_out = 2;         // Number of output neurons
         private double errorThreshold = 0.001;   // tolerance of acceptable error
 
         private int n_samples = 4;    // Number of random samples to generate to test the functionality
@@ -24,7 +25,7 @@ namespace Neuron_Simulation
         // Constructor
         public Test()
         {
-            Net = new NeuralNetwork(new List<int> { n_input, n_hidden1, n_hidden2, n_out });
+            Net = new NeuralNetwork(new List<int> { n_input, n_hidden1, n_hidden2, n_hidden3, n_out });
         }
 
         // Accessor Methods
@@ -32,7 +33,7 @@ namespace Neuron_Simulation
         public int N_samples { get => n_samples; set => n_samples = value; }
         public int Iterations { get => iterations; set => iterations = value; }
 
-        public void Test()
+        public void RunTest()
         {
             // Tests the neural network by throwing a random image through it
 
@@ -58,13 +59,13 @@ namespace Neuron_Simulation
             */
             
             sampleDataInput.Add(new List<double> { 0, 0 });
-            sampleDataOutput.Add(new List<double> { 0 });
+            sampleDataOutput.Add(new List<double> { 0, 1 });
             sampleDataInput.Add(new List<double> { 0, 1 });
-            sampleDataOutput.Add(new List<double> { 1 });
+            sampleDataOutput.Add(new List<double> { 1, 0 });
             sampleDataInput.Add(new List<double> { 1, 0 });
-            sampleDataOutput.Add(new List<double> { 1 });
+            sampleDataOutput.Add(new List<double> { 1, 0 });
             sampleDataInput.Add(new List<double> { 1, 1 });
-            sampleDataOutput.Add(new List<double> { 0 });
+            sampleDataOutput.Add(new List<double> { 0, 1 });
             
             // Creates a test sample
             for (int j = 0; j < n_input; j++)

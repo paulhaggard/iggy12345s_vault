@@ -4,9 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using static Neuron_Simulation.Activation_Functions.ActivationFunction;
-using static Neuron_Simulation.Activation_Functions.Functions.Sigmoid;
+using System.Threading;
 
 namespace Neuron_Simulation
 { 
@@ -161,7 +159,7 @@ namespace Neuron_Simulation
                     }
                 }
                 if (temp)
-                    Activate(DefaultActivation, DefaultParameters);
+                    Activate();
             }
         }
 
