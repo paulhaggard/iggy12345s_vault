@@ -77,7 +77,7 @@ namespace Debugging_Console_App
 
                 double learningRate = 0.5;
 
-                List<double> DeltaK = new List<double>(layers.Last().Count);  // Creates a list of Deltailons used for the output layers.
+                List<double> DeltaK = new List<double>(layers.Last().Count);  // Creates a list of DeltaK used for the output layers.
                 for (int i = 0; i < layers.Last().Count; i++)
                 {
                     DeltaK.Add(layers.Last()[i].Derivate() * (layers.Last()[i].activation - outputs[i]));

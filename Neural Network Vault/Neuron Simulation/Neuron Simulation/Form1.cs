@@ -82,9 +82,11 @@ namespace Neuron_Simulation
 
             // Sets up the thread that will control graphics
             DrawingQueue = new Queue<List<List<Neuron>>>();
+            DrawingControllerThread = new Thread(new ThreadStart(DrawingController));
+            DrawingControllerThread.Start();
 
             // Draws the neural network onto the bitmaps and updates the activations and weight displays
-            DrawNetwork(networkTest.Net.Layers);
+            DrawingQueue.Enqueue(networkTest.Net.Layers);
 
             // Sets up the progress bar
             progressBar1.Maximum = networkTest.N_samples * networkTest.Iterations;
@@ -177,7 +179,7 @@ namespace Neuron_Simulation
                         {
                             for (int k = 0; k < neuronCoord[i - 1].Count; k++)
                             {
-                                pen.Color = Color.FromArgb(255, (neuron.Weight_in[k] <= 0) ? 200 : 0, (Math.Abs(neuron.Weight_in[k]) > 1)?255:(int)(Math.Abs(neuron.Weight_in[k]) * 255), (neuron.Weight_in[k] > 0) ? 200 : 0);
+                                pen.Color = Color.FromArgb(255, (neuron.Weight_in[k] <= prevWeights[i][j][k]) ? 200 : 0, (Math.Abs(neuron.Weight_in[k]) > 1)?255:(int)(Math.Abs(neuron.Weight_in[k]) * 255), (neuron.Weight_in[k] > prevWeights[i][j][k]) ? 200 : 0);
                                 g.DrawLine(pen, new Point(neuronCoord[i][j].Item1 + (plotSize / 2), neuronCoord[i][j].Item2 + (plotSize / 2)),
                                     new Point(neuronCoord[i-1][k].Item1 + (plotSize/2), neuronCoord[i-1][k].Item2 + (plotSize / 2)));
                             }
@@ -361,7 +363,7 @@ namespace Neuron_Simulation
             for (int i = 0; i < 4; i++)
             {
                 List<double> Result = networkTest.Net.Calc(new List<double> { a, b });
-                Console.WriteLine("The result of inserting ({0},{1}) is: {2}", a, b, Result[0]);
+                Console.WriteLine("The result of inserting ({0},{1}) is: {2}, {3}", a, b, Result[0], Result[1]);
                 if(++a > 1)
                 {
                     a = 0;

@@ -58,7 +58,7 @@ namespace Neuron_Simulation
         public double Bias { get => bias; set => bias = value; }
 
         // Constructors
-        public Neuron(ref Neuron[] inputNeurons, List<double> weight = null, double bias = 0,
+        public Neuron(Neuron[] inputNeurons, List<double> weight = null, double bias = 0,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
@@ -87,7 +87,7 @@ namespace Neuron_Simulation
             }
         }
 
-        public Neuron(ref List<Neuron> inputNeurons, List<double> weight = null, double bias = 0,
+        public Neuron(List<Neuron> inputNeurons, List<double> weight = null, double bias = 0,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons

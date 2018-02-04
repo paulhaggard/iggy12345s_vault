@@ -43,24 +43,36 @@ namespace Neuron_Simulation
             TrainingUpdateEvent?.Invoke(this, e);
         }
 
+        public delegate void TrainingFinishEventHandler(object sender);
+
+        public event TrainingFinishEventHandler TrainingFinishEvent; // Triggered every time this network finishes a sample during training.
+
+        public void OnTrainingFinishEvent()
+        {
+            TrainingFinishEvent?.Invoke(this);
+        }
+
         public class TrainingUpdateEventArgs : EventArgs
         {
             int iteration;
             int sampleNum;
             List<List<Neuron>> layers;
             double error;
+            bool finished;
 
             public int Iteration { get => iteration; set => iteration = value; }
             public int SampleNum { get => sampleNum; set => sampleNum = value; }
             public double Error { get => error; set => error = value; }
             public List<List<Neuron>> Layers { get => layers; set => layers = value; }
+            public bool Finished { get => finished; set => finished = value; }
 
-            public TrainingUpdateEventArgs(int iteration, int sampleNum, List<List<Neuron>> layers, double error)
+            public TrainingUpdateEventArgs(int iteration, int sampleNum, List<List<Neuron>> layers, double error, bool finished)
             {
                 this.iteration = iteration;
                 this.sampleNum = sampleNum;
                 this.layers = layers;
                 this.error = error;
+                this.finished = finished;
             }
         }
 
@@ -152,6 +164,7 @@ namespace Neuron_Simulation
             void subTrain()
             {
                 double Error = 0;
+                TrainingUpdateEventArgs temp;
                 for (int iter = 0; iter < iterations; iter++)
                 {
                     // Generates the inital weight and bias tables
@@ -182,7 +195,7 @@ namespace Neuron_Simulation
                         Error = BackPropagate(sample_out[i]);    // Backpropagates the network
 
                         // Sends all of this iteration's data back to the observers
-                        TrainingUpdateEventArgs temp = new TrainingUpdateEventArgs(iter, i, layers, Error);
+                        temp = new TrainingUpdateEventArgs(iter, i, layers, Error, false);
 
                         OnTrainingUpdateEvent(temp);
                         //if (Error <= errorThreshold)
@@ -191,6 +204,7 @@ namespace Neuron_Simulation
                     //if (Error <= errorThreshold)
                         //break;
                 }
+                OnTrainingFinishEvent();    // Sends out an event notifying that training has completed.
             }
         }
 
@@ -203,16 +217,21 @@ namespace Neuron_Simulation
             activationCount = 0;    // Resets the activation count
 
             // Causes all of the Neurons to fire.
+            List<Thread> neuronThreads = new List<Thread>(neuronCount);
             foreach (Neuron item in layers[0])
             {
+                /*
                 // Creates a personalized thread for each neuron and then activates it.
                 Thread ActivationThread = new Thread(new ThreadStart(NeuronActivate));
                 ActivationThread.Start();
+                neuronThreads.Add(ActivationThread);
 
                 void NeuronActivate()
                 {
                     item.Activate();
                 }
+                */
+                item.Activate();
             }
 
             while (activationCount < neuronCount) ; // Waits until all ActivationFunction are complete
@@ -268,9 +287,9 @@ namespace Neuron_Simulation
                         {
                             // Back propagates the output layer
                             DeltaH[(layers.Count - 1) - i].Add(DeltaK[j]);
-                            sum += layers[i-1][k].Activation * DeltaK[j];
-                            layers[i][j].Bias -= learningRate * DeltaK[j];
-                            layers[i][j].Weight_in[k] -= learningRate * DeltaH[(layers.Count - 1) - i][j]; //* layers[i - 1][k].Activation;
+                            sum += layers[i - 1][k].Activation;
+                            layers[i][j].Bias += learningRate * DeltaK[j];
+                            layers[i][j].Weight_in[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * sum; //* layers[i - 1][k].Activation;
                         }
                         else
                         {
@@ -282,9 +301,9 @@ namespace Neuron_Simulation
                             // Calculates the delta for this weight on this neuron
                             DeltaH[(layers.Count - 1) - i].Add(sum * layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters));
                             // assigns said delta to the weight if the current layer isn't the input layer
-                            layers[i][j].Weight_in[k] -= learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
+                            layers[i][j].Weight_in[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
                             // Adjusts the bias
-                            layers[i][j].Bias -= learningRate * DeltaH[(layers.Count - 1) - i][j];
+                            layers[i][j].Bias += learningRate * DeltaH[(layers.Count - 1) - i][j];
                         }
                     }
                 }
@@ -319,7 +338,7 @@ namespace Neuron_Simulation
             NormalDistribution rndNorm = new NormalDistribution();
             rndNorm.Sigma = 0.05;
             rndNorm.Mu = 0;
-
+            
             // Sets up the binomial distribution random number generator
             BinomialDistribution rndBin = new BinomialDistribution();
 
@@ -363,7 +382,7 @@ namespace Neuron_Simulation
                     List<double> temp = new List<double>(layers[j][k].Weight_in.Capacity);
                     for (int l = 0; l < layers[j][k].Weight_in.Capacity; l++)
                         temp.Add(rndNorm.NextDouble());
-                    layers[j][k].Weight_in = (weights == null) ? temp : weights[j][k];
+                    layers[j][k].Weight_in = (weights == null) ? temp : weights[j - 1][k];
                 }
             }
         }
