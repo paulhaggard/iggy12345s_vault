@@ -36,9 +36,11 @@ namespace NeuralNetworkFundamentals
         private double error;               // Contains the error of the neuron
 
         private bool inputLayer;            // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
+        private bool outputLayer;           // Determines if the outputs of this neuron are the final stage of the network, determines what kind of backpropagation to use
 
-        private List<long> inputNeurons;     // List of IDs of the neurons that input into this neuron
+        private List<long> inputNeurons;    // List of IDs of the neurons that input into this neuron
         private List<double> inputs;        // Inputs into the Neuron if inputLayer is false
+        private List<int> outputNeurons;    // Contains the indices of this neuron's weights in the next layer of neurons.
 
         private double rawInput;            // Inputs into the Neuron if inputLayer is true
 
@@ -62,17 +64,18 @@ namespace NeuralNetworkFundamentals
         public double Error { get => error; set => error = value; }
 
         // Constructors
-        public Neuron(Neuron[] inputNeurons, List<double> weight = null, double bias = 0,
+        public Neuron(Neuron[] inputNeurons, List<double> weight = null, double bias = 0, bool outputLayer = false,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
-            new Neuron(inputNeurons.ToList(), weight, bias, defaultActivation, defaultParameters);
+            new Neuron(inputNeurons.ToList(), weight, bias, outputLayer, defaultActivation, defaultParameters);
         }
 
-        public Neuron(List<Neuron> inputNeurons, List<double> weight = null, double bias = 0,
+        public Neuron(List<Neuron> inputNeurons, List<double> weight = null, double bias = 0, bool outputLayer = false,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
+            this.outputLayer = outputLayer;
 
             weights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
             if (weight == null)
@@ -107,6 +110,7 @@ namespace NeuralNetworkFundamentals
 
             this.bias = bias;
 
+            error = 0;  // initializes error value
 
             this.defaultActivation = defaultActivation ?? new Sigmoid(); // default activation function
             this.defaultParameters = defaultParameters ?? new SigmoidParams(); // default activation parameters
@@ -195,14 +199,67 @@ namespace NeuralNetworkFundamentals
             bias = rnd.NextDouble();
         }
 
-        public void adjustValues()
+        public void adjustValues(double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
         {
             // Backpropagates the values of the weights and biases based on the error of this neuron
+
+            if (error == 0)
+                assignError(ExpectedOutput, nextLayerNeurons);
+
             for(int i = 0; i < weights.Count; i++)
             {
                 weights[i] += error * inputs[i];
             }
             bias += error;
+
+            error = 0;
+        }
+
+        public void assignError(double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
+        {
+            error = defaultActivation.Derivate(activation, defaultParameters);
+            if(nextLayerNeurons == null)
+            {
+                // Performs error calculation for output neurons
+                if (outputLayer)
+                {
+                    error *= (ExpectedOutput - activation);
+                }
+                else
+                    throw new InvalidOperationException("Invalid Neuron type!",
+                        new Exception("Cannot calculate error of non-output layer neuron without the next layer's neurons."));
+            }
+            else
+            {
+                // Performs error calculation for non-output neurons
+                if (outputNeurons == null)
+                    PopulateOutputIndices(nextLayerNeurons);
+
+                double sum = 0;
+                for(int i = 0; i < nextLayerNeurons.Count; i++)
+                {
+                    sum += nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Error;
+                }
+                error *= sum;
+            }
+
+            void PopulateOutputIndices(List<Neuron> nextLayer)
+            {
+                for(int i = 0; i < nextLayer.Count; i++)
+                {
+                    if (nextLayer[i].inputNeurons.Contains(id))
+                        for (int j = 0; j < nextLayer[i].inputNeurons.Count; j++)
+                        {
+                            if (nextLayer[i].inputNeurons[j] == id)
+                            {
+                                outputNeurons.Add(j);
+                            }
+                        }
+                    else
+                        throw new InvalidOperationException("Neuron not linked!",
+                            new Exception("Cannot find this neuron's id in the next layer's neurons"));
+                }
+            }
         }
 
         protected virtual void OnActiveEvent(ActivationEventArgs e)
