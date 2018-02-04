@@ -64,14 +64,48 @@ namespace NeuralNetworkFundamentals
         public double Error { get => error; set => error = value; }
 
         // Constructors
+        // These all call the Setup Functions
         public Neuron(Neuron[] inputNeurons, List<double> weight = null, double bias = 0, bool outputLayer = false,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
-            new Neuron(inputNeurons.ToList(), weight, bias, outputLayer, defaultActivation, defaultParameters);
+            Setup(inputNeurons.ToList(), weight, bias, outputLayer, defaultActivation, defaultParameters);
         }
 
         public Neuron(List<Neuron> inputNeurons, List<double> weight = null, double bias = 0, bool outputLayer = false,
+            ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
+        {
+            // Creates a new neuron and links it to all of it's input Neurons
+            Setup(inputNeurons, weight, bias, outputLayer, defaultActivation, defaultParameters);
+        }
+
+        public Neuron(double bias = 0,
+            ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null, bool inputLayer = true)
+        {
+            // Specifies that this neuron is an input neuron
+            Setup(bias, defaultActivation, defaultParameters, inputLayer);
+        }
+
+        // Performs the actual construction
+        private void Setup(double bias = 0,
+            ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null, bool inputLayer = true)
+        {
+            // Specifies that this neuron is an input neuron
+            this.inputLayer = inputLayer;
+
+            this.bias = bias;
+
+            error = 0;  // initializes error value
+
+            this.defaultActivation = defaultActivation ?? new Sigmoid(); // default activation function
+            this.defaultParameters = defaultParameters ?? new SigmoidParams(); // default activation parameters
+
+            id = NeuronCount++;                         // assigns the Neuron ID and increments the count
+
+            rawInput = 0;
+        }
+
+        private void Setup(List<Neuron> inputNeurons, List<double> weight = null, double bias = 0, bool outputLayer = false,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
@@ -94,30 +128,12 @@ namespace NeuralNetworkFundamentals
                 inputs_collected[i] = false;
             }
 
-            new Neuron(bias, defaultActivation, defaultParameters, false);
+            Setup(bias, defaultActivation, defaultParameters, inputLayer);
 
             for (int i = 0; i < inputNeurons.Count; i++)
             {
                 inputNeurons[i].ActiveEvent += OnActivate;  // Subscribes to the input Neuron's activation events
             }
-        }
-
-        public Neuron(double bias = 0,
-            ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null, bool inputLayer = true)
-        {
-            // Specifies that this neuron is an input neuron
-            this.inputLayer = inputLayer;
-
-            this.bias = bias;
-
-            error = 0;  // initializes error value
-
-            this.defaultActivation = defaultActivation ?? new Sigmoid(); // default activation function
-            this.defaultParameters = defaultParameters ?? new SigmoidParams(); // default activation parameters
-
-            id = NeuronCount++;                         // assigns the Neuron ID and increments the count
-
-            rawInput = 0;
         }
 
         // Methods
@@ -232,10 +248,10 @@ namespace NeuralNetworkFundamentals
                 if (outputNeurons == null)
                     PopulateOutputIndices(nextLayerNeurons);
 
-                double sum = 0;
+                double sum = 1;
                 for(int i = 0; i < nextLayerNeurons.Count; i++)
                 {
-                    sum += nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Error;
+                    sum *= nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Error;
                 }
                 error *= sum;
             }
