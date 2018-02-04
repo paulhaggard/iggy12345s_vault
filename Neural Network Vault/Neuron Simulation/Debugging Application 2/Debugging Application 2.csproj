@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NeuralNetworkFundamentals">
+      <HintPath>..\NeuralNetworkFundamentals\bin\Release\NeuralNetworkFundamentals.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,12 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Neuron Simulation\Neuron Simulation.csproj">
-      <Project>{606A9114-E3D2-4570-AAFF-2E63AB3ADFA6}</Project>
-      <Name>Neuron Simulation</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,10 +1,10 @@
-﻿using Neuron_Simulation;
+﻿using NeuralNetworkFundamentals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using static Neuron_Simulation.NeuralNetwork;
+using static NeuralNetworkFundamentals.NeuralNetwork;
 
 namespace Debugging_Application_2
 {

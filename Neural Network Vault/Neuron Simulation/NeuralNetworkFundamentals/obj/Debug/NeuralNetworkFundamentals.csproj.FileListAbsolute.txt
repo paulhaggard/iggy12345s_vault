@@ -1,0 +1,6 @@
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\bin\Debug\NeuralNetworkFundamentals.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\bin\Debug\NeuralNetworkFundamentals.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.pdb

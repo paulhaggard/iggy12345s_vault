@@ -1,0 +1,14 @@
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Release\Debugging Application 2.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\Debugging Application 2.exe.config
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\Debugging Application 2.exe
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\Debugging Application 2.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\NeuralNetworkFundamentals.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\Troschuetz.Random.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\NeuralNetworkFundamentals.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\Troschuetz.Random.xml
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\de\Troschuetz.Random.resources.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\es\Troschuetz.Random.resources.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Release\fr\Troschuetz.Random.resources.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Release\Debugging Application 2.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Release\Debugging Application 2.exe
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Release\Debugging Application 2.pdb

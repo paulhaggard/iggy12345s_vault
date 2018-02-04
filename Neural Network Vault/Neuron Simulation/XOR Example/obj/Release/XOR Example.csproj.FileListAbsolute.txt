@@ -1,0 +1,6 @@
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\XOR Example\bin\Release\XOR Example.exe.config
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\XOR Example\bin\Release\XOR Example.exe
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\XOR Example\bin\Release\XOR Example.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\XOR Example\obj\Release\XOR Example.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\XOR Example\obj\Release\XOR Example.exe
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\XOR Example\obj\Release\XOR Example.pdb
