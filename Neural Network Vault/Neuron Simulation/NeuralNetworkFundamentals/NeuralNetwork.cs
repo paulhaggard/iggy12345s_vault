@@ -334,83 +334,37 @@ namespace NeuralNetworkFundamentals
             // And this one for bias back propagation
             // https://theclevermachine.wordpress.com/2014/09/06/derivation-error-backpropagation-gradient-descent-for-neural-networks/
 
+            // ^ Is out of date, use this instead now vvv
+            // XOR Example project
+
             // Propagates the network backward, uses computed answers, compared to real answers, to update the weights and biases
             // Returns the %error the this training sample
 
-            // Computes the cost of the last layer's results (%error) --> Cost = ((out - expected)^2)/2
-            List<double> Costs = new List<double>(layers.Last().Count);
-            double CostTotal = 0;
-            for (int i = 0; i < layers.Last().Count; i++)
-                Costs.Add(Math.Pow(layers.Last()[i].Activation - Sample[i], 2)/2);
-            foreach (double item in Costs)
-                CostTotal += item;
-
-            List<double> DeltaK = new List<double>(layers.Last().Count);  // Creates a list of Deltailons used for the output layers.
-            for (int i = 0; i < layers.Last().Count; i++)
-                DeltaK.Add(layers.Last()[i].DefaultActivation.Derivate(layers.Last()[i].Net, layers.Last()[i].DefaultParameters) * (Sample[i] - layers.Last()[i].Activation));
-
-            List<List<double>> DeltaH = new List<List<double>>(layers.Count);   // Creates a 2-dimensional map of every weight in the matrix.
-            List<double> DeltaB = new List<double>(layers.Count);               // Creates a map for the biases in the network.
-
-            for (int i = layers.Count - 1; i > 0; i--)
+            for (int i = layers.Count - 1; i >= 0; i--)
             {
                 // Does the physical backpropagation
-                DeltaH.Add(new List<double>(layers[i].Count));
                 for(int j = 0; j < layers[i].Count; j++)
                 {
-                    for(int k = 0; k < layers[i][j].Weights.Count; k++)
-                    {
-                        /* Variable meanings:
+                    /* Variable meanings:
                          * i = current layer
                          * j = current neuron of current layer
-                         * k = current input weight of current neuron from current layer
-                         * l = current neuron from next layer
                          */
 
-                        double sum = 0;
-                        if (i == layers.Count - 1)
-                        {
-                            // Back propagates the output layer
-                            DeltaH[(layers.Count - 1) - i].Add(DeltaK[j]);
-                            sum += layers[i - 1][k].Activation;
-                            layers[i][j].Bias += learningRate * DeltaK[j];
-                            layers[i][j].Weights[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * sum; //* layers[i - 1][k].Activation;
-                        }
-                        else
-                        {
-                            for (int l = 0; l < layers[i + 1].Count; l++)
-                            {
-                                // Sums up all of the weights downstream from layer i, neuron j, weight k
-                                sum += layers[i + 1][l].Weights[j] * DeltaH[((layers.Count - 1) - i) - 1][l];
-                            }
-                            // Calculates the delta for this weight on this neuron
-                            DeltaH[(layers.Count - 1) - i].Add(sum * layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters));
-                            // assigns said delta to the weight if the current layer isn't the input layer
-                            layers[i][j].Weights[k] += learningRate * DeltaH[(layers.Count - 1) - i][j] * layers[i - 1][k].Activation;
-                            // Adjusts the bias
-                            layers[i][j].Bias += learningRate * DeltaH[(layers.Count - 1) - i][j];
-                        }
-                    }
+                    if (i == layers.Count - 1)
+                        layers[i][j].AssignError(learningRate, Sample[j]);
+                    else
+                        layers[i][j].AssignError(learningRate, nextLayerNeurons: layers[i + 1]);
                 }
             }
 
-            for(int i = 0; i < layers[0].Count; i++)
-            {
-                // Performs back propagation on the input layer biases
+            // Calculates the total error that the networkw as off by
+            double ErrorTotal = 0;
 
-                double sum = 0;
-                for (int l = 0; l < layers[1].Count; l++)
-                {
-                    // Sums up all of the weights downstream from layer i, neuron j, weight k
-                    sum += layers[1][l].Weights[i] * DeltaH[layers.Count - 2][l];
-                }
-
-                // Adjusts the bias
-                layers[0][i].Bias -= sum * layers[0][i].DefaultActivation.Derivate(layers[0][i].Net, layers[0][i].DefaultParameters);
-            }
+            for (int i = 0; i < layers.Last().Count; i++)
+                ErrorTotal += Math.Pow(Sample[i] - layers.Last()[i].Activation, 2) / 2;
 
             
-            return CostTotal;
+            return ErrorTotal;
         }
 
         private void OnActiveEvent(object sender, EventArgs e)

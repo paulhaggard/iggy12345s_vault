@@ -199,23 +199,20 @@ namespace NeuralNetworkFundamentals
             bias = rnd.NextDouble();
         }
 
-        public void adjustValues(double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
+        public void AdjustValues(double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
         {
             // Backpropagates the values of the weights and biases based on the error of this neuron
-
-            if (error == 0)
-                assignError(ExpectedOutput, nextLayerNeurons);
-
-            for(int i = 0; i < weights.Count; i++)
+            if (!inputLayer)
             {
-                weights[i] += error * inputs[i];
+                for (int i = 0; i < weights.Count; i++)
+                {
+                    weights[i] += learningRate * error * inputs[i];
+                }
             }
-            bias += error;
-
-            error = 0;
+            bias += learningRate * error;
         }
 
-        public void assignError(double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
+        public void AssignError(double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
         {
             error = defaultActivation.Derivate(activation, defaultParameters);
             if(nextLayerNeurons == null)
@@ -260,6 +257,9 @@ namespace NeuralNetworkFundamentals
                             new Exception("Cannot find this neuron's id in the next layer's neurons"));
                 }
             }
+
+            if (AdjustValues)
+                this.AdjustValues(learningRate, ExpectedOutput, nextLayerNeurons);
         }
 
         protected virtual void OnActiveEvent(ActivationEventArgs e)
