@@ -35,9 +35,10 @@ namespace NeuralNetworkFundamentals
         private double bias;                // The bias of the neuron
         private double error;               // Contains the error of the neuron
 
-        private bool inputLayer;             // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
+        private bool inputLayer;            // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
 
-        private List<Neuron> inputNeurons;      // Inputs into the Neuron if inputLayer is false
+        private List<long> inputNeurons;     // List of IDs of the neurons that input into this neuron
+        private List<double> inputs;        // Inputs into the Neuron if inputLayer is false
 
         private double rawInput;            // Inputs into the Neuron if inputLayer is true
 
@@ -78,10 +79,17 @@ namespace NeuralNetworkFundamentals
                 for (int i = 0; i < inputNeurons.Count; i++)
                     weights.Add(0);
 
-            this.inputNeurons = inputNeurons.ToList();
+            // Sets up the calling map for activating neurons and connecting with the previous layer
+            this.inputNeurons = new List<long>(inputNeurons.Count);
+            inputs = new List<double>(inputNeurons.Count);
             inputs_collected = new bool[inputNeurons.Count];
+
             for (int i = 0; i < inputs_collected.Length; i++)
+            {
+                inputs.Add(0);
+                this.inputNeurons.Add(inputNeurons[i].ID);
                 inputs_collected[i] = false;
+            }
 
             new Neuron(bias, defaultActivation, defaultParameters, false);
 
@@ -113,15 +121,15 @@ namespace NeuralNetworkFundamentals
         {
             // Figures out which Neuron fired this event, and then collects it's data.
             Neuron Sender = (Neuron)sender;
-            if(inputNeurons.Contains(Sender))
+            if(inputNeurons.Contains(Sender.ID))
             {
                 for (int i = 0; i < inputNeurons.Count; i++)
                 {
-                    if (Sender.id == inputNeurons[i].id)
+                    if (Sender.id == inputNeurons[i])
                     {
                         // once the input Neuron's index is found, flag the boolean that corresponds to it and update it's value in the list
                         inputs_collected[i] = true;
-                        inputNeurons[i] = Sender;
+                        inputs[i] = Sender.Activation;
                     }
                 }
                 bool temp = true;
@@ -153,7 +161,7 @@ namespace NeuralNetworkFundamentals
                 // Input layers don't have weights and activation functions, that's why they get an exclusive case
                 Net = bias;
                 for (int i = 0; i < (inputNeurons.Count); i++)
-                    Net += (inputNeurons[i].Activation) * (weights[i]);
+                    Net += (inputs[i]) * (weights[i]);
                 for (int i = 0; i < inputs_collected.Length; i++)
                     inputs_collected[i] = false;
                 activation = type.Activate(Net, Params);
@@ -190,7 +198,11 @@ namespace NeuralNetworkFundamentals
         public void adjustValues()
         {
             // Backpropagates the values of the weights and biases based on the error of this neuron
-
+            for(int i = 0; i < weights.Count; i++)
+            {
+                weights[i] += error * inputs[i];
+            }
+            bias += error;
         }
 
         protected virtual void OnActiveEvent(ActivationEventArgs e)
