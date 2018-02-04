@@ -101,7 +101,10 @@ namespace NeuralNetworkFundamentals
                 {
                     List<Neuron> prev = layers[i - 1];
                     for (int j = 0; j < LayerInfo[i]; j++)
-                        temp.Add(new Neuron(prev, defaultActivation: defaultActivationFunction[i], defaultParameters: Params[i]));  // Generates the rest of the layers
+                        temp.Add(new Neuron(prev,
+                            defaultActivation: defaultActivationFunction[i],
+                            defaultParameters: Params[i],
+                            outputLayer: (i == LayerInfo.Count - 1)));  // Generates the rest of the layers
                 }
                 layers.Add(temp);
             }
@@ -273,7 +276,7 @@ namespace NeuralNetworkFundamentals
                     for (int i = 0; i < sample_in.Count; i++)
                     {
 
-                        ////Console.WriteLine("- Sample: {0}", i);
+                        //Console.WriteLine("- Sample: {0}", i);
 
                         LoadSample(sample_in[i]);   // Assigns the inputs
 
@@ -301,21 +304,8 @@ namespace NeuralNetworkFundamentals
 
             activationCount = 0;    // Resets the activation count
 
-            // Causes all of the Neurons to fire.
-            //List<Thread> neuronThreads = new List<Thread>(neuronCount);
             foreach (Neuron item in layers[0])
             {
-                /*
-                // Creates a personalized thread for each neuron and then activates it.
-                Thread ActivationThread = new Thread(new ThreadStart(NeuronActivate));
-                ActivationThread.Start();
-                neuronThreads.Add(ActivationThread);
-
-                void NeuronActivate()
-                {
-                    item.Activate();
-                }
-                */
                 item.Activate();
             }
 

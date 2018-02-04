@@ -13,3 +13,5 @@ G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Deb
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Debug\Debugging Console App.csproj.CoreCompileInputs.cache
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Debug\Debugging Console App.exe
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Debug\Debugging Console App.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Debug\Neuron_Simulation.Form1.resources
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Debug\Debugging Console App.csproj.GenerateResource.Cache
