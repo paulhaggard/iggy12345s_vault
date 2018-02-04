@@ -4,3 +4,8 @@ G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neu
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.csproj.CoreCompileInputs.cache
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.dll
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\bin\Debug\Troschuetz.Random.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\bin\Debug\Troschuetz.Random.xml
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\bin\Debug\de\Troschuetz.Random.resources.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\bin\Debug\es\Troschuetz.Random.resources.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\bin\Debug\fr\Troschuetz.Random.resources.dll

@@ -8,3 +8,4 @@ G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neu
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\bin\Release\fr\Troschuetz.Random.resources.dll
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Release\NeuralNetworkFundamentals.dll
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Release\NeuralNetworkFundamentals.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Release\NeuralNetworkFundamentals.csprojResolveAssemblyReference.cache
