@@ -29,9 +29,10 @@ namespace NeuralNetworkFundamentals
 
         // Properties
         private double activation;          // This represents how activated the neuron is
-        private List<double> weights;          // Weight to be passed to the next neuron
+        private List<double> weights;       // Weight to be passed to the next neuron
         private double net;                 // The net output of the neuron without being activated
         private double bias;                // The bias of the neuron
+        private double error;               // Contains the error of the neuron
 
         private bool inputLayer;             // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
 
@@ -56,6 +57,7 @@ namespace NeuralNetworkFundamentals
         public double Net { get => net; set => net = value; }
         public long ID { get => id; set => id = value; }
         public double Bias { get => bias; set => bias = value; }
+        public double Error { get => error; set => error = value; }
 
         // Constructors
         public Neuron(Neuron[] inputNeurons, List<double> weight = null, double bias = 0,
@@ -192,6 +194,24 @@ namespace NeuralNetworkFundamentals
             OnActiveEvent(new ActivationEventArgs(Activation, id));
 
             return Activation;
+        }
+
+        public void RandomizeWeights(Random rnd)
+        {
+            // Randomizes the weights according to the random generator sent in.
+            if (!inputLayer)
+            {
+                for (int i = 0; i < weights.Count; i++)
+                {
+                    weights[i] = rnd.NextDouble();
+                }
+            }
+        }
+
+        public void RandomizeBias(Random rnd)
+        {
+            // Randomizes the bias according to the random number generator sent in.
+            bias = rnd.NextDouble();
         }
 
         protected virtual void OnActiveEvent(ActivationEventArgs e)
