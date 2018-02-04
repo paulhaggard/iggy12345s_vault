@@ -346,7 +346,7 @@ namespace Neuron_Simulation
         {
             for (int i = 0; i < layers[0].Count; i++)
             {
-                layers[0][i].Inputs[0] = Sample[i];
+                layers[0][i].RawInput = Sample[i];
             }
         }
 

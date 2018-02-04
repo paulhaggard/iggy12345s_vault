@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Activation Functions\ActivationFunction.cs" />
     <Compile Include="Activation Functions\Functions\Gaussian.cs" />
+    <Compile Include="Activation Functions\Functions\None.cs" />
     <Compile Include="Activation Functions\Functions\Sinc.cs" />
     <Compile Include="Activation Functions\Functions\Sinusoid.cs" />
     <Compile Include="Activation Functions\Functions\BentIdentity.cs" />

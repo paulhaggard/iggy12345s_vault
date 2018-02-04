@@ -34,7 +34,7 @@ namespace Neuron_Simulation
             ErrorLabel.Text = Error.ToString();
         }
 
-        private ThreeBlue1BrownExample networkTest;
+        private Test networkTest;
         private List<List<Tuple<int, int>>> neuronCoord;
         private int plotSize;
 
@@ -43,7 +43,7 @@ namespace Neuron_Simulation
             InitializeComponent();
             // Loads all of the memory we need to run this network
             // Generates the neural network
-            networkTest = new ThreeBlue1BrownExample();
+            networkTest = new Test();
             networkTest.Net.GenWeightsAndBiases();
             networkTest.Net.TrainingUpdateEvent += OnTrainingUpdateEvent;
 

@@ -18,7 +18,7 @@ namespace Neuron_Simulation
         /*
          * The inputWeights are the weights between the each neuron in the last layer, and the current neuron
          * the inputNeurons are the list of the each neuron that is in the layer previous to this one and should be updated between trainings.
-         * raw_input is used if this neuron is on the input layer
+         * inputLayer is used if this neuron is on the input layer
          * inputs is the array used if the neuron is on the input layer
          * inputs_collected determines when each neuron in the previous has fired and this neuron has received their outputs
          */
@@ -35,11 +35,11 @@ namespace Neuron_Simulation
         private double net;                 // The net output of the neuron without being activated
         private double bias;                // The bias of the neuron
 
-        private bool raw_input;             // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
+        private bool inputLayer;             // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
 
-        private List<Neuron> inputNeurons;      // Inputs into the Neuron if raw_input is false
+        private List<Neuron> inputNeurons;      // Inputs into the Neuron if inputLayer is false
 
-        private double[] inputs;            // Inputs into the Neuron if raw_input is true
+        private double rawInput;            // Inputs into the Neuron if inputLayer is true
 
         private bool[] inputs_collected;    // Specifies whether the inputs for the Neuron have been collected or not
 
@@ -50,7 +50,7 @@ namespace Neuron_Simulation
         private static long NeuronCount;    // How many Neurons currently exist
 
         // Accessor Methods
-        public double[] Inputs { get => inputs; set => inputs = value; }            // Sets the inputs to the Neuron
+        public double RawInput { get => rawInput; set => rawInput = value; }            // Sets the inputs to the Neuron
         public List<double> Weight_in { get => inputWeights; set => inputWeights = value; }   // Sets the initial weight value for the Neuron
         public double Activation { get => activation; set => activation = value; }  // The output of the Neuron
         public ActivationFunction DefaultActivation { get => defaultActivation; set => defaultActivation = value; }   // returns the default activation function class instance
@@ -64,7 +64,7 @@ namespace Neuron_Simulation
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
-            raw_input = false;
+            inputLayer = false;
 
             inputWeights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
             if (weight == null)
@@ -93,7 +93,7 @@ namespace Neuron_Simulation
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
-            raw_input = false;
+            inputLayer = false;
 
             inputWeights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
             if (weight == null)
@@ -118,10 +118,11 @@ namespace Neuron_Simulation
             }
         }
 
-        public Neuron(int num_in = 1, double bias = 0,
+        public Neuron(double bias = 0,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
-            raw_input = true;
+            // Specifies that this neuron is an input neuron
+            inputLayer = true;
 
             this.bias = bias;
 
@@ -131,17 +132,7 @@ namespace Neuron_Simulation
 
             id = NeuronCount++;                         // assigns the Neuron ID and increments the count
 
-            Inputs = new double[num_in];
-            for (int i = 0; i < num_in; i++)
-                Inputs[i] = 0;
-            inputs_collected = new bool[num_in];
-            for (int i = 0; i < inputs_collected.Length; i++)
-                inputs_collected[i] = false;
-
-            for (int i = 0; i < num_in; i++)
-            {
-                Inputs[i] = 0;
-            }
+            rawInput = 0;
         }
 
         // Methods
@@ -184,16 +175,23 @@ namespace Neuron_Simulation
             type = type ?? DefaultActivation;
             Params = Params ?? DefaultParameters;
 
-            Net = bias;
-            for (int i = 0; i < ((!raw_input) ? inputNeurons.Count : Inputs.Length); i++)
-                Net += (!raw_input ? inputNeurons[i].Activation : Inputs[i]) * (!raw_input ? inputWeights[i] : 1);
-
-            activation = type.Activate(Net, Params);
+            if (!inputLayer)
+            {
+                // Input layers don't have weights and activation functions, that's why they get an exclusive case
+                Net = bias;
+                for (int i = 0; i < (inputNeurons.Count); i++)
+                    Net += (inputNeurons[i].Activation) * (inputWeights[i]);
+                for (int i = 0; i < inputs_collected.Length; i++)
+                    inputs_collected[i] = false;
+                activation = type.Activate(Net, Params);
+            }
+            else
+            {
+                Net = rawInput + bias;
+                activation = net;
+            }
 
             OnActiveEvent(new ActivationEventArgs(Activation, id));
-
-            for (int i = 0; i < inputs_collected.Length; i++)
-                inputs_collected[i] = false;
 
             return Activation;
         }

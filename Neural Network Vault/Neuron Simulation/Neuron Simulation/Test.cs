@@ -7,7 +7,7 @@ using Troschuetz.Random;
 
 namespace Neuron_Simulation
 {
-    class ThreeBlue1BrownExample
+    class Test
     {
         private int n_input = 2;      // Number of input neurons
         private int n_hidden1 = 16;     // Number of hidden neurons in the first hidden layer
@@ -17,12 +17,12 @@ namespace Neuron_Simulation
 
         private int n_samples = 4;    // Number of random samples to generate to test the functionality
 
-        private int iterations = 100; // Number of times to train the neural network.
+        private int iterations = 10000; // Number of times to train the neural network.
 
         private NeuralNetwork net;
 
         // Constructor
-        public ThreeBlue1BrownExample()
+        public Test()
         {
             Net = new NeuralNetwork(new List<int> { n_input, n_hidden1, n_hidden2, n_out });
         }
