@@ -96,12 +96,12 @@ namespace NeuralNetworkFundamentals
                 List<Neuron> temp = new List<Neuron>(LayerInfo[i]);
                 if (i == 0)
                     for (int j = 0; j < LayerInfo[i]; j++)
-                        temp.Add(new Neuron(defaultActivation: defaultActivationFunction[i], defaultParameters: Params[i]));
+                        temp.Add(new Neuron(defaultActivation: defaultActivationFunction[i], defaultParameters: Params[i]));        // Creates the input layer
                 else
                 {
                     List<Neuron> prev = layers[i - 1];
                     for (int j = 0; j < LayerInfo[i]; j++)
-                        temp.Add(new Neuron(prev, defaultActivation: defaultActivationFunction[i], defaultParameters: Params[i]));
+                        temp.Add(new Neuron(prev, defaultActivation: defaultActivationFunction[i], defaultParameters: Params[i]));  // Generates the rest of the layers
                 }
                 layers.Add(temp);
             }
@@ -113,6 +113,7 @@ namespace NeuralNetworkFundamentals
 
         public List<double> Calc(List<double> inputs)
         {
+            // Runs the network through its forward cycle and returns the outputs
             LoadSample(inputs);
             ForwardPropagate();
             List<double> temp = new List<double>(layers.Last().Count);
@@ -121,6 +122,113 @@ namespace NeuralNetworkFundamentals
                 temp.Add(neuron.Activation);
             }
 
+            return temp;
+        }
+
+        public void GenWeightsAndBiases(List<List<List<double>>> weights = null, List<List<double>> biases = null)
+        {
+            // Can allow the controller to generate the biases and weights prior to training.
+
+            // Sets up the Normal Distribution random number generator
+            NormalDistribution rndNorm = new NormalDistribution();
+            rndNorm.Sigma = 0.05;
+            rndNorm.Mu = 0;
+
+            // Sets up the binomial distribution random number generator
+            BinomialDistribution rndBin = new BinomialDistribution();
+
+            // Assigns the biases, and weights
+            for (int i = 0; i < layers.Count; i++)
+            {
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    // Initializes the network's biases and weights
+                    if (weights == null)
+                        layers[i][j].RandomizeWeights(rndNorm);
+                    else
+                        layers[i][j].Weights = weights[i][j];
+
+                    if (biases == null)
+                        layers[i][j].RandomizeBias(rndBin);
+                    else
+                        layers[i][j].Bias = biases[i][j];
+                }
+            }
+        }
+
+        public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }
+        public List<List<double>> Biases { get => GetBiases(); set => GenBiases(value); }
+
+        private void GenWeights(List<List<List<double>>> weights = null)
+        {
+            // Can allow the controller to generate the biases and weights prior to training.
+
+            // Sets up the Normal Distribution random number generator
+            NormalDistribution rndNorm = new NormalDistribution();
+            rndNorm.Sigma = 0.05;
+            rndNorm.Mu = 0;
+
+            // Assigns the biases, and weights
+            for (int i = 1; i < layers.Count; i++)
+            {
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    // Initializes the network's biases and weights
+
+                    if (weights == null)
+                        layers[i][j].RandomizeWeights(rndNorm);
+                    else
+                        layers[i][j].Weights = weights[i][j];
+                }
+            }
+        }
+
+        private void GenBiases(List<List<double>> biases = null)
+        {
+            // Can allow the controller to generate the biases and weights prior to training.
+
+            // Sets up the binomial distribution random number generator
+            BinomialDistribution rndBin = new BinomialDistribution();
+
+            // Assigns the biases, and weights
+            for (int i = 0; i < layers.Count; i++)
+            {
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    // Initializes the network's biases and weights
+                    if (biases == null)
+                        layers[i][j].RandomizeBias(rndBin);
+                    else
+                        layers[i][j].Bias = biases[i][j];
+                }
+            }
+        }
+
+        private List<List<List<double>>> GetWeights()
+        {
+            List<List<List<double>>> temp = new List<List<List<double>>>(layers.Count);
+            for (int i = 1; i < layers.Count; i++)
+            {
+                temp.Add(new List<List<double>>(layers[i].Count));
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    temp[i].Add(layers[i][j].Weights);
+                }
+            }
+            return temp;
+        }
+
+        private List<List<double>> GetBiases()
+        {
+            List<List<double>> temp = new List<List<double>>(layers.Count);
+            for (int i = 0; i < layers.Count; i++)
+            {
+                temp.Add(new List<double>(layers[i].Count));
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    temp[i].Add(layers[i][j].Bias);
+                }
+            }
             return temp;
         }
 
@@ -189,14 +297,12 @@ namespace NeuralNetworkFundamentals
 
         public void ForwardPropagate()
         {
-            // TODO: figure out how to implement biases into this, since there's one per layer, and is only added once
-
             // Propagates the network forward, computes an answer
 
             activationCount = 0;    // Resets the activation count
 
             // Causes all of the Neurons to fire.
-            List<Thread> neuronThreads = new List<Thread>(neuronCount);
+            //List<Thread> neuronThreads = new List<Thread>(neuronCount);
             foreach (Neuron item in layers[0])
             {
                 /*
@@ -305,111 +411,6 @@ namespace NeuralNetworkFundamentals
 
             
             return CostTotal;
-        }
-
-        // These methods provide functionality for setting and retreiving the biases and weights of the entire network.
-
-        public void GenWeightsAndBiases(List<List<List<double>>> weights = null, List<List<double>> biases = null)
-        {
-            // Can allow the controller to generate the biases and weights prior to training.
-
-            // Sets up the Normal Distribution random number generator
-            NormalDistribution rndNorm = new NormalDistribution();
-            rndNorm.Sigma = 0.05;
-            rndNorm.Mu = 0;
-            
-            // Sets up the binomial distribution random number generator
-            BinomialDistribution rndBin = new BinomialDistribution();
-
-            // Assigns the biases, and weights
-            for (int j = 1; j < layers.Count; j++)
-            {
-                for (int k = 0; k < layers[j].Count; k++)
-                {
-                    // Initializes the network's biases and weights
-                    
-                    List<double> temp = new List<double>(layers[j][k].Weights.Capacity);
-                    for (int l = 0; l < layers[j][k].Weights.Capacity; l++)
-                        temp.Add(rndNorm.NextDouble());
-                    layers[j][k].Weights = (weights == null) ? temp : weights[j][k];
-                    layers[j][k].Bias = (biases == null) ? rndBin.NextDouble() : biases[j][k];
-                }
-            }
-            for(int i = 0; i < layers[0].Count; i++)
-                layers[0][i].Bias = (biases == null) ? rndBin.NextDouble() : biases[0][i];
-        }
-
-        public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }
-        public List<List<double>> Biases { get => GetBiases(); set => GenBiases(value); }
-
-        private void GenWeights(List<List<List<double>>> weights = null)
-        {
-            // Can allow the controller to generate the biases and weights prior to training.
-
-            // Sets up the Normal Distribution random number generator
-            NormalDistribution rndNorm = new NormalDistribution();
-            rndNorm.Sigma = 0.05;
-            rndNorm.Mu = 0;
-
-            // Assigns the biases, and weights
-            for (int j = 1; j < layers.Count; j++)
-            {
-                for (int k = 0; k < layers[j].Count; k++)
-                {
-                    // Initializes the network's biases and weights
-
-                    List<double> temp = new List<double>(layers[j][k].Weights.Capacity);
-                    for (int l = 0; l < layers[j][k].Weights.Capacity; l++)
-                        temp.Add(rndNorm.NextDouble());
-                    layers[j][k].Weights = (weights == null) ? temp : weights[j - 1][k];
-                }
-            }
-        }
-
-        private void GenBiases(List<List<double>> biases = null)
-        {
-            // Can allow the controller to generate the biases and weights prior to training.
-
-            // Sets up the binomial distribution random number generator
-            BinomialDistribution rndBin = new BinomialDistribution();
-
-            // Assigns the biases, and weights
-            for (int j = 0; j < layers.Count; j++)
-            {
-                for (int k = 0; k < layers[j].Count; k++)
-                {
-                    // Initializes the network's biases and weights
-                    layers[j][k].Bias = (biases == null) ? rndBin.NextDouble() : biases[j][k];
-                }
-            }
-        }
-
-        private List<List<List<double>>> GetWeights()
-        {
-            List<List<List<double>>> temp = new List<List<List<double>>>(layers.Count);
-            for(int i = 1; i < layers.Count; i++)
-            {
-                temp.Add(new List<List<double>>(layers[i].Count));
-                for(int j = 0; j < layers[i].Count; j++)
-                {
-                    temp[i].Add(layers[i][j].Weights);
-                }
-            }
-            return temp;
-        }
-
-        private List<List<double>> GetBiases()
-        {
-            List<List<double>> temp = new List<List<double>>(layers.Count);
-            for (int i = 0; i < layers.Count; i++)
-            {
-                temp.Add(new List<double>(layers[i].Count));
-                for (int j = 0; j < layers[i].Count; j++)
-                {
-                    temp[i].Add(layers[i][j].Bias);
-                }
-            }
-            return temp;
         }
 
         private void OnActiveEvent(object sender, EventArgs e)
