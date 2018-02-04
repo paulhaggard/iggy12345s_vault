@@ -337,6 +337,8 @@ namespace Neuron_Simulation
                     layers[j][k].Bias = (biases == null) ? rndBin.NextDouble() : biases[j][k];
                 }
             }
+            for(int i = 0; i < layers[0].Count; i++)
+                layers[0][i].Bias = (biases == null) ? rndBin.NextDouble() : biases[0][i];
         }
 
         public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }
@@ -374,7 +376,7 @@ namespace Neuron_Simulation
             BinomialDistribution rndBin = new BinomialDistribution();
 
             // Assigns the biases, and weights
-            for (int j = 1; j < layers.Count; j++)
+            for (int j = 0; j < layers.Count; j++)
             {
                 for (int k = 0; k < layers[j].Count; k++)
                 {
@@ -387,7 +389,7 @@ namespace Neuron_Simulation
         private List<List<List<double>>> GetWeights()
         {
             List<List<List<double>>> temp = new List<List<List<double>>>(layers.Count);
-            for(int i = 0; i < layers.Count; i++)
+            for(int i = 1; i < layers.Count; i++)
             {
                 temp.Add(new List<List<double>>(layers[i].Count));
                 for(int j = 0; j < layers[i].Count; j++)
