@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Troschuetz.Random;
 
 namespace NeuralNetworkFundamentals
 { 
@@ -168,7 +169,7 @@ namespace NeuralNetworkFundamentals
             return Activation;
         }
 
-        public void RandomizeWeights(Random rnd)
+        public void RandomizeWeights(NormalDistribution rnd)
         {
             // Randomizes the weights according to the random generator sent in.
             if (!inputLayer)
@@ -180,7 +181,7 @@ namespace NeuralNetworkFundamentals
             }
         }
 
-        public void RandomizeBias(Random rnd)
+        public void RandomizeBias(BinomialDistribution rnd)
         {
             // Randomizes the bias according to the random number generator sent in.
             bias = rnd.NextDouble();
