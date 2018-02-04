@@ -64,53 +64,25 @@ namespace NeuralNetworkFundamentals
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
-            inputLayer = false;
-
-            weights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
-            if (weight == null)
-                for (int i = 0; i < inputNeurons.Count(); i++)
-                    weights.Add(0);
-
-            this.bias = bias;
-
-            id = NeuronCount++;                                             // assigns the Neuron ID and increments the count
-
-            this.defaultActivation = defaultActivation??new Sigmoid(); // default activation function
-            this.defaultParameters = defaultParameters??new SigmoidParams(); // default activation parameters (if you are using one that requires them)
-
-            this.inputNeurons = inputNeurons.ToList();
-            inputs_collected = new bool[inputNeurons.Length];
-            for (int i = 0; i < inputs_collected.Length; i++)
-                inputs_collected[i] = false;
-
-            for (int i = 0; i < inputNeurons.Length; i++)
-            {
-                inputNeurons[i].ActiveEvent += OnActivate;  // Subscribes to the input Neuron's activation events
-            }
+            new Neuron(inputNeurons.ToList(), weight, bias, defaultActivation, defaultParameters);
         }
 
         public Neuron(List<Neuron> inputNeurons, List<double> weight = null, double bias = 0,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
         {
             // Creates a new neuron and links it to all of it's input Neurons
-            inputLayer = false;
 
             weights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
             if (weight == null)
                 for (int i = 0; i < inputNeurons.Count; i++)
                     weights.Add(0);
 
-            this.bias = bias;
-
-            id = NeuronCount++;                         // assigns the Neuron ID and increments the count
-
-            this.defaultActivation = defaultActivation; // default activation function
-            this.defaultParameters = defaultParameters; // default activation parameters (if you are using one that requires them)
-
             this.inputNeurons = inputNeurons.ToList();
             inputs_collected = new bool[inputNeurons.Count];
             for (int i = 0; i < inputs_collected.Length; i++)
                 inputs_collected[i] = false;
+
+            new Neuron(bias, defaultActivation, defaultParameters, false);
 
             for (int i = 0; i < inputNeurons.Count; i++)
             {
@@ -119,10 +91,10 @@ namespace NeuralNetworkFundamentals
         }
 
         public Neuron(double bias = 0,
-            ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null)
+            ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null, bool inputLayer = true)
         {
             // Specifies that this neuron is an input neuron
-            inputLayer = true;
+            this.inputLayer = inputLayer;
 
             this.bias = bias;
 
@@ -212,6 +184,12 @@ namespace NeuralNetworkFundamentals
         {
             // Randomizes the bias according to the random number generator sent in.
             bias = rnd.NextDouble();
+        }
+
+        public void adjustValues()
+        {
+            // Backpropagates the values of the weights and biases based on the error of this neuron
+
         }
 
         protected virtual void OnActiveEvent(ActivationEventArgs e)
