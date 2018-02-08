@@ -332,6 +332,19 @@ namespace NeuralNetworkFundamentals
             // Propagates the network backward, uses computed answers, compared to real answers, to update the weights and biases
             // Returns the %error the this training sample
 
+            // START HERE: https://youtu.be/An5z8lR8asY
+
+            for (int i = layers.Count - 1; i >= 0; i--)
+            {
+                for(int j = 0; j < layers[i].Count; j++)
+                {
+                    if(i == layers.Count - 1)
+                    {
+
+                    }
+                }
+            }
+
             for (int i = layers.Count - 1; i >= 0; i--)
             {
                 // Does the physical backpropagation
