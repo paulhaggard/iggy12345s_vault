@@ -4,7 +4,7 @@ using IggysQSM;
 
 namespace IggysDefaultModuleLibrary
 {
-    public class Template : TSubject<CommQueueDefaultData>
+    public class ModuleTemplate : TSubject<CommQueueDefaultData>
     {
         // This class is used as an outline for every other module in the library.
 
@@ -12,7 +12,7 @@ namespace IggysDefaultModuleLibrary
         private QSM QSM;            // State machine service for the module
 
         // Constructor
-        public Template():base()
+        public ModuleTemplate():base()
         {
             isExitting = false;
 
