@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -80,6 +81,74 @@ namespace ThreadHelper_Library
                 Remove(modules.FindIndex(x => x.Id == module.Id), overrideLaunch);
             else
                 throw new InvalidOperationException("The thread list does not contain that module!");
+        }
+
+        // Methods for launching processes
+        public void LaunchAll()
+        {
+            // Launches all of the modules
+            for(int i = 0; i < Threads.Count; i++)
+            {
+                Launch(i);
+            }
+        }
+
+        public void Launch(int index)
+        {
+            // Launches an individual module
+            if (isLaunched[index])
+                throw new InvalidOperationException("Can't launch a thread that's already launched!");
+            isLaunched[index] = true;
+            Threads[index].Start();
+        }
+
+        public void Launch(List<int> index)
+        {
+            // Launches a select list of modules
+            foreach (int i in index)
+            {
+                Launch(i);
+            }
+        }
+
+        public void Launch(int[] index)
+        {
+            // Launches a select list of modules
+            Launch(index.ToList());
+        }
+
+        // Methods for Aborting processes
+        public void AbortAll()
+        {
+            // Launches all of the modules
+            for (int i = 0; i < Threads.Count; i++)
+            {
+                Abort(i);
+            }
+        }
+
+        public void Abort(int index)
+        {
+            // Launches an individual module
+            if (!isLaunched[index])
+                throw new InvalidOperationException("Can't abort a thread that isn't already launched!");
+            Threads[index].Abort();
+            isLaunched[index] = false;
+        }
+
+        public void Abort(List<int> index)
+        {
+            // Launches a select list of modules
+            foreach (int i in index)
+            {
+                Abort(i);
+            }
+        }
+
+        public void Abort(int[] index)
+        {
+            // Launches a select list of modules
+            Abort(index.ToList());
         }
 
         // Operators
