@@ -20,7 +20,7 @@ namespace Project_Template
                 ThreadHandler.Add(item);
 
             Console.WriteLine("Preparing to launch modules...");
-            
+            ThreadHandler.LaunchAll();                                                                          // Launches all of the modules in parallel
 
         }
     }
