@@ -1,0 +1,9 @@
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\bin\Release\netcoreapp2.0\IggysQSM.deps.json
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\bin\Release\netcoreapp2.0\IggysQSM.dll
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\bin\Release\netcoreapp2.0\IggysQSM.pdb
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\obj\Release\netcoreapp2.0\IggysQSM.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\obj\Release\netcoreapp2.0\IggysQSM.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\obj\Release\netcoreapp2.0\IggysQSM.AssemblyInfoInputs.cache
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\obj\Release\netcoreapp2.0\IggysQSM.AssemblyInfo.cs
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\obj\Release\netcoreapp2.0\IggysQSM.dll
+G:\Github Repository\iggy12345s_vault\Iggys Queued State Machine\IggysQSM\IggysQSM\obj\Release\netcoreapp2.0\IggysQSM.pdb
