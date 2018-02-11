@@ -24,4 +24,20 @@ namespace ThreadHelper_Library
             this.addressee = addressee;
         }
     }
+
+    public struct CommQueueDefaultData
+    {
+        // Default data used in the commQueue
+        private string command;
+        private object data;
+
+        public object Data { get => data; set => data = value; }
+        public string Command { get => command; set => command = value; }
+
+        public CommQueueDefaultData(string command, object data = null)
+        {
+            this.command = command;
+            this.data = data;
+        }
+    }
 }
