@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="IggysQSM">
+      <HintPath>..\..\..\Releases\QSM\IggysQSM.dll</HintPath>
+    </Reference>
     <Reference Include="ThreadHelper Library">
       <HintPath>..\..\..\Releases\ThreadHelper Library1-1.dll</HintPath>
     </Reference>
