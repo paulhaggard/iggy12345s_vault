@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="IggysQSM">
+      <HintPath>..\..\..\Releases\QSM\IggysQSM.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>System.Collections</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>System.Linq</HintPath>
+    </Reference>
     <Reference Include="ThreadHelper Library">
       <HintPath>..\..\..\Releases\ThreadHelper Library1-1.dll</HintPath>
     </Reference>

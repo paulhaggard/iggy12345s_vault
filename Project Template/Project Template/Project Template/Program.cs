@@ -14,6 +14,7 @@ namespace Project_Template
             /* 
              * Add your custom modules to launch asynchronously here.
              */
+            Modules.Add(new Test_QSM_Module());
 
                                                                                                                 // Adds all of the modules to the Handler
             foreach (TSubject<CommQueueDefaultData> item in Modules)
