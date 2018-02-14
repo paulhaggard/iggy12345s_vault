@@ -11,3 +11,16 @@ G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debu
 G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.AssemblyInfo.cs
 G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.dll
 G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\bin\Debug\netcoreapp2.0\Debugging Testbench.deps.json
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\bin\Debug\netcoreapp2.0\Debugging Testbench.runtimeconfig.json
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\bin\Debug\netcoreapp2.0\Debugging Testbench.runtimeconfig.dev.json
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\bin\Debug\netcoreapp2.0\Debugging Testbench.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\bin\Debug\netcoreapp2.0\Debugging Testbench.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\bin\Debug\netcoreapp2.0\ThreadHelper Library.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\bin\Debug\netcoreapp2.0\ThreadHelper Library.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.csprojResolveAssemblyReference.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.csproj.CoreCompileInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.AssemblyInfoInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.AssemblyInfo.cs
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Debugging Testbench\obj\Debug\netcoreapp2.0\Debugging Testbench.pdb

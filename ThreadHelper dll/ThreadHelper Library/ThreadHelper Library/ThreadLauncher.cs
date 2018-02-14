@@ -15,7 +15,7 @@ namespace ThreadHelper_Library
         public event MessageRxHandler MessageRx;
 
         private List<TSubject<T>> modules; // List of the modules in the list of threads
-        private List<Task> Tasks;   // List of threads to be launched.
+        private List<Action> Tasks;   // List of threads to be launched.
         private List<bool> isLaunched;        // Used to tell when the threads have been launched
         private Queue<CommQueueData<T>> CommQueue;     // Queue used for callback communication
         private bool isExitting;
@@ -23,7 +23,7 @@ namespace ThreadHelper_Library
 
         public ThreadLauncher()
         {
-            Tasks = new List<Task>();
+            Tasks = new List<Action>();
             modules = new List<TSubject<T>>();
             isLaunched = new List<bool>();
             CommQueue = new Queue<CommQueueData<T>>();
@@ -45,7 +45,7 @@ namespace ThreadHelper_Library
             do
             {
                 isDone = true;
-                foreach (Task t in Tasks)
+                foreach (Action t in Tasks)
                     if (t == null ? true:false)
                         isDone = false;
 
@@ -57,8 +57,20 @@ namespace ThreadHelper_Library
             // Adds a module to the list of handled threads
             modules.Add(module);                                    // Adds the module to the list
             module.MessageTx += OnMessageRx;                        // Subscribes to the module's messageTx event
-            Tasks.Add(new Task(new Action(module.Start))); // Adds the thread to the list
+            Tasks.Add(new Action(module.Start)); // Adds the thread to the list
             isLaunched.Add(false);                                  // Adds a boolean status flag to the list as well
+        }
+
+        public void Add(List<TSubject<T>> modules)
+        {
+            // Adds a module to the list of handled threads
+            foreach (TSubject<T> module in modules)
+                Add(module);
+        }
+
+        public void Add(TSubject<T>[] modules)
+        {
+            Add(modules.ToList());
         }
 
         public void Remove(int index, bool overrideLaunch = false)
@@ -85,22 +97,22 @@ namespace ThreadHelper_Library
         }
 
         // Methods for launching processes
-        public void LaunchAll()
+        public async void LaunchAll()
         {
             // Launches all of the modules
             for(int i = 0; i < Tasks.Count; i++)
             {
-                Launch(i);
+                await Task.Run(Tasks[i]);       // Calls the method asynchronously
             }
         }
 
-        public void Launch(int index)
+        public async void Launch(int index)
         {
             // Launches an individual module
             if (isLaunched[index])
                 throw new InvalidOperationException("Can't launch a thread that's already launched!");
             isLaunched[index] = true;
-            Tasks[index].Start();
+            await Task.Run(Tasks[index]);       // Calls the method asynchronously
         }
 
         public void Launch(List<int> index)
