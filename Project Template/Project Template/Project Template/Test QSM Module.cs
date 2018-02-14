@@ -39,6 +39,7 @@ namespace Project_Template
                         break;
 
                     case "Module Exit":
+                        Console.ReadKey();
                         isExitting = true;
                         break;
 

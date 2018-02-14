@@ -22,7 +22,7 @@ namespace Project_Template
 
             Console.WriteLine("Preparing to launch modules...");
             ThreadHandler.LaunchAll();                                                                          // Launches all of the modules in parallel
-
+            Console.ReadKey();
         }
     }
 }

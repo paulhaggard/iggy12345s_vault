@@ -4,7 +4,6 @@ G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project 
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\Project Template.dll
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\Project Template.pdb
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\IggysQSM.dll
-G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\ThreadHelper Library1-1.dll
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\Troschuetz.Random.dll
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\IggysQSM.pdb
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\Troschuetz.Random.xml
@@ -17,3 +16,5 @@ G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project 
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\obj\Debug\netcoreapp2.0\Project Template.AssemblyInfo.cs
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\obj\Debug\netcoreapp2.0\Project Template.dll
 G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\obj\Debug\netcoreapp2.0\Project Template.pdb
+G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\ThreadHelper Library.dll
+G:\Github Repository\iggy12345s_vault\Project Template\Project Template\Project Template\bin\Debug\netcoreapp2.0\ThreadHelper Library.pdb

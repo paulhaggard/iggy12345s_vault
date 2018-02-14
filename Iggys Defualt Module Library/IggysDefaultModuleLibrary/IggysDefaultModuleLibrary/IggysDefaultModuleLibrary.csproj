@@ -9,7 +9,7 @@
       <HintPath>..\..\..\Releases\QSM\IggysQSM.dll</HintPath>
     </Reference>
     <Reference Include="ThreadHelper Library">
-      <HintPath>..\..\..\Releases\ThreadHelper Library1-1.dll</HintPath>
+      <HintPath>..\..\..\Releases\Thread Helper\ThreadHelper Library.dll</HintPath>
     </Reference>
   </ItemGroup>
 

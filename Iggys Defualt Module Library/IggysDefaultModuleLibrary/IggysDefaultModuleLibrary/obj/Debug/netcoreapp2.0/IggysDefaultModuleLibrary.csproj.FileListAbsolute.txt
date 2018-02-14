@@ -1,0 +1,12 @@
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.deps.json
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.pdb
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\IggysQSM.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\ThreadHelper Library.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\IggysQSM.pdb
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\ThreadHelper Library.pdb
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\obj\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\obj\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.AssemblyInfoInputs.cache
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\obj\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.AssemblyInfo.cs
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\obj\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary\obj\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.pdb

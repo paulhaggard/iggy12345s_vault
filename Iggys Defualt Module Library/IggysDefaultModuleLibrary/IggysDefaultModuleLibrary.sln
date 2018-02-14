@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IggysDefaultModuleLibrary", "IggysDefaultModuleLibrary\IggysDefaultModuleLibrary.csproj", "{1AFD9294-ED30-4F0F-83A1-06FD881A4443}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IggysDefaultModuleLibrary", "IggysDefaultModuleLibrary\IggysDefaultModuleLibrary.csproj", "{1AFD9294-ED30-4F0F-83A1-06FD881A4443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debugging Testbench", "Debugging Testbench\Debugging Testbench.csproj", "{742AE41F-5E1F-4C6C-8755-FDFB0C59872E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1AFD9294-ED30-4F0F-83A1-06FD881A4443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AFD9294-ED30-4F0F-83A1-06FD881A4443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AFD9294-ED30-4F0F-83A1-06FD881A4443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{742AE41F-5E1F-4C6C-8755-FDFB0C59872E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742AE41F-5E1F-4C6C-8755-FDFB0C59872E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742AE41F-5E1F-4C6C-8755-FDFB0C59872E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742AE41F-5E1F-4C6C-8755-FDFB0C59872E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

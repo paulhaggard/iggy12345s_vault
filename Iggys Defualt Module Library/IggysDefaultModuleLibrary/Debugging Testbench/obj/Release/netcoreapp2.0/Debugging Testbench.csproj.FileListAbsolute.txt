@@ -1,0 +1,17 @@
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\Debugging Testbench.deps.json
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\Debugging Testbench.runtimeconfig.json
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\Debugging Testbench.runtimeconfig.dev.json
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\Debugging Testbench.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\Debugging Testbench.pdb
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\IggysDefaultModuleLibrary.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\ThreadHelper Library.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\IggysQSM.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\IggysDefaultModuleLibrary.pdb
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\ThreadHelper Library.pdb
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\bin\Release\netcoreapp2.0\IggysQSM.pdb
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\obj\Release\netcoreapp2.0\Debugging Testbench.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\obj\Release\netcoreapp2.0\Debugging Testbench.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\obj\Release\netcoreapp2.0\Debugging Testbench.AssemblyInfoInputs.cache
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\obj\Release\netcoreapp2.0\Debugging Testbench.AssemblyInfo.cs
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\obj\Release\netcoreapp2.0\Debugging Testbench.dll
+G:\Github Repository\iggy12345s_vault\Iggys Defualt Module Library\IggysDefaultModuleLibrary\Debugging Testbench\obj\Release\netcoreapp2.0\Debugging Testbench.pdb
