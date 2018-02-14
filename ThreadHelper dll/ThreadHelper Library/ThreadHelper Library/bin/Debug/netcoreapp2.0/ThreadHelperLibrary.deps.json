@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
-      "ThreadHelper Library/1.0.0": {
+      "ThreadHelperLibrary/1.0.0": {
         "runtime": {
-          "ThreadHelper Library.dll": {}
+          "ThreadHelperLibrary.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "ThreadHelper Library/1.0.0": {
+    "ThreadHelperLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

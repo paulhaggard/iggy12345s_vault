@@ -6,7 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IggysDefaultModuleLibrary\IggysDefaultModuleLibrary.csproj" />
+    <ProjectReference Include="..\..\..\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\ThreadHelperLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="IggysDefaultModuleLibrary">
+      <HintPath>..\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

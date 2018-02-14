@@ -674,9 +674,9 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelper Library.csproj",
-      "projectName": "ThreadHelper Library",
-      "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelper Library.csproj",
+      "projectUniqueName": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj",
+      "projectName": "ThreadHelperLibrary",
+      "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj",
       "packagesPath": "C:\\Users\\aaron\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\obj\\",
       "projectStyle": "PackageReference",

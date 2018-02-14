@@ -5,11 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\ThreadHelperLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="IggysQSM">
-      <HintPath>..\..\..\Releases\QSM\IggysQSM.dll</HintPath>
-    </Reference>
-    <Reference Include="ThreadHelper Library">
-      <HintPath>..\..\..\Releases\Thread Helper\ThreadHelper Library.dll</HintPath>
+      <HintPath>..\..\..\Iggys Queued State Machine\IggysQSM\IggysQSM\bin\Debug\netcoreapp2.0\IggysQSM.dll</HintPath>
     </Reference>
   </ItemGroup>
 

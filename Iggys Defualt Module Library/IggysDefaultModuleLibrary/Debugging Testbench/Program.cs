@@ -9,6 +9,7 @@ namespace Debugging_Testbench
         {
             Console.WriteLine("Hello World!");
             ModuleTemplate test = new ModuleTemplate();
+            Console.ReadKey();
         }
     }
 }

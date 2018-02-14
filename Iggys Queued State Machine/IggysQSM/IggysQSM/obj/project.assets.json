@@ -664,7 +664,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aaron\\.nuget\\packages\\": {},
+    "C:\\Users\\aaron\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
@@ -674,18 +674,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "G:\\Github Repository\\iggy12345s_vault\\Iggys Queued State Machine\\IggysQSM\\IggysQSM\\IggysQSM.csproj",
+      "projectUniqueName": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Iggys Queued State Machine\\IggysQSM\\IggysQSM\\IggysQSM.csproj",
       "projectName": "IggysQSM",
-      "projectPath": "G:\\Github Repository\\iggy12345s_vault\\Iggys Queued State Machine\\IggysQSM\\IggysQSM\\IggysQSM.csproj",
-      "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
-      "outputPath": "G:\\Github Repository\\iggy12345s_vault\\Iggys Queued State Machine\\IggysQSM\\IggysQSM\\obj\\",
+      "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Iggys Queued State Machine\\IggysQSM\\IggysQSM\\IggysQSM.csproj",
+      "packagesPath": "C:\\Users\\aaron\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Iggys Queued State Machine\\IggysQSM\\IggysQSM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],

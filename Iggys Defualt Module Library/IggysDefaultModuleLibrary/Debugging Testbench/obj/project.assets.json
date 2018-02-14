@@ -197,14 +197,14 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "IggysDefaultModuleLibrary/1.0.0": {
+      "ThreadHelperLibrary/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "compile": {
-          "bin/placeholder/IggysDefaultModuleLibrary.dll": {}
+          "bin/placeholder/ThreadHelperLibrary.dll": {}
         },
         "runtime": {
-          "bin/placeholder/IggysDefaultModuleLibrary.dll": {}
+          "bin/placeholder/ThreadHelperLibrary.dll": {}
         }
       }
     }
@@ -667,20 +667,20 @@
         "netstandard.library.nuspec"
       ]
     },
-    "IggysDefaultModuleLibrary/1.0.0": {
+    "ThreadHelperLibrary/1.0.0": {
       "type": "project",
-      "path": "../IggysDefaultModuleLibrary/IggysDefaultModuleLibrary.csproj",
-      "msbuildProject": "../IggysDefaultModuleLibrary/IggysDefaultModuleLibrary.csproj"
+      "path": "../../../ThreadHelper dll/ThreadHelper Library/ThreadHelper Library/ThreadHelperLibrary.csproj",
+      "msbuildProject": "../../../ThreadHelper dll/ThreadHelper Library/ThreadHelper Library/ThreadHelperLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "IggysDefaultModuleLibrary >= 1.0.0",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "ThreadHelperLibrary >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aaron\\.nuget\\packages\\": {},
+    "C:\\Users\\aaron\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
@@ -690,18 +690,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "G:\\Github Repository\\iggy12345s_vault\\Iggys Defualt Module Library\\IggysDefaultModuleLibrary\\Debugging Testbench\\Debugging Testbench.csproj",
+      "projectUniqueName": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Iggys Defualt Module Library\\IggysDefaultModuleLibrary\\Debugging Testbench\\Debugging Testbench.csproj",
       "projectName": "Debugging Testbench",
-      "projectPath": "G:\\Github Repository\\iggy12345s_vault\\Iggys Defualt Module Library\\IggysDefaultModuleLibrary\\Debugging Testbench\\Debugging Testbench.csproj",
-      "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
-      "outputPath": "G:\\Github Repository\\iggy12345s_vault\\Iggys Defualt Module Library\\IggysDefaultModuleLibrary\\Debugging Testbench\\obj\\",
+      "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Iggys Defualt Module Library\\IggysDefaultModuleLibrary\\Debugging Testbench\\Debugging Testbench.csproj",
+      "packagesPath": "C:\\Users\\aaron\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Iggys Defualt Module Library\\IggysDefaultModuleLibrary\\Debugging Testbench\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
@@ -715,8 +715,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "G:\\Github Repository\\iggy12345s_vault\\Iggys Defualt Module Library\\IggysDefaultModuleLibrary\\IggysDefaultModuleLibrary\\IggysDefaultModuleLibrary.csproj": {
-              "projectPath": "G:\\Github Repository\\iggy12345s_vault\\Iggys Defualt Module Library\\IggysDefaultModuleLibrary\\IggysDefaultModuleLibrary\\IggysDefaultModuleLibrary.csproj"
+            "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj": {
+              "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj"
             }
           }
         }

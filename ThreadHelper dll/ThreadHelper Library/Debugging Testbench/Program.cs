@@ -32,6 +32,9 @@ namespace Debugging_Testbench
 
             Console.WriteLine("Launching modules...");
             threadLauncher.LaunchAll();
+
+            Console.WriteLine("Testing CommQueueData, and CommQueueDefualtData...");
+            CommQueueData<CommQueueDefaultData> data = new CommQueueData<CommQueueDefaultData>(new CommQueueDefaultData("Hello"));
         }
 
         static void OnMessageRx(MessageEventArgs<string> e)
