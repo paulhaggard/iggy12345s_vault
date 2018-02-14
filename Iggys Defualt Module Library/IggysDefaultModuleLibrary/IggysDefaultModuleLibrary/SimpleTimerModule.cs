@@ -41,29 +41,23 @@ namespace IggysDefaultModuleLibrary
 
                     case "Event Check":
                         // If there's any events that have been added to the mailbox, then attend to them
-                        while(mailbox.Count > 0)
-                        {
-                            CommQueueDefaultData mail = mailbox.Dequeue();
-                            switch(mail.Command)
-                            {
-                                case "Add Timer":
-                                    // Adds a timer to the list
-                                    AddTimer((TimerData)mail.Data);
-                                    timerCount++;
-                                    break;
+                        break;
 
-                                case "Remove Timer":
-                                    // Removes a timer from the list
-                                    RemoveTimer((int)mail.Data);
-                                    timerCount--;
-                                    break;
+                    case "Add Timer":
+                        // Adds a timer to the list
+                        AddTimer((TimerData)CurrentState.Data);
+                        timerCount++;
+                        break;
 
-                                case "Exit":
-                                    // Causes the module to exit
-                                    Exit();
-                                    break;
-                            }
-                        }
+                    case "Remove Timer":
+                        // Removes a timer from the list
+                        RemoveTimer((int)CurrentState.Data);
+                        timerCount--;
+                        break;
+
+                    case "Exit":
+                        // Causes the module to exit
+                        Exit();
                         break;
 
                     case "MsgTimerPing":
@@ -140,10 +134,10 @@ namespace IggysDefaultModuleLibrary
         //Override method for the messageRx event
         protected override void OnMessageRx(CommQueueDefaultData e)
         {
-            // Adds any received messages to the mailbox
+            // Adds any received messages to the QSM as states
             base.OnMessageRx(e);
-            //QSMStateData temp = new QSMStateData(e.Command, e.Data);
-            //QSM.AddStates(temp);
+            QSMStateData temp = new QSMStateData(e.Command, e.Data);
+            QSM.AddStates(temp);
         }
     }
 }
