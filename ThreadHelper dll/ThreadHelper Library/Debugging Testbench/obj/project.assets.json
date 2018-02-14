@@ -197,14 +197,14 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "ThreadHelper Library/1.0.0": {
+      "ThreadHelperLibrary/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "compile": {
-          "bin/placeholder/ThreadHelper Library.dll": {}
+          "bin/placeholder/ThreadHelperLibrary.dll": {}
         },
         "runtime": {
-          "bin/placeholder/ThreadHelper Library.dll": {}
+          "bin/placeholder/ThreadHelperLibrary.dll": {}
         }
       }
     }
@@ -667,16 +667,16 @@
         "netstandard.library.nuspec"
       ]
     },
-    "ThreadHelper Library/1.0.0": {
+    "ThreadHelperLibrary/1.0.0": {
       "type": "project",
-      "path": "../ThreadHelper Library/ThreadHelper Library.csproj",
-      "msbuildProject": "../ThreadHelper Library/ThreadHelper Library.csproj"
+      "path": "../ThreadHelper Library/ThreadHelperLibrary.csproj",
+      "msbuildProject": "../ThreadHelper Library/ThreadHelperLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.NETCore.App >= 2.0.0",
-      "ThreadHelper Library >= 1.0.0"
+      "ThreadHelperLibrary >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -715,8 +715,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelper Library.csproj": {
-              "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelper Library.csproj"
+            "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj": {
+              "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj"
             }
           }
         }

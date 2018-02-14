@@ -6,14 +6,6 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
-      "Debugging Testbench/1.0.0": {
-        "dependencies": {
-          "ThreadHelperLibrary": "1.0.0"
-        },
-        "runtime": {
-          "Debugging Testbench.dll": {}
-        }
-      },
       "ThreadHelperLibrary/1.0.0": {
         "runtime": {
           "ThreadHelperLibrary.dll": {}
@@ -22,11 +14,6 @@
     }
   },
   "libraries": {
-    "Debugging Testbench/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "ThreadHelperLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,

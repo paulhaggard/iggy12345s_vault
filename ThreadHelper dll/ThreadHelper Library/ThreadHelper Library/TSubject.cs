@@ -27,7 +27,7 @@ namespace ThreadHelper_Library
             id = ++modCount;   // sets the unique id number and increments the modCount counter
             isExitting = false;
 
-            Mailbox = new Queue<T>();
+            mailbox = new Queue<T>();
             Thread mailboxThread = new Thread(new ThreadStart(MailboxManager));
             mailboxThread.Start();
         }
@@ -66,9 +66,9 @@ namespace ThreadHelper_Library
             // Monitors the mailbox for messages, if it receives one, it triggers the MessageRx event.
             while(!isExitting)
             {
-                if(Mailbox.Count != 0)
+                if(mailbox.Count != 0)
                 {
-                    OnMessageRx(Mailbox.Dequeue());
+                    OnMessageRx(mailbox.Dequeue());
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace ThreadHelper_Library
         {
             // Receives a message
             // Is a method for the ThreadLauncher to place mail into the mailbox
-            Mailbox.Enqueue(message);   // Receives the message
+            mailbox.Enqueue(message);   // Receives the message
         }
     }
 

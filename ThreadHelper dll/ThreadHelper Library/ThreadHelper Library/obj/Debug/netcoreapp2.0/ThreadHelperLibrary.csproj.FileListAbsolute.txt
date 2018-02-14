@@ -6,3 +6,4 @@ C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper L
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelperLibrary.AssemblyInfo.cs
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelperLibrary.dll
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelperLibrary.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelperLibrary.csprojResolveAssemblyReference.cache

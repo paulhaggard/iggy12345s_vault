@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ThreadHelper Library\ThreadHelper Library.csproj" />
+    <ProjectReference Include="..\ThreadHelper Library\ThreadHelperLibrary.csproj" />
   </ItemGroup>
 
 </Project>
