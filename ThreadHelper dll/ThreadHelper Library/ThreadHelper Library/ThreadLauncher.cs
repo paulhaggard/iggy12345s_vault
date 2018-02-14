@@ -10,6 +10,9 @@ namespace ThreadHelper_Library
     {
         // Contains and launches threads as told to.
 
+        public delegate void MessageRxHandler(MessageEventArgs<T> e);
+        public event MessageRxHandler MessageRx;
+
         private List<TSubject<T>> modules; // List of the modules in the list of threads
         private List<Thread> Threads;   // List of threads to be launched.
         private List<bool> isLaunched;        // Used to tell when the threads have been launched
@@ -170,6 +173,7 @@ namespace ThreadHelper_Library
         {
             // Triggered when another module tries to send out a message
             CommQueue.Enqueue(e.Message);   // Enqueues the message
+            MessageRx?.Invoke(e);
         }
 
         protected virtual void OnMessageTx(CommQueueData<T> e)

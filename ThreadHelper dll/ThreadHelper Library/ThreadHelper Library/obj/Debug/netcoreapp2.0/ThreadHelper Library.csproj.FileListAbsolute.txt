@@ -1,0 +1,9 @@
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\bin\Debug\netcoreapp2.0\ThreadHelper Library.deps.json
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\bin\Debug\netcoreapp2.0\ThreadHelper Library.dll
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\bin\Debug\netcoreapp2.0\ThreadHelper Library.pdb
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelper Library.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelper Library.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelper Library.AssemblyInfoInputs.cache
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelper Library.AssemblyInfo.cs
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelper Library.dll
+G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Debug\netcoreapp2.0\ThreadHelper Library.pdb
