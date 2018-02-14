@@ -5,6 +5,9 @@ namespace Debugging_Testbench
 {
     class Program
     {
+        static int completed = 0;
+        // To do:
+        // make the threadLauncher exit after receiving all of the messages from all of the threads.
         static void Main(string[] args)
         {
             //Console.WriteLine("Hello World!");

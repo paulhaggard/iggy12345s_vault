@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ThreadHelper_Library
 {
@@ -14,7 +15,7 @@ namespace ThreadHelper_Library
         public event MessageRxHandler MessageRx;
 
         private List<TSubject<T>> modules; // List of the modules in the list of threads
-        private List<Thread> Threads;   // List of threads to be launched.
+        private List<Task> Tasks;   // List of threads to be launched.
         private List<bool> isLaunched;        // Used to tell when the threads have been launched
         private Queue<CommQueueData<T>> CommQueue;     // Queue used for callback communication
         private bool isExitting;
@@ -22,13 +23,13 @@ namespace ThreadHelper_Library
 
         public ThreadLauncher()
         {
-            Threads = new List<Thread>();
+            Tasks = new List<Task>();
             modules = new List<TSubject<T>>();
             isLaunched = new List<bool>();
             CommQueue = new Queue<CommQueueData<T>>();
             isExitting = false;
 
-            Thread TxThread = new Thread(new ThreadStart(TxManager));
+            Task TxThread = new Task(new Action(TxManager));
             TxThread.Start();   // Starts the TxManager
         }
 
@@ -44,8 +45,8 @@ namespace ThreadHelper_Library
             do
             {
                 isDone = true;
-                foreach (Thread t in Threads)
-                    if (t.IsAlive)
+                foreach (Task t in Tasks)
+                    if (t == null ? true:false)
                         isDone = false;
 
             } while (!isDone && iter++ < 5000);
@@ -56,7 +57,7 @@ namespace ThreadHelper_Library
             // Adds a module to the list of handled threads
             modules.Add(module);                                    // Adds the module to the list
             module.MessageTx += OnMessageRx;                        // Subscribes to the module's messageTx event
-            Threads.Add(new Thread(new ThreadStart(module.Start))); // Adds the thread to the list
+            Tasks.Add(new Task(new Action(module.Start))); // Adds the thread to the list
             isLaunched.Add(false);                                  // Adds a boolean status flag to the list as well
         }
 
@@ -67,11 +68,8 @@ namespace ThreadHelper_Library
                 throw new InvalidOperationException("Cannot halt a thread that is already launched!");
             else
             {
-                if (isLaunched[index])
-                    Threads[index].Abort(); // Aborts the thread if it's currently running.
-
                 // Removes the thread from the list and its corresponding status boolean
-                Threads.RemoveAt(index);
+                Tasks.RemoveAt(index);
                 isLaunched.RemoveAt(index);
                 modules.RemoveAt(index);
             }
@@ -90,7 +88,7 @@ namespace ThreadHelper_Library
         public void LaunchAll()
         {
             // Launches all of the modules
-            for(int i = 0; i < Threads.Count; i++)
+            for(int i = 0; i < Tasks.Count; i++)
             {
                 Launch(i);
             }
@@ -102,7 +100,7 @@ namespace ThreadHelper_Library
             if (isLaunched[index])
                 throw new InvalidOperationException("Can't launch a thread that's already launched!");
             isLaunched[index] = true;
-            Threads[index].Start();
+            Tasks[index].Start();
         }
 
         public void Launch(List<int> index)
@@ -124,7 +122,7 @@ namespace ThreadHelper_Library
         public void AbortAll()
         {
             // Launches all of the modules
-            for (int i = 0; i < Threads.Count; i++)
+            for (int i = 0; i < Tasks.Count; i++)
             {
                 Abort(i);
             }
@@ -135,7 +133,7 @@ namespace ThreadHelper_Library
             // Launches an individual module
             if (!isLaunched[index])
                 throw new InvalidOperationException("Can't abort a thread that isn't already launched!");
-            Threads[index].Abort();
+            //Tasks[index].Abort();
             isLaunched[index] = false;
         }
 
