@@ -10,10 +10,10 @@ namespace ThreadHelper_Library
          * It provides a method for the ThreadCaller class to execute when the process should be launched.
          */
 
-        private long id;
-        private static long modCount;
-        private Queue<T> mailbox;
-        private bool isExitting;
+        protected long id;
+        protected static long modCount;
+        protected Queue<T> mailbox;
+        protected bool isExitting;
 
         private string name;    // Used for addressing this module in messages.
 
@@ -27,7 +27,7 @@ namespace ThreadHelper_Library
             id = ++modCount;   // sets the unique id number and increments the modCount counter
             isExitting = false;
 
-            mailbox = new Queue<T>();
+            Mailbox = new Queue<T>();
             Thread mailboxThread = new Thread(new ThreadStart(MailboxManager));
             mailboxThread.Start();
         }
@@ -66,9 +66,9 @@ namespace ThreadHelper_Library
             // Monitors the mailbox for messages, if it receives one, it triggers the MessageRx event.
             while(!isExitting)
             {
-                if(mailbox.Count != 0)
+                if(Mailbox.Count != 0)
                 {
-                    OnMessageRx(mailbox.Dequeue());
+                    OnMessageRx(Mailbox.Dequeue());
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace ThreadHelper_Library
         {
             // Receives a message
             // Is a method for the ThreadLauncher to place mail into the mailbox
-            mailbox.Enqueue(message);   // Receives the message
+            Mailbox.Enqueue(message);   // Receives the message
         }
     }
 
