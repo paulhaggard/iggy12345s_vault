@@ -8,7 +8,6 @@ namespace IggysDefaultModuleLibrary
     {
         // This class is used as an outline for every other module in the library.
 
-        private bool isExitting;    // Determines when the module is closing down
         private QSM QSM;            // State machine service for the module
 
         // Constructor

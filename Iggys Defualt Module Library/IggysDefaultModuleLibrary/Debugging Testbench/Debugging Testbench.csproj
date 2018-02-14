@@ -13,6 +13,9 @@
     <Reference Include="IggysDefaultModuleLibrary">
       <HintPath>..\IggysDefaultModuleLibrary\bin\Debug\netcoreapp2.0\IggysDefaultModuleLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="IggysQSM">
+      <HintPath>..\..\..\Iggys Queued State Machine\IggysQSM\IggysQSM\bin\Debug\netcoreapp2.0\IggysQSM.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
