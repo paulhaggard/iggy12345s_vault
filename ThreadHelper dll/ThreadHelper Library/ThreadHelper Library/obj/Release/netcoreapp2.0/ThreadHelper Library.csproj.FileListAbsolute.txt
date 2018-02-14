@@ -7,3 +7,12 @@ G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\Thre
 G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.AssemblyInfo.cs
 G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.dll
 G:\Github Repository\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\bin\Release\netcoreapp2.0\ThreadHelper Library.deps.json
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\bin\Release\netcoreapp2.0\ThreadHelper Library.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\bin\Release\netcoreapp2.0\ThreadHelper Library.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.csprojResolveAssemblyReference.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.csproj.CoreCompileInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.AssemblyInfoInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.AssemblyInfo.cs
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\obj\Release\netcoreapp2.0\ThreadHelper Library.pdb

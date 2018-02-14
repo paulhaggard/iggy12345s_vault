@@ -11,6 +11,7 @@ namespace Debugging_Testbench
         {
             Console.WriteLine("Hello World from thread {0}", Id);
             OnMessageTx(new MessageEventArgs<string>(new CommQueueData<string>("Hello World from thread " + Id)));
+            //Exit();
         }
 
         protected override void OnMessageTx(MessageEventArgs<string> e)
