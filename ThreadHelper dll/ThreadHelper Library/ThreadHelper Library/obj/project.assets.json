@@ -664,7 +664,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aaron\\.nuget\\packages\\": {},
+    "C:\\Users\\Aaron\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
@@ -674,18 +674,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj",
+      "projectUniqueName": "G:\\Github Repository\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj",
       "projectName": "ThreadHelperLibrary",
-      "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj",
-      "packagesPath": "C:\\Users\\aaron\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\obj\\",
+      "projectPath": "G:\\Github Repository\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj",
+      "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
+      "outputPath": "G:\\Github Repository\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],

@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IggysModularProjectTemplate", "IggysModularProjectTemplate\IggysModularProjectTemplate.csproj", "{3BE2F50B-F43B-43C5-AB21-D0922319DDF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IggysModularProjectTemplate", "IggysModularProjectTemplate\IggysModularProjectTemplate.csproj", "{3BE2F50B-F43B-43C5-AB21-D0922319DDF3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IggysQSM", "..\Iggys Queued State Machine\IggysQSM\IggysQSM\IggysQSM.csproj", "{751617F7-F597-45A1-8E19-685223D2EBE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Required Projects", "Required Projects", "{C36CA955-F746-4CA4-AD72-718F862D8078}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadHelperLibrary", "..\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\ThreadHelperLibrary.csproj", "{7A041660-355F-46E0-8339-7200A4B74773}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,21 @@ Global
 		{3BE2F50B-F43B-43C5-AB21-D0922319DDF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BE2F50B-F43B-43C5-AB21-D0922319DDF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BE2F50B-F43B-43C5-AB21-D0922319DDF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{751617F7-F597-45A1-8E19-685223D2EBE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751617F7-F597-45A1-8E19-685223D2EBE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751617F7-F597-45A1-8E19-685223D2EBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751617F7-F597-45A1-8E19-685223D2EBE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A041660-355F-46E0-8339-7200A4B74773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A041660-355F-46E0-8339-7200A4B74773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A041660-355F-46E0-8339-7200A4B74773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A041660-355F-46E0-8339-7200A4B74773}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{751617F7-F597-45A1-8E19-685223D2EBE7} = {C36CA955-F746-4CA4-AD72-718F862D8078}
+		{7A041660-355F-46E0-8339-7200A4B74773} = {C36CA955-F746-4CA4-AD72-718F862D8078}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61765B4D-BFA2-4D84-995D-14EBF5C7E700}

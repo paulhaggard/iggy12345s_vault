@@ -5,4 +5,9 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Iggys Queued State Machine\IggysQSM\IggysQSM\IggysQSM.csproj" />
+    <ProjectReference Include="..\..\ThreadHelper dll\ThreadHelper Library\ThreadHelper Library\ThreadHelperLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

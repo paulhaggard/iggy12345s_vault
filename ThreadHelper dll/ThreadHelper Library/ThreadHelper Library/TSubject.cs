@@ -20,12 +20,13 @@ namespace ThreadHelper_Library
         public string Name { get => name; set => name = value; }
         public long Id { get => id; set => id = value; }
         public static long ModCount { get => modCount; set => modCount = value; }
+        public bool IsExitting { get => isExitting; set => isExitting = value; }
 
         //Constructor
         public TSubject()
         {
             id = ++modCount;   // sets the unique id number and increments the modCount counter
-            isExitting = false;
+            IsExitting = false;
 
             mailbox = new Queue<T>();
             Thread mailboxThread = new Thread(new ThreadStart(MailboxManager));
@@ -34,7 +35,7 @@ namespace ThreadHelper_Library
 
         public virtual void Exit()
         {
-            isExitting = true;
+            IsExitting = true;
         }
 
         // Must be called on the start of the thread call
@@ -64,7 +65,7 @@ namespace ThreadHelper_Library
         private void MailboxManager()
         {
             // Monitors the mailbox for messages, if it receives one, it triggers the MessageRx event.
-            while(!isExitting)
+            while(!IsExitting)
             {
                 if(mailbox.Count != 0)
                 {

@@ -196,6 +196,26 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "IggysQSM/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/IggysQSM.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IggysQSM.dll": {}
+        }
+      },
+      "ThreadHelperLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/ThreadHelperLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ThreadHelperLibrary.dll": {}
+        }
       }
     }
   },
@@ -656,11 +676,23 @@
         "netstandard.library.2.0.0.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "IggysQSM/1.0.0": {
+      "type": "project",
+      "path": "../../Iggys Queued State Machine/IggysQSM/IggysQSM/IggysQSM.csproj",
+      "msbuildProject": "../../Iggys Queued State Machine/IggysQSM/IggysQSM/IggysQSM.csproj"
+    },
+    "ThreadHelperLibrary/1.0.0": {
+      "type": "project",
+      "path": "../../ThreadHelper dll/ThreadHelper Library/ThreadHelper Library/ThreadHelperLibrary.csproj",
+      "msbuildProject": "../../ThreadHelper dll/ThreadHelper Library/ThreadHelper Library/ThreadHelperLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "Microsoft.NETCore.App >= 2.0.0"
+      "IggysQSM >= 1.0.0",
+      "Microsoft.NETCore.App >= 2.0.0",
+      "ThreadHelperLibrary >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -698,7 +730,14 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "G:\\Github Repository\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj": {
+              "projectPath": "G:\\Github Repository\\iggy12345s_vault\\ThreadHelper dll\\ThreadHelper Library\\ThreadHelper Library\\ThreadHelperLibrary.csproj"
+            },
+            "G:\\Github Repository\\iggy12345s_vault\\Iggys Queued State Machine\\IggysQSM\\IggysQSM\\IggysQSM.csproj": {
+              "projectPath": "G:\\Github Repository\\iggy12345s_vault\\Iggys Queued State Machine\\IggysQSM\\IggysQSM\\IggysQSM.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

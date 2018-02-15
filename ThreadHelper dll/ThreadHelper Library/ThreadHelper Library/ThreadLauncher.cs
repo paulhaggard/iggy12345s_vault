@@ -14,12 +14,22 @@ namespace ThreadHelper_Library
         public delegate void MessageRxHandler(MessageEventArgs<T> e);
         public event MessageRxHandler MessageRx;
 
-        private List<TSubject<T>> modules; // List of the modules in the list of threads
-        private List<Action> Tasks;   // List of threads to be launched.
-        private List<bool> isLaunched;        // Used to tell when the threads have been launched
-        private Queue<CommQueueData<T>> CommQueue;     // Queue used for callback communication
+        private List<TSubject<T>> modules;              // List of the modules in the list of threads
+        private List<Action> Tasks;                     // List of threads to be launched.
+        private List<bool> isLaunched;                  // Used to tell when the threads have been launched
+        private Queue<CommQueueData<T>> CommQueue;      // Queue used for callback communication
         private bool isExitting;
 
+        public bool IsActive { get => checkActivity(); }
+
+        private bool checkActivity()
+        {
+            // Determines if any of the modules are currently running
+            bool temp = false;
+            foreach (bool activity in isLaunched)
+                temp = activity ? true : temp;
+            return temp;
+        }
 
         public ThreadLauncher()
         {
@@ -57,7 +67,7 @@ namespace ThreadHelper_Library
             // Adds a module to the list of handled threads
             modules.Add(module);                                    // Adds the module to the list
             module.MessageTx += OnMessageRx;                        // Subscribes to the module's messageTx event
-            Tasks.Add(new Action(module.Start)); // Adds the thread to the list
+            Tasks.Add(new Action(module.Start));                    // Adds the thread to the list
             isLaunched.Add(false);                                  // Adds a boolean status flag to the list as well
         }
 
@@ -81,6 +91,10 @@ namespace ThreadHelper_Library
             else
             {
                 // Removes the thread from the list and its corresponding status boolean
+
+                if(isLaunched[index])
+                    Abort(index);       // Aborts the task if it's running.
+
                 Tasks.RemoveAt(index);
                 isLaunched.RemoveAt(index);
                 modules.RemoveAt(index);
@@ -142,16 +156,20 @@ namespace ThreadHelper_Library
 
         public void Abort(int index)
         {
-            // Launches an individual module
+            // Stops an individual module
             if (!isLaunched[index])
                 throw new InvalidOperationException("Can't abort a thread that isn't already launched!");
-            //Tasks[index].Abort();
-            isLaunched[index] = false;
+
+            modules[index].Exit();                  // Tells the module to stop
+
+            while (!modules[index].IsExitting) ;    // Waits until the module has finished exitting
+
+            isLaunched[index] = false;              // Sets the status boolean
         }
 
         public void Abort(List<int> index)
         {
-            // Launches a select list of modules
+            // Stops a select list of modules
             foreach (int i in index)
             {
                 Abort(i);
@@ -160,7 +178,7 @@ namespace ThreadHelper_Library
 
         public void Abort(int[] index)
         {
-            // Launches a select list of modules
+            // Stops a select list of modules
             Abort(index.ToList());
         }
 
