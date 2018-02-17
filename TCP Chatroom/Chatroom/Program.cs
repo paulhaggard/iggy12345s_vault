@@ -45,6 +45,7 @@ namespace Chatroom
                 while(entry != "$Exit")
                 {
                     entry = Console.ReadLine();
+                    entry = entry.Replace('\n', ' ');
                     server.SendMessage(entry);
                 }
                 server.Close();
@@ -69,6 +70,7 @@ namespace Chatroom
                 while (entry != "$Exit")
                 {
                     entry = Console.ReadLine();
+                    entry = entry.Replace('\n', ' ');
                     server.SendMessage(entry);
                 }
                 server.Close();
