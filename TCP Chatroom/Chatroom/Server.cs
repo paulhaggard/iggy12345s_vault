@@ -193,9 +193,11 @@ namespace Chatroom
                     bool duplicant = false;
                     do
                     {
+                        duplicant = false;
                         TargetedTx(stream, "Username:");
                         while ((i = stream.Read(responses, 0, responses.Length)) <= 0) ; // Wait until the person responds, or times out
-                        username = Encoding.ASCII.GetString(responses);
+
+                        username = Encoding.ASCII.GetString(responses, 0, i);
 
                         while (clientListEditStatus) ;  // Waits until any pending removals are finished
 

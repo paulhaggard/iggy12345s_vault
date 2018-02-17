@@ -26,6 +26,8 @@ namespace Chatroom
         private Thread Tx;
         private NetworkStream stream;
         private bool isExitting;
+        private bool isReading;
+        private bool isTransmitting;
         private Queue<string> TxQueue;
 
         public TcpClient ServerObj { get => server; set => server = value; }
@@ -40,6 +42,9 @@ namespace Chatroom
             Rx = new Thread(new ThreadStart(RxManager));
             Tx = new Thread(new ThreadStart(TxManager));
             TxQueue = new Queue<string>();
+            isReading = false;
+            isTransmitting = false;
+            isExitting = false;
         }
 
         public void Start()
@@ -56,6 +61,7 @@ namespace Chatroom
             isExitting = true;
             byte[] msg = Encoding.ASCII.GetBytes("Connection.Close");
             stream.Write(msg, 0, msg.Length);
+            while (isTransmitting || isReading) ;   // Wait until the other modules have exitted.
             stream.Close();
             server.Close();
         }
@@ -66,6 +72,7 @@ namespace Chatroom
             Console.WriteLine("Receiver manager initialized, awaiting incoming messages...");
             while (!isExitting)
             {
+                isReading = true;
                 byte[] bytes = new byte[256];
                 // Checks if it can read
                 int count = stream.Read(bytes, 0, bytes.Length);
@@ -75,6 +82,7 @@ namespace Chatroom
                     string msg = Encoding.ASCII.GetString(bytes, 0, count);
                     OnRxMessageEvent(msg);  // Triggers the receive event if a message was found
                 }
+                isReading = false;
             }
         }
 
@@ -84,6 +92,7 @@ namespace Chatroom
             Console.WriteLine("Transmission manager initialized, awaiting outgoing messages...");
             while (!isExitting)
             {
+                isTransmitting = true;
                 if (TxQueue.Count > 0)
                 {
                     // Transmits a message if there exists one in the queue
@@ -91,6 +100,7 @@ namespace Chatroom
                     // Transmits to the host
                     stream.Write(msg, 0, msg.Length);
                 }
+                isTransmitting = false;
             }
         }
 
