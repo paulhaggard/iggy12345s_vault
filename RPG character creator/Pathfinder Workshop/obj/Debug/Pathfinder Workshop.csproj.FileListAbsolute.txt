@@ -10,3 +10,15 @@ G:\Projects\Software Projects\C#\Pathfinder Workshop\Pathfinder Workshop\Pathfin
 G:\Projects\Software Projects\C#\Pathfinder Workshop\Pathfinder Workshop\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.Main_host.resources
 G:\Projects\Software Projects\C#\Pathfinder Workshop\Pathfinder Workshop\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.CharacterCreator.resources
 G:\Projects\Software Projects\C#\Pathfinder Workshop\Pathfinder Workshop\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.PlayerCreator.resources
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\bin\Debug\Pathfinder Workshop.exe.config
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\bin\Debug\Pathfinder Workshop.exe
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\bin\Debug\Pathfinder Workshop.pdb
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.CharacterCreator.resources
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.Main_host.resources
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.PlayerCreator.resources
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.Properties.Resources.resources
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.csproj.GenerateResource.Cache
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.exe
+G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.pdb

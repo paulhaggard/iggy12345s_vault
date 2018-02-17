@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Character.cs" />
-    <Compile Include="Classes\File.cs" />
     <Compile Include="Classes\Read From File\Class.cs" />
     <Compile Include="Classes\Read From File\Abilities\Feat.cs" />
     <Compile Include="Classes\Game.cs" />
@@ -110,9 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Database.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
