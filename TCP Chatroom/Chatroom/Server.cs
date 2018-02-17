@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Threading;
 
 namespace Chatroom
 {
@@ -33,10 +34,10 @@ namespace Chatroom
         private TcpListener server;
         private int port;
         private IPAddress ip;
-        private Action Rx;
-        private Action Tx;
-        private Action ConnectionMgr;
-        private Action DisConnectionMgr;
+        private Thread Rx;
+        private Thread Tx;
+        private Thread ConnectionMgr;
+        private Thread DisConnectionMgr;
         private bool isExitting;
         private Queue<string> TxQueue;
         private Queue<int> ClosingQueue;
@@ -57,10 +58,10 @@ namespace Chatroom
             this.ip = ip;
             server = new TcpListener(ip, port);
             users = new List<NetUser>();
-            Rx = new Action(RxManager);
-            Tx = new Action(TxManager);
-            ConnectionMgr = new Action(ConnectionManager);
-            DisConnectionMgr = new Action(DisConnectionManager);
+            Rx = new Thread(new ThreadStart(RxManager));
+            Tx = new Thread(new ThreadStart(TxManager));
+            ConnectionMgr = new Thread(new ThreadStart(ConnectionManager));
+            DisConnectionMgr = new Thread(new ThreadStart(DisConnectionManager));
             TxQueue = new Queue<string>();
             ClosingQueue = new Queue<int>();
             clientListEditStatus = false;
@@ -68,15 +69,15 @@ namespace Chatroom
             transmitStatus = false;
         }
 
-        public async void Start()
+        public void Start()
         {
             Console.WriteLine("Starting Server.");
             ConnectionCount = 0;
             server.Start();
-            await Task.Run(Rx);
-            await Task.Run(Tx);
-            await Task.Run(ConnectionMgr);
-            await Task.Run(DisConnectionMgr);
+            Rx.Start();
+            Tx.Start();
+            ConnectionMgr.Start();
+            DisConnectionMgr.Start();
         }
 
         public void Close()
@@ -292,6 +293,7 @@ namespace Chatroom
                     OnCntEvent(users.Last().Id);
 
                     TxQueue.Enqueue(username + " has joined the room!");
+                    Console.WriteLine("{0} has joined the room!", username);
 
                     clientListEditStatus = false;
                 }
@@ -319,6 +321,8 @@ namespace Chatroom
                     {
                         if(id == users[i].Id)
                         {
+                            Console.WriteLine("{0} has left the room.", users[i].Username);
+                            TxQueue.Enqueue(users[i].Username + " has left the room.");
                             users[i].Close();
                             users.RemoveAt(i);
                             break;

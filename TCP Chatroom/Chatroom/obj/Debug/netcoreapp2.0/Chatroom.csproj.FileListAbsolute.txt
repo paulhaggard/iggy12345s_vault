@@ -9,3 +9,14 @@ C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Cha
 C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.AssemblyInfo.cs
 C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.dll
 C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.pdb
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.deps.json
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.runtimeconfig.json
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.runtimeconfig.dev.json
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.dll
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.pdb
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.AssemblyInfoInputs.cache
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.AssemblyInfo.cs
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.dll
+G:\Github Repository\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.pdb

@@ -40,7 +40,6 @@ namespace Chatroom
                 Server server = new Server(port, ip);
                 server.RxMessageEvent += OnRx;
                 server.Start();
-                Console.Clear();
                 Console.WriteLine("Welcome!");
                 string entry = "";
                 while(entry != "$Exit")
@@ -65,7 +64,6 @@ namespace Chatroom
                 Client server = new Client(port, ip);
                 server.RxMessageEvent += OnRx;
                 server.Start();
-                Console.Clear();
                 Console.WriteLine("Welcome!");
                 string entry = "";
                 while (entry != "$Exit")
