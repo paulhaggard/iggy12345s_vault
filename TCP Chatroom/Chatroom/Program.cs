@@ -39,6 +39,7 @@ namespace Chatroom
                 int port = Convert.ToInt32(Console.ReadLine());
                 Server server = new Server(port, ip);
                 server.RxMessageEvent += OnRx;
+                server.Start();
                 Console.Clear();
                 Console.WriteLine("Welcome!");
                 string entry = "";
@@ -63,6 +64,7 @@ namespace Chatroom
                 int port = Convert.ToInt32(Console.ReadLine());
                 Client server = new Client(port, ip);
                 server.RxMessageEvent += OnRx;
+                server.Start();
                 Console.Clear();
                 Console.WriteLine("Welcome!");
                 string entry = "";
