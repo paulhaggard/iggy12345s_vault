@@ -674,11 +674,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aaron\\source\\repos\\TCPListenerTest\\Chatroom\\Chatroom.csproj",
+      "projectUniqueName": "G:\\Github Repository\\iggy12345s_vault\\TCP Chatroom\\Chatroom\\Chatroom.csproj",
       "projectName": "Chatroom",
-      "projectPath": "C:\\Users\\Aaron\\source\\repos\\TCPListenerTest\\Chatroom\\Chatroom.csproj",
+      "projectPath": "G:\\Github Repository\\iggy12345s_vault\\TCP Chatroom\\Chatroom\\Chatroom.csproj",
       "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aaron\\source\\repos\\TCPListenerTest\\Chatroom\\obj\\",
+      "outputPath": "G:\\Github Repository\\iggy12345s_vault\\TCP Chatroom\\Chatroom\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
