@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Chatroom
 {
@@ -22,8 +22,8 @@ namespace Chatroom
         private TcpClient server;
         private int port;
         private IPAddress ip;
-        private Action Rx;
-        private Action Tx;
+        private Thread Rx;
+        private Thread Tx;
         private NetworkStream stream;
         private bool isExitting;
         private Queue<string> TxQueue;
@@ -37,18 +37,18 @@ namespace Chatroom
             this.port = port;
             this.ip = ip;
             server = new TcpClient();
-            Rx = new Action(RxManager);
-            Tx = new Action(TxManager);
+            Rx = new Thread(new ThreadStart(RxManager));
+            Tx = new Thread(new ThreadStart(TxManager));
             TxQueue = new Queue<string>();
         }
 
-        public async void Start()
+        public void Start()
         {
             Console.WriteLine("Attempting to connect to the host.");
             server.Connect(ip, port);
             stream = server.GetStream();
-            await Task.Run(Rx);
-            await Task.Run(Tx);
+            Rx.Start();
+            Tx.Start();
         }
 
         public void Close()
