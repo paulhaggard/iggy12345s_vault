@@ -1,0 +1,11 @@
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.deps.json
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.runtimeconfig.json
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.runtimeconfig.dev.json
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.dll
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\bin\Debug\netcoreapp2.0\Chatroom.pdb
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.csprojResolveAssemblyReference.cache
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.csproj.CoreCompileInputs.cache
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.AssemblyInfoInputs.cache
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.AssemblyInfo.cs
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.dll
+C:\Users\Aaron\source\repos\TCPListenerTest\Chatroom\obj\Debug\netcoreapp2.0\Chatroom.pdb
