@@ -1,0 +1,11 @@
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Release\netcoreapp2.0\Chatroom.deps.json
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Release\netcoreapp2.0\Chatroom.runtimeconfig.json
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Release\netcoreapp2.0\Chatroom.runtimeconfig.dev.json
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Release\netcoreapp2.0\Chatroom.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\bin\Release\netcoreapp2.0\Chatroom.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Release\netcoreapp2.0\Chatroom.csprojResolveAssemblyReference.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Release\netcoreapp2.0\Chatroom.csproj.CoreCompileInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Release\netcoreapp2.0\Chatroom.AssemblyInfoInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Release\netcoreapp2.0\Chatroom.AssemblyInfo.cs
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Release\netcoreapp2.0\Chatroom.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\TCP Chatroom\Chatroom\obj\Release\netcoreapp2.0\Chatroom.pdb
