@@ -62,6 +62,7 @@ namespace NeuralNetworkFundamentals
         public double Net { get => net; set => net = value; }
         public long ID { get => id; set => id = value; }
         public double Bias { get => bias; set => bias = value; }
+        public double Threshold { get => -bias; set => bias = -value; }
         public double Error { get => error; set => error = value; }
 
         // Constructors
