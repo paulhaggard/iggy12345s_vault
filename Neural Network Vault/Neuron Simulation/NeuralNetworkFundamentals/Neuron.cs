@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Troschuetz.Random;
 
 namespace NeuralNetworkFundamentals
@@ -46,6 +47,8 @@ namespace NeuralNetworkFundamentals
         private double rawInput;            // Inputs into the Neuron if inputLayer is true
 
         private bool[] inputs_collected;    // Specifies whether the inputs for the Neuron have been collected or not
+        private Thread activationThread;    // Used to launch the activation event in a new thread as an asynchronous process.
+        private bool isActivating;          // Flags when the neuron begins and finishes activating.
 
         private ActivationFunction defaultActivation;
         private ActivationParameters defaultParameters;
@@ -92,6 +95,8 @@ namespace NeuralNetworkFundamentals
         private void Setup(double bias = 0,
             ActivationFunction defaultActivation = null, ActivationParameters defaultParameters = null, bool inputLayer = true)
         {
+            activationThread = new Thread(OnActivation);    // Used to make the activation process asynchronous
+
             // Specifies that this neuron is an input neuron
             this.inputLayer = inputLayer;
 
@@ -169,7 +174,7 @@ namespace NeuralNetworkFundamentals
             }
         }
 
-        public virtual double Activate(ActivationFunction type = null, ActivationParameters Params = null)
+        public async virtual void Activate(ActivationFunction type = null, ActivationParameters Params = null)
         {
             // These are the various activation functions that I could find on wikipedia:
             // https://en.wikipedia.org/wiki/Activation_function
@@ -195,9 +200,9 @@ namespace NeuralNetworkFundamentals
                 activation = net;
             }
 
-            OnActiveEvent(new ActivationEventArgs(Activation, id));
+            await Task.Run(new Action(OnActivation));
 
-            return Activation;
+            //return Activation;
         }
 
         public void RandomizeWeights(NormalDistribution rnd)
@@ -286,6 +291,14 @@ namespace NeuralNetworkFundamentals
         protected virtual void OnActiveEvent(ActivationEventArgs e)
         {
             ActiveEvent?.Invoke(this, e);
+        }
+
+        public void OnActivation()
+        {
+            // A helper function used to call the OnActiveEvent event that requires no arguments.
+            isActivating = true;
+            OnActiveEvent(new ActivationEventArgs(activation, id));
+            isActivating = false;
         }
 
         public class ActivationEventArgs : EventArgs

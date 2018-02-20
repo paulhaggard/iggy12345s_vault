@@ -293,6 +293,8 @@ namespace NeuralNetworkFundamentals
                         //if (Error <= errorThreshold)
                             //break;
                     }
+
+                    //Error /= sample_in.Count;   // Calculate the average error of the total training session.
                     //if (Error <= errorThreshold)
                         //break;
                 }
@@ -336,17 +338,6 @@ namespace NeuralNetworkFundamentals
 
             for (int i = layers.Count - 1; i >= 0; i--)
             {
-                for(int j = 0; j < layers[i].Count; j++)
-                {
-                    if(i == layers.Count - 1)
-                    {
-
-                    }
-                }
-            }
-
-            for (int i = layers.Count - 1; i >= 0; i--)
-            {
                 // Does the physical backpropagation
                 for(int j = 0; j < layers[i].Count; j++)
                 {
@@ -367,7 +358,6 @@ namespace NeuralNetworkFundamentals
 
             for (int i = 0; i < layers.Last().Count; i++)
                 ErrorTotal += Math.Pow(Sample[i] - layers.Last()[i].Activation, 2) / 2;
-
             
             return ErrorTotal;
         }
