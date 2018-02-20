@@ -1,0 +1,9 @@
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\bin\Debug\netcoreapp2.0\HttpServerLibrary.deps.json
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\bin\Debug\netcoreapp2.0\HttpServerLibrary.dll
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\bin\Debug\netcoreapp2.0\HttpServerLibrary.pdb
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\obj\Debug\netcoreapp2.0\HttpServerLibrary.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\obj\Debug\netcoreapp2.0\HttpServerLibrary.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\obj\Debug\netcoreapp2.0\HttpServerLibrary.AssemblyInfoInputs.cache
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\obj\Debug\netcoreapp2.0\HttpServerLibrary.AssemblyInfo.cs
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\obj\Debug\netcoreapp2.0\HttpServerLibrary.dll
+G:\Github Repository\iggy12345s_vault\New folder\HttpServerLibrary\obj\Debug\netcoreapp2.0\HttpServerLibrary.pdb
