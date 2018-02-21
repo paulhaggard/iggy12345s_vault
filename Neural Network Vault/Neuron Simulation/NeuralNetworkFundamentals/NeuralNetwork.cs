@@ -294,9 +294,12 @@ namespace NeuralNetworkFundamentals
                             //break;
                     }
 
-                    //Error /= sample_in.Count;   // Calculate the average error of the total training session.
+                    Error /= sample_in.Count;   // Calculate the average error of the total training session.
+                    // Sends all of this iteration's data back to the observers
+                    temp = new TrainingUpdateEventArgs(iter, -1, layers, Error, false);
+                    OnTrainingUpdateEvent(temp);
                     //if (Error <= errorThreshold)
-                        //break;
+                    //break;
                 }
                 OnTrainingFinishEvent();    // Sends out an event notifying that training has completed.
             }
@@ -335,6 +338,48 @@ namespace NeuralNetworkFundamentals
             // Returns the %error the this training sample
 
             // START HERE: https://youtu.be/An5z8lR8asY
+
+            /*
+            List<double> delta_K = new List<double>(layers.Last().Count);   // The deltas for the output neurons
+            List<List<double>> delta_H = new List<List<double>>(layers.Count - 2);      // The deltas for the hidden neurons (excludes the input and output neurons)
+
+            for(int i = layers.Count - 1; i > 0; i--)
+            {
+                // For every layer starting at the output
+
+                if(i != layers.Count - 1)
+                    delta_H.Add(new List<double>(layers[i].Count));
+
+                for (int j = 0; j < layers[i].Count; j++)
+                {
+                    // For every neuron in the selected layer
+                    for(int k = 0; k < layers[i][j].Weights.Count; k++)
+                    {
+                        // for every weight connected to that layer
+                        if (i == layers.Count - 1)
+                        {
+                            // For the output layer use a'(netk) * (tk - Ok
+                            delta_K.Add(layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters)
+                                * (Sample[j] - layers[i][j].Activation));
+                        }
+                        else
+                        {
+                            // For the hidden layers use a'(netk) * sum(weights * delta_H/K from next layer)
+                            double sum = 0;
+
+                            for(int l = 0; l < ((i == (layers.Count - 2))?delta_K.Count:delta_H[i - (layers.Count - 2) - 1].Count); l++)
+                                sum += ((i == (layers.Count - 2)) ? delta_K[l] : delta_H[i - (layers.Count - 2) - 1][l]) * layers[i+1][l].Weights[j];
+
+                            delta_H[i - (layers.Count - 2)].Add(layers[i][j].DefaultActivation.Derivate(layers[i][j].Net, layers[i][j].DefaultParameters)
+                                * sum);
+                        }
+
+                        // Update the weights
+                        layers[i][j].UpdateWeight()
+                    }
+                }
+            }
+            */
 
             for (int i = layers.Count - 1; i >= 0; i--)
             {

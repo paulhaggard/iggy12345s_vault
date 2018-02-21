@@ -32,6 +32,7 @@ namespace NeuralNetworkFundamentals
         // Properties
         private double activation;          // This represents how activated the neuron is
         private List<double> weights;       // Weight to be passed to the next neuron
+        private List<double> prevWeights;   // Weights of the current forward propagation but un-updated from back propagation
         private double net;                 // The net output of the neuron without being activated
         private double bias;                // The bias of the neuron
         private double error;               // Contains the error of the neuron
@@ -48,7 +49,6 @@ namespace NeuralNetworkFundamentals
 
         private bool[] inputs_collected;    // Specifies whether the inputs for the Neuron have been collected or not
         private Thread activationThread;    // Used to launch the activation event in a new thread as an asynchronous process.
-        private bool isActivating;          // Flags when the neuron begins and finishes activating.
 
         private ActivationFunction defaultActivation;
         private ActivationParameters defaultParameters;
@@ -67,6 +67,7 @@ namespace NeuralNetworkFundamentals
         public double Bias { get => bias; set => bias = value; }
         public double Threshold { get => -bias; set => bias = -value; }
         public double Error { get => error; set => error = value; }
+        public List<double> PrevWeights { get => prevWeights; set => prevWeights = value; }
 
         // Constructors
         // These all call the Setup Functions
@@ -120,9 +121,15 @@ namespace NeuralNetworkFundamentals
             this.outputLayer = outputLayer;
 
             weights = weight ?? new List<double>(inputNeurons.Count());   // initial weight value
+            PrevWeights = new List<double>(inputNeurons.Count);
             if (weight == null)
+            {
                 for (int i = 0; i < inputNeurons.Count; i++)
+                {
                     weights.Add(0);
+                    PrevWeights.Add(0);
+                }
+            }
 
             // Sets up the calling map for activating neurons and connecting with the previous layer
             this.inputNeurons = new List<long>(inputNeurons.Count);
@@ -230,6 +237,7 @@ namespace NeuralNetworkFundamentals
             {
                 for (int i = 0; i < weights.Count; i++)
                 {
+                    PrevWeights[i] = weights[i];
                     weights[i] += momentum * prevError + learningRate * error * inputs[i];
                 }
             }
@@ -239,7 +247,7 @@ namespace NeuralNetworkFundamentals
         public void AssignError(double momentum = 1, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
         {
             prevError = error;
-            error = -1 * defaultActivation.Derivate(activation, defaultParameters);
+            error = defaultActivation.Derivate(activation, defaultParameters);
             if(nextLayerNeurons == null)
             {
                 // Performs error calculation for output neurons
@@ -260,7 +268,7 @@ namespace NeuralNetworkFundamentals
                 double sum = 0;
                 for(int i = 0; i < nextLayerNeurons.Count; i++)
                 {
-                    sum += nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Error;
+                    sum += nextLayerNeurons[i].PrevWeights[outputNeurons[i]] * nextLayerNeurons[i].Error;
                 }
                 error *= sum;
             }
@@ -296,9 +304,7 @@ namespace NeuralNetworkFundamentals
         public void OnActivation()
         {
             // A helper function used to call the OnActiveEvent event that requires no arguments.
-            isActivating = true;
             OnActiveEvent(new ActivationEventArgs(activation, id));
-            isActivating = false;
         }
 
         public class ActivationEventArgs : EventArgs

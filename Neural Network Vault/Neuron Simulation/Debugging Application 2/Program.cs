@@ -21,40 +21,43 @@ namespace Debugging_Application_2
             List<int> layerInfo = new List<int>() { 2, 2, 1 };
             Random rnd = new Random();
 
-            NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: 0.5, momentum: rnd.NextDouble());   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
+            NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: 0.01, momentum: rnd.NextDouble());   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
 
             // Sets the weights and biases of the network prior to training
-            
-            /*
+            // START HERE: http://web.cecs.pdx.edu/~mm/MachineLearningSpring2017/NNs.pdf On slide 42
+
             net.Biases = new List<List<double>>()
             {
-                new List<double>(){0,0 },
-                new List<double>(){0.35, 0.35 },
-                new List<double>(){0.6, 0.6 }
+                new List<double>(){0.1, 0.1 },
+                new List<double>(){0.1, 0.1 },
+                new List<double>(){0.1 }
             };
 
             net.Weights = new List<List<List<double>>>()
             {
                 new List<List<double>>()
                 {
-                    new List<double>(){0.15, 0.2 },
-                    new List<double>(){0.25, 0.3 }
+                    new List<double>(){0.1, 0.1 },
+                    new List<double>(){0.1, 0.1 }
                 },
                 new List<List<double>>()
                 {
-                    new List<double>(){0.4, 0.45 },
-                    new List<double>(){0.5, 0.55 }
+                    new List<double>(){0.1, 0.1 },
+                    new List<double>(){0.1, 0.1 }
+                },
+                new List<List<double>>()
+                {
+                    new List<double>(){0.1, 0.1 }
                 }
             };
-            */
             
-            net.GenWeightsAndBiases();
+            //net.GenWeightsAndBiases();
 
-            net.TrainingUpdateEvent += OnTrainingUpdateEvent;
-            net.TrainingFinishEvent += OnTrainingFinishEvent;
+            //net.TrainingUpdateEvent += OnTrainingUpdateEvent;
+            //net.TrainingFinishEvent += OnTrainingFinishEvent;
 
             // Creates the samples and outputs
-            
+            /*
             sampleIn = new List<List<double>>()
             {
                 new List<double>(){0, 0 },
@@ -70,10 +73,11 @@ namespace Debugging_Application_2
                 new List<double>(){1},
                 new List<double>(){0}
             };
+            */
             
 
-            //sampleIn = new List<List<double>>() { new List<double>() { 0.05, 0.1 } };
-            //sampleOut = new List<List<double>>() { new List<double>() { 0.01, 0.99 } };
+            sampleIn = new List<List<double>>() { new List<double>() { 1, 0 }, new List<double>() { 0, 1 } };
+            sampleOut = new List<List<double>>() { new List<double>() { 0.9 }, new List<double>() { 0 } };
 
             // Trains the network
             IsTraining = true;
