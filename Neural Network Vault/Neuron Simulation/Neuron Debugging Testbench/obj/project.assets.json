@@ -689,9 +689,9 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Neuron Debugging Testbench.csproj",
-      "projectName": "Neuron Debugging Testbench",
-      "projectPath": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Neuron Debugging Testbench.csproj",
+      "projectUniqueName": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Single Neuron Debugging Testbench.csproj",
+      "projectName": "Single Neuron Debugging Testbench",
+      "projectPath": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Single Neuron Debugging Testbench.csproj",
       "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
       "outputPath": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\obj\\",
       "projectStyle": "PackageReference",

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NeuralNetworkFundamentals;
 using static NeuralNetworkFundamentals.Neuron;
 
-namespace Neuron_Debugging_Testbench
+namespace Single_Neuron_Debugging_Testbench
 {
     class Program
     {
@@ -45,11 +45,11 @@ namespace Neuron_Debugging_Testbench
             {
                 // Checks and reports the error of the neuron to the console
                 Console.WriteLine("The output of the neuron is {0} and should be {1}", neuronTest.Activation, expectedOutput);
-                neuronTest.AssignError(1, 0.5, expectedOutput, AdjustValues: false);    // Calculates the derivatives of the neuron's error
+                neuronTest.AssignError(1, 0.01, expectedOutput, AdjustValues: false);    // Calculates the derivatives of the neuron's error
                 Console.WriteLine("The error of the neuron was {0}", neuronTest.Error);
                 double prevBias = neuronTest.Bias;
                 double prevWeight = neuronTest.Weights[0];
-                neuronTest.AdjustValues(1, 0.5, expectedOutput);                        // Assigns the gradient to the weight and bias.
+                neuronTest.AdjustValues(1, 0.01, expectedOutput);                        // Assigns the gradient to the weight and bias.
                 Console.WriteLine("The Bias was changed by a factor of {0} to {1} from {2}", prevBias - neuronTest.Bias, neuronTest.Bias, prevBias);
                 Console.WriteLine("The Weight was changed by a factor of {0} to {1} from {2}", prevWeight - neuronTest.Weights[0], neuronTest.Weights[0], prevWeight);
             }

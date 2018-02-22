@@ -250,8 +250,11 @@ namespace NeuralNetworkFundamentals
             // Sets up the binomial distribution random number generator
             BinomialDistribution rndBin = new BinomialDistribution();
 
+            /*
             trainingThread = new Thread(new ThreadStart(subTrain));
             trainingThread.Start();
+            */
+            subTrain();
 
             void subTrain()
             {

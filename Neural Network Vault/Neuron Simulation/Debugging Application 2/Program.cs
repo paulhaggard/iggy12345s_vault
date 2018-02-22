@@ -21,11 +21,13 @@ namespace Debugging_Application_2
             List<int> layerInfo = new List<int>() { 2, 2, 1 };
             Random rnd = new Random();
 
-            NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: 0.01, momentum: rnd.NextDouble());   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
+            NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: 0.01);   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
+            net.TrainingUpdateEvent += OnTrainingUpdateEvent;
+            net.TrainingFinishEvent += OnTrainingFinishEvent;
 
             // Sets the weights and biases of the network prior to training
             // START HERE: http://web.cecs.pdx.edu/~mm/MachineLearningSpring2017/NNs.pdf On slide 42
-
+            
             net.Biases = new List<List<double>>()
             {
                 new List<double>(){0.1, 0.1 },
@@ -50,6 +52,7 @@ namespace Debugging_Application_2
                     new List<double>(){0.1, 0.1 }
                 }
             };
+            
             
             //net.GenWeightsAndBiases();
 
