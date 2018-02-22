@@ -56,11 +56,8 @@ namespace Debugging_Application_2
             
             //net.GenWeightsAndBiases();
 
-            //net.TrainingUpdateEvent += OnTrainingUpdateEvent;
-            //net.TrainingFinishEvent += OnTrainingFinishEvent;
-
             // Creates the samples and outputs
-            /*
+            
             sampleIn = new List<List<double>>()
             {
                 new List<double>(){0, 0 },
@@ -76,11 +73,11 @@ namespace Debugging_Application_2
                 new List<double>(){1},
                 new List<double>(){0}
             };
-            */
+            
             
 
-            sampleIn = new List<List<double>>() { new List<double>() { 1, 0 }, new List<double>() { 0, 1 } };
-            sampleOut = new List<List<double>>() { new List<double>() { 0.9 }, new List<double>() { 0 } };
+            //sampleIn = new List<List<double>>() { new List<double>() { 1, 0 }, new List<double>() { 0, 1 } };
+            //sampleOut = new List<List<double>>() { new List<double>() { 0.9 }, new List<double>() { 0 } };
 
             // Trains the network
             IsTraining = true;
@@ -104,7 +101,7 @@ namespace Debugging_Application_2
         public static void OnTrainingUpdateEvent(object sender, TrainingUpdateEventArgs result)
         {
             // Executes every time the network finishes a training sample
-            Console.WriteLine("Finished Iteration " + result.Iteration);
+            //Console.WriteLine("Finished Iteration " + result.Iteration);
             Console.WriteLine("Sample [{0}, {1}] XOR [{2}]", result.Layers[0][0], result.Layers[0][1], result.Layers.Last()[0].Activation);
             //Console.WriteLine("Error: {0}", result.Error);
         }

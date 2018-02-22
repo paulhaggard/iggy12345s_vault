@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XOR Example", "XOR Example\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetworkFundamentals", "NeuralNetworkFundamentals\NeuralNetworkFundamentals.csproj", "{8B12EC9A-3453-4C7A-9C30-211C5B1A9010}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Single Neuron Debugging Testbench", "Neuron Debugging Testbench\Single Neuron Debugging Testbench.csproj", "{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8B12EC9A-3453-4C7A-9C30-211C5B1A9010}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B12EC9A-3453-4C7A-9C30-211C5B1A9010}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B12EC9A-3453-4C7A-9C30-211C5B1A9010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

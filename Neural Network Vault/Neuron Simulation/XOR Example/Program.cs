@@ -9,7 +9,7 @@ namespace BackPropagationXor
             train();
         }
 
-        class sigmoid
+        class Sigmoid
         {
             public static double output(double x)
             {
@@ -34,7 +34,7 @@ namespace BackPropagationXor
 
             public double output
             {
-                get { return sigmoid.output(weights[0] * inputs[0] + weights[1] * inputs[1] + biasWeight); }
+                get { return Sigmoid.output(weights[0] * inputs[0] + weights[1] * inputs[1] + biasWeight); }
             }
 
             public void randomizeWeights()
@@ -93,12 +93,12 @@ namespace BackPropagationXor
                 // 2) back propagation (adjusts weights)
 
                 // adjusts the weight of the output neuron, based on its error
-                outputNeuron.error = sigmoid.derivative(outputNeuron.output) * (results[i] - outputNeuron.output);
+                outputNeuron.error = Sigmoid.derivative(outputNeuron.output) * (results[i] - outputNeuron.output);
                 outputNeuron.adjustWeights();
 
                 // then adjusts the hidden neurons' weights, based on their errors
-                hiddenNeuron1.error = sigmoid.derivative(hiddenNeuron1.output) * outputNeuron.error * outputNeuron.weights[0];
-                hiddenNeuron2.error = sigmoid.derivative(hiddenNeuron2.output) * outputNeuron.error * outputNeuron.weights[1];
+                hiddenNeuron1.error = Sigmoid.derivative(hiddenNeuron1.output) * outputNeuron.error * outputNeuron.weights[0];
+                hiddenNeuron2.error = Sigmoid.derivative(hiddenNeuron2.output) * outputNeuron.error * outputNeuron.weights[1];
 
                 hiddenNeuron1.adjustWeights();
                 hiddenNeuron2.adjustWeights();

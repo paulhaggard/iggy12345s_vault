@@ -127,8 +127,11 @@ namespace NeuralNetworkFundamentals
                 for (int i = 0; i < inputNeurons.Count; i++)
                 {
                     weights.Add(0);
-                    PrevWeights.Add(0);
                 }
+            }
+            for (int i = 0; i < inputNeurons.Count; i++)
+            {
+                PrevWeights.Add(0);
             }
 
             // Sets up the calling map for activating neurons and connecting with the previous layer
@@ -268,7 +271,7 @@ namespace NeuralNetworkFundamentals
                 double sum = 0;
                 for(int i = 0; i < nextLayerNeurons.Count; i++)
                 {
-                    sum += nextLayerNeurons[i].PrevWeights[outputNeurons[i]] * nextLayerNeurons[i].Error;
+                    sum += nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Error;
                 }
                 error *= sum;
             }
@@ -304,18 +307,20 @@ namespace NeuralNetworkFundamentals
         public void OnActivation()
         {
             // A helper function used to call the OnActiveEvent event that requires no arguments.
-            OnActiveEvent(new ActivationEventArgs(activation, id));
+            OnActiveEvent(new ActivationEventArgs(activation, id, (inputLayer)?rawInput:net));
         }
 
         public class ActivationEventArgs : EventArgs
         {
             public double Activation { get; set; }
             public long ID { get; set; }
+            public double Input { get; set; }
 
-            public ActivationEventArgs(double activation, long ID)
+            public ActivationEventArgs(double activation, long ID, double Input)
             {
                 Activation = activation;
                 this.ID = ID;
+                this.Input = Input;
             }
         }
     }
