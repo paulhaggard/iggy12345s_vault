@@ -35,8 +35,8 @@ namespace NeuralNetworkFundamentals
         private List<double> prevWeights;   // Weights of the current forward propagation but un-updated from back propagation
         private double net;                 // The net output of the neuron without being activated
         private double bias;                // The bias of the neuron
-        private double error;               // Contains the error of the neuron
-        private double prevError;           // previous error, used for momentum
+        private double delta;               // Contains the delta of the neuron
+        private double prevDelta;           // previous delta, used for momentum
 
         private bool inputLayer;            // Determines if the inputs to this neuron will be in the form of Neurons, or doubles
         private bool outputLayer;           // Determines if the outputs of this neuron are the final stage of the network, determines what kind of backpropagation to use
@@ -66,7 +66,7 @@ namespace NeuralNetworkFundamentals
         public long ID { get => id; set => id = value; }
         public double Bias { get => bias; set => bias = value; }
         public double Threshold { get => -bias; set => bias = -value; }
-        public double Error { get => error; set => error = value; }
+        public double Delta { get => delta; set => delta = value; }
         public List<double> PrevWeights { get => prevWeights; set => prevWeights = value; }
 
         // Constructors
@@ -103,8 +103,8 @@ namespace NeuralNetworkFundamentals
 
             this.bias = bias;
 
-            error = 0;  // initializes error value
-            prevError = 0;
+            delta = 0;  // initializes delta value
+            prevDelta = 0;
 
             this.defaultActivation = defaultActivation ?? new Sigmoid(); // default activation function
             this.defaultParameters = defaultParameters ?? new SigmoidParams(); // default activation parameters
@@ -235,45 +235,45 @@ namespace NeuralNetworkFundamentals
 
         public void AdjustValues(double momentum = 1, double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
         {
-            // Backpropagates the values of the weights and biases based on the error of this neuron
+            // Backpropagates the values of the weights and biases based on the delta of this neuron
             if (!inputLayer)
             {
                 for (int i = 0; i < weights.Count; i++)
                 {
                     PrevWeights[i] = weights[i];
-                    weights[i] += momentum * prevError + learningRate * error * inputs[i];
+                    weights[i] += momentum * prevDelta + learningRate * delta * inputs[i];
                 }
             }
-            bias += momentum * prevError + learningRate * error;
+            bias += momentum * prevDelta + learningRate * delta;
         }
 
-        public void AssignError(double momentum = 1, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
+        public void AssignDelta(double momentum = 1, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
         {
-            prevError = error;
-            error = defaultActivation.Derivate(activation, defaultParameters);
+            prevDelta = delta;
+            delta = defaultActivation.Derivate(activation, defaultParameters);
             if(nextLayerNeurons == null)
             {
-                // Performs error calculation for output neurons
+                // Performs delta calculation for output neurons
                 if (outputLayer)
                 {
-                    error *= (ExpectedOutput - activation);
+                    delta *= (ExpectedOutput - activation);
                 }
                 else
                     throw new InvalidOperationException("Invalid Neuron type!",
-                        new Exception("Cannot calculate error of non-output layer neuron without the next layer's neurons."));
+                        new Exception("Cannot calculate delta of non-output layer neuron without the next layer's neurons."));
             }
             else
             {
-                // Performs error calculation for non-output neurons
+                // Performs delta calculation for non-output neurons
                 if (outputNeurons == null)
                     PopulateOutputIndices(nextLayerNeurons);
 
                 double sum = 0;
                 for(int i = 0; i < nextLayerNeurons.Count; i++)
                 {
-                    sum += nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Error;
+                    sum += nextLayerNeurons[i].weights[outputNeurons[i]] * nextLayerNeurons[i].Delta;
                 }
-                error *= sum;
+                delta *= sum;
             }
 
             void PopulateOutputIndices(List<Neuron> nextLayer)
