@@ -392,9 +392,9 @@ namespace NeuralNetworkFundamentals
                          */
 
                     if (i == layers.Count - 1)
-                        layers[i][j].AssignError(momentum, learningRate, Sample[j]);
+                        layers[i][j].AssignDelta(momentum, learningRate, Sample[j]);
                     else
-                        layers[i][j].AssignError(momentum, learningRate, nextLayerNeurons: layers[i + 1]);
+                        layers[i][j].AssignDelta(momentum, learningRate, nextLayerNeurons: layers[i + 1]);
                 }
             }
 

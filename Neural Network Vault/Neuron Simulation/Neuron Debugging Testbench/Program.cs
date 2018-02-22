@@ -11,42 +11,56 @@ namespace Single_Neuron_Debugging_Testbench
 
         static void Main(string[] args)
         {
+            Random rnd = new Random();
+            int numInputs = 2;
+            List<double> weightInit = new List<double>() { rnd.NextDouble(), rnd.NextDouble() };
             // Creates the input to the test neuron
-            Neuron neuronTestInput = new Neuron();
+            List<Neuron> inputs = new List<Neuron>(numInputs);
+            for(int i = 0; i < inputs.Capacity; i++)
+            {
+                inputs.Add(new Neuron());
+            }
             // Creates an output layer neuron
-            Neuron neuronTest = new Neuron(new Neuron[] { neuronTestInput },
-                new List<double>() { 0.1 }, 
+            Neuron neuronTest = new Neuron(inputs,
+                weightInit, 
                 outputLayer: true);
 
             neuronTest.ActiveEvent += OnActivate;
 
-            Random rnd = new Random();
-
             // Our testing sample values
-            double input = 0.05;
-            double expectedOutput = 0.6;
+            List<double> input = new List<double>() { rnd.NextDouble(), rnd.NextDouble()};
+            double expectedOutput = rnd.NextDouble();
             char key;
+
+            Console.WriteLine("For this test, the inputs are: {0} and {1}", input[0], input[1]);
+            Console.WriteLine("The expected output will be: {0}", expectedOutput);
+            Console.WriteLine("The initial weights are {0} and {1}", neuronTest.Weights[0], neuronTest.Weights[1]);
+            Console.WriteLine("The initial bias is {0}", neuronTest.Bias);
 
             do
             {
                 // Prepare the test
                 activationFlag = true;
-                neuronTestInput.RawInput = input;
-                neuronTestInput.Activate(); // Activate the input
+                for(int i = 0; i < inputs.Count; i++)
+                {
+                    // Activate each neuron in the input layer.
+                    inputs[i].RawInput = input[i];
+                    inputs[i].Activate();
+                }
                 while (activationFlag) ;    // Wait for the activation to finish.
 
-                checkError();
+                checkDelta();
 
                 key = Console.ReadKey().KeyChar;
 
             } while (key != 's');
 
-            void checkError()
+            void checkDelta()
             {
                 // Checks and reports the error of the neuron to the console
                 Console.WriteLine("The output of the neuron is {0} and should be {1}", neuronTest.Activation, expectedOutput);
-                neuronTest.AssignError(1, 0.01, expectedOutput, AdjustValues: false);    // Calculates the derivatives of the neuron's error
-                Console.WriteLine("The error of the neuron was {0}", neuronTest.Error);
+                neuronTest.AssignDelta(1, 0.01, expectedOutput, AdjustValues: false);    // Calculates the derivatives of the neuron's error
+                Console.WriteLine("The delta of the neuron was {0}", neuronTest.Delta);
                 double prevBias = neuronTest.Bias;
                 double prevWeight = neuronTest.Weights[0];
                 neuronTest.AdjustValues(1, 0.01, expectedOutput);                        // Assigns the gradient to the weight and bias.

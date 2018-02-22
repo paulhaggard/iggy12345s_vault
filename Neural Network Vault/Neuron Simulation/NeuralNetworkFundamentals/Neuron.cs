@@ -247,10 +247,11 @@ namespace NeuralNetworkFundamentals
             bias += momentum * prevDelta + learningRate * delta;
         }
 
-        public void AssignDelta(double momentum = 1, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
+        public double AssignDelta(double momentum = 1, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
         {
+            // Calculates the delta for the neuron and updates the neuron's value.
             prevDelta = delta;
-            delta = defaultActivation.Derivate(activation, defaultParameters);
+            delta = defaultActivation.Derivate(net, defaultParameters);
             if(nextLayerNeurons == null)
             {
                 // Performs delta calculation for output neurons
@@ -297,6 +298,8 @@ namespace NeuralNetworkFundamentals
 
             if (AdjustValues)
                 this.AdjustValues(momentum, learningRate, ExpectedOutput, nextLayerNeurons);
+
+            return delta;
         }
 
         protected virtual void OnActiveEvent(ActivationEventArgs e)

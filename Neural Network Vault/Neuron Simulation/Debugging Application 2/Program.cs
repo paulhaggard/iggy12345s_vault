@@ -102,7 +102,7 @@ namespace Debugging_Application_2
         {
             // Executes every time the network finishes a training sample
             //Console.WriteLine("Finished Iteration " + result.Iteration);
-            Console.WriteLine("Sample [{0}, {1}] XOR [{2}]", result.Layers[0][0], result.Layers[0][1], result.Layers.Last()[0].Activation);
+            Console.WriteLine("Sample [{0}, {1}] XOR [{2}]", result.Layers[0][0].Activation, result.Layers[0][1].Activation, result.Layers.Last()[0].Activation);
             //Console.WriteLine("Error: {0}", result.Error);
         }
 

@@ -12,3 +12,17 @@ G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Deb
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Debugging Application 2.pdb
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\NeuralNetworkFundamentals.dll
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\NeuralNetworkFundamentals.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\Debugging Application 2.exe.config
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\Debugging Application 2.exe
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\Debugging Application 2.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\NeuralNetworkFundamentals.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\Troschuetz.Random.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\NeuralNetworkFundamentals.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\Troschuetz.Random.xml
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\de\Troschuetz.Random.resources.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\es\Troschuetz.Random.resources.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\bin\Debug\fr\Troschuetz.Random.resources.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Debugging Application 2.csprojResolveAssemblyReference.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Debugging Application 2.csproj.CoreCompileInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Debugging Application 2.exe
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Debugging Application 2.pdb
