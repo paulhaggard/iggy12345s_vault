@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.0",
+    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.0": {
+      "Mutliple Neuron Debugging Testbench/1.0.0": {
+        "dependencies": {
+          "NeuralNetworkFundamentals": "1.0.0"
+        },
+        "runtime": {
+          "Mutliple Neuron Debugging Testbench.dll": {}
+        }
+      },
+      "NeuralNetworkFundamentals/1.0.0": {
+        "runtime": {
+          "NeuralNetworkFundamentals.dll": {}
+        },
+        "resources": {
+          "de/Troschuetz.Random.resources.dll": {
+            "locale": "de"
+          },
+          "es/Troschuetz.Random.resources.dll": {
+            "locale": "es"
+          },
+          "fr/Troschuetz.Random.resources.dll": {
+            "locale": "fr"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Mutliple Neuron Debugging Testbench/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NeuralNetworkFundamentals/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
