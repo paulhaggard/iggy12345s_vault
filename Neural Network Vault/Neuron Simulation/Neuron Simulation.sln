@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debugging Application 2", "Debugging Application 2\Debugging Application 2.csproj", "{F8768F0B-E1A6-435A-B71C-42B27E939F00}"
 EndProject
@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XOR Example", "XOR Example\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetworkFundamentals", "NeuralNetworkFundamentals\NeuralNetworkFundamentals.csproj", "{8B12EC9A-3453-4C7A-9C30-211C5B1A9010}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Single Neuron Debugging Testbench", "Neuron Debugging Testbench\Single Neuron Debugging Testbench.csproj", "{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Single Neuron Debugging Testbench", "Neuron Debugging Testbench\Single Neuron Debugging Testbench.csproj", "{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neuralSimGui", "neuralSimGui\neuralSimGui.csproj", "{F8FC3B8F-1086-4232-855B-1635D9A4564E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EEA34CB-9CDA-46C9-AABD-64C0908B7552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

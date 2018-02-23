@@ -1,0 +1,5 @@
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\Neuron_Simulation.Form1.resources
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.Properties.Resources.resources
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csproj.GenerateResource.Cache
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csproj.CoreCompileInputs.cache
