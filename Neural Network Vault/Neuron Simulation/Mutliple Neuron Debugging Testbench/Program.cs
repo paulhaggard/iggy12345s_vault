@@ -81,11 +81,11 @@ namespace Single_Neuron_Debugging_Testbench
                     //Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight2 - neuronTest2.Weights[1], neuronTest2.Weights[1], prevWeight2);
 
                     Console.WriteLine("The output of the  hidden neuron is {0} and should be {1}", neuronTest1.Activation, expectedOutput[epoch]);
-                    neuronTest2.AssignDelta(1, learningRate, expectedOutput[epoch], AdjustValues: false);    // Calculates the derivatives of the neuron's error
+                    neuronTest1.AssignDelta(1, learningRate, 0, new List<Neuron>() { neuronTest2 }, false);    // Calculates the derivatives of the neuron's error
                     Console.WriteLine("The delta of the second neuron was {0}", neuronTest1.Delta);
                     double prevBias1 = neuronTest1.Bias;
                     double prevWeight1 = neuronTest1.Weights[0];
-                    neuronTest2.AdjustValues(1, learningRate, expectedOutput[epoch]);                        // Assigns the gradient to the weight and bias.
+                    neuronTest1.AdjustValues(1, learningRate, expectedOutput[epoch]);                        // Assigns the gradient to the weight and bias.
                     Console.WriteLine("The Bias was changed by a factor of {0} to {1} from {2}", prevBias1 - neuronTest1.Bias, neuronTest1.Bias, prevBias1);
                     Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight1 - neuronTest1.Weights[0], neuronTest1.Weights[0], prevWeight1);
                     //Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight2 - neuronTest1.Weights[1], neuronTest1.Weights[1], prevWeight2);
