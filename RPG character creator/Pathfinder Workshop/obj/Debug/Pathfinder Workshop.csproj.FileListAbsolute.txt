@@ -22,3 +22,12 @@ G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\
 G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.csproj.CoreCompileInputs.cache
 G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.exe
 G:\Github Repository\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.pdb
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.CharacterCreator.resources
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.Main_host.resources
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.PlayerCreator.resources
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder_Workshop.Properties.Resources.resources
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.csproj.GenerateResource.Cache
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.csproj.CoreCompileInputs.cache
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.exe
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\RPG character creator\Pathfinder Workshop\obj\Debug\Pathfinder Workshop.pdb

@@ -664,7 +664,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aaron\\.nuget\\packages\\": {},
+    "C:\\Users\\Matt\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
@@ -674,18 +674,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "G:\\Github Repository\\iggy12345s_vault\\RPG character creator\\PCGenPlugin\\PCGenPlugin.csproj",
+      "projectUniqueName": "C:\\Users\\Matt\\Documents\\GitHub\\iggy12345s_vault\\RPG character creator\\PCGenPlugin\\PCGenPlugin.csproj",
       "projectName": "PCGenPlugin",
-      "projectPath": "G:\\Github Repository\\iggy12345s_vault\\RPG character creator\\PCGenPlugin\\PCGenPlugin.csproj",
-      "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
-      "outputPath": "G:\\Github Repository\\iggy12345s_vault\\RPG character creator\\PCGenPlugin\\obj\\",
+      "projectPath": "C:\\Users\\Matt\\Documents\\GitHub\\iggy12345s_vault\\RPG character creator\\PCGenPlugin\\PCGenPlugin.csproj",
+      "packagesPath": "C:\\Users\\Matt\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Matt\\Documents\\GitHub\\iggy12345s_vault\\RPG character creator\\PCGenPlugin\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Matt\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],

@@ -35,7 +35,7 @@ namespace Neuron_Simulation
             ErrorLabel.Text = Error.ToString();
         }
 
-        private Test networkTest;
+        private NeuralNetworkFundamentals networkTest;
         private List<List<Tuple<int, int>>> neuronCoord;
         private int plotSize;
         private List<List<List<double>>> prevWeights;
