@@ -689,11 +689,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Single Neuron Debugging Testbench.csproj",
-      "projectName": "Single Neuron Debugging Testbench",
-      "projectPath": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Single Neuron Debugging Testbench.csproj",
+      "projectUniqueName": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\Mutliple Neuron Debugging Testbench.csproj",
+      "projectName": "Mutliple Neuron Debugging Testbench",
+      "projectPath": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\Mutliple Neuron Debugging Testbench.csproj",
       "packagesPath": "C:\\Users\\Matt\\.nuget\\packages\\",
-      "outputPath": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\obj\\",
+      "outputPath": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

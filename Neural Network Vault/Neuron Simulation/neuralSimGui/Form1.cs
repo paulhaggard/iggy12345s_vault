@@ -35,7 +35,7 @@ namespace Neuron_Simulation
             ErrorLabel.Text = Error.ToString();
         }
 
-        private NeuralNetworkFundamentals networkTest;
+        private NeuralNetworkFundamentals.NeuralNetwork networkTest;
         private List<List<Tuple<int, int>>> neuronCoord;
         private int plotSize;
         private List<List<List<double>>> prevWeights;
@@ -43,6 +43,7 @@ namespace Neuron_Simulation
         private Thread DrawingControllerThread;
         private Queue<List<List<Neuron>>> DrawingQueue;
         private bool IsExitting;
+        private List<int> numOfNeurons;
 
         public Form1()
         {
@@ -50,18 +51,18 @@ namespace Neuron_Simulation
             // Loads all of the memory we need to run this network
             IsExitting = false;
             // Generates the neural network
-            networkTest = new Test();
-            networkTest.Net.GenWeightsAndBiases();
-            networkTest.Net.TrainingUpdateEvent += OnTrainingUpdateEvent;
+            networkTest = new NeuralNetworkFundamentals.NeuralNetwork(numOfNeurons);
+            networkTest.GenWeightsAndBiases();
+            networkTest.TrainingUpdateEvent += OnTrainingUpdateEvent;
 
             // Populates the weight and prevWeight lists
-            prevWeights = new List<List<List<double>>>(networkTest.Net.Layers.Count);
-            for (int i = 0; i < networkTest.Net.Layers.Count; i++)
+            prevWeights = new List<List<List<double>>>(networkTest.Layers.Count);
+            for (int i = 0; i < networkTest.Layers.Count; i++)
             {
-                prevWeights.Add(new List<List<double>>(networkTest.Net.Layers[i].Count));
-                for (int j = 0; j < networkTest.Net.Layers[i].Count; j++)
+                prevWeights.Add(new List<List<double>>(networkTest.Layers[i].Count));
+                for (int j = 0; j < networkTest.Layers[i].Count; j++)
                 {
-                    prevWeights[i].Add(networkTest.Net.Layers[i][j].Weight_in);
+                    prevWeights[i].Add(networkTest.Layers[i][j].Weight_in);
                 }
             }
 
