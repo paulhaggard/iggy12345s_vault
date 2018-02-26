@@ -88,7 +88,7 @@ namespace Neuron_Simulation
             DrawingControllerThread.Start();
 
             // Draws the neural network onto the bitmaps and updates the activations and weight displays
-            DrawingQueue.Enqueue(networkTest.Net.Layers);
+            DrawingQueue.Enqueue(networkTest.Layers);
 
             // Sets up the progress bar
             progressBar1.Maximum = networkTest.N_samples * networkTest.Iterations;
