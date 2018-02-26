@@ -45,6 +45,10 @@
             this.Exit = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.ErrorLabel = new System.Windows.Forms.Label();
+            this.numSampCtrl = new System.Windows.Forms.NumericUpDown();
+            this.numItrCtrl = new System.Windows.Forms.NumericUpDown();
+            this.numSampLbl = new System.Windows.Forms.Label();
+            this.numItrLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAWeights)).BeginInit();
@@ -53,6 +57,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAActivations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerBActivations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OutputLayerActivations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSampCtrl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numItrCtrl)).BeginInit();
             this.SuspendLayout();
             // 
             // LayoutBox
@@ -201,11 +207,57 @@
             this.ErrorLabel.Size = new System.Drawing.Size(0, 13);
             this.ErrorLabel.TabIndex = 11;
             // 
+            // numSampCtrl
+            // 
+            this.numSampCtrl.Location = new System.Drawing.Point(375, 487);
+            this.numSampCtrl.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numSampCtrl.Name = "numSampCtrl";
+            this.numSampCtrl.Size = new System.Drawing.Size(120, 20);
+            this.numSampCtrl.TabIndex = 12;
+            // 
+            // numItrCtrl
+            // 
+            this.numItrCtrl.Location = new System.Drawing.Point(375, 526);
+            this.numItrCtrl.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numItrCtrl.Name = "numItrCtrl";
+            this.numItrCtrl.Size = new System.Drawing.Size(118, 20);
+            this.numItrCtrl.TabIndex = 13;
+            // 
+            // numSampLbl
+            // 
+            this.numSampLbl.AutoSize = true;
+            this.numSampLbl.Location = new System.Drawing.Point(375, 471);
+            this.numSampLbl.Name = "numSampLbl";
+            this.numSampLbl.Size = new System.Drawing.Size(68, 13);
+            this.numSampLbl.TabIndex = 14;
+            this.numSampLbl.Text = "num samples";
+            // 
+            // numItrLbl
+            // 
+            this.numItrLbl.AutoSize = true;
+            this.numItrLbl.Location = new System.Drawing.Point(375, 510);
+            this.numItrLbl.Name = "numItrLbl";
+            this.numItrLbl.Size = new System.Drawing.Size(72, 13);
+            this.numItrLbl.TabIndex = 15;
+            this.numItrLbl.Text = "num iterations";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 616);
+            this.Controls.Add(this.numItrLbl);
+            this.Controls.Add(this.numSampLbl);
+            this.Controls.Add(this.numItrCtrl);
+            this.Controls.Add(this.numSampCtrl);
             this.Controls.Add(this.ErrorLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Exit);
@@ -234,6 +286,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAActivations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerBActivations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OutputLayerActivations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSampCtrl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numItrCtrl)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -257,6 +311,10 @@
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label ErrorLabel;
+        private System.Windows.Forms.NumericUpDown numSampCtrl;
+        private System.Windows.Forms.NumericUpDown numItrCtrl;
+        private System.Windows.Forms.Label numSampLbl;
+        private System.Windows.Forms.Label numItrLbl;
     }
 }
 

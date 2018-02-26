@@ -689,11 +689,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Single Neuron Debugging Testbench.csproj",
+      "projectUniqueName": "C:\\Users\\Matt\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Single Neuron Debugging Testbench.csproj",
       "projectName": "Single Neuron Debugging Testbench",
-      "projectPath": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Single Neuron Debugging Testbench.csproj",
+      "projectPath": "C:\\Users\\Matt\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\Single Neuron Debugging Testbench.csproj",
       "packagesPath": "C:\\Users\\Matt\\.nuget\\packages\\",
-      "outputPath": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\obj\\",
+      "outputPath": "C:\\Users\\Matt\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Neuron Debugging Testbench\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
@@ -714,8 +714,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj": {
-              "projectPath": "D:\\game files\\github\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj"
+            "C:\\Users\\Matt\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj": {
+              "projectPath": "C:\\Users\\Matt\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj"
             }
           }
         }
