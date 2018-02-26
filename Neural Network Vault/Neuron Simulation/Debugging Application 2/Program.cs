@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Debugging_Application_2
+namespace Neural_Network_Testbench
 {
     class Program
     {

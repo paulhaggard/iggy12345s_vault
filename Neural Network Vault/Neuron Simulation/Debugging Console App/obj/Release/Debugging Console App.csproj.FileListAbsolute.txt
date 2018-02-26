@@ -1,4 +1,0 @@
-G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Release\Debugging Console App.csproj.CoreCompileInputs.cache
-G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Release\Debugging Console App.csprojResolveAssemblyReference.cache
-G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Release\Neuron_Simulation.Form1.resources
-G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Console App\obj\Release\Debugging Console App.csproj.GenerateResource.Cache
