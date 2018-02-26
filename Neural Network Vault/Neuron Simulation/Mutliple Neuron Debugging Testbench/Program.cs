@@ -16,8 +16,9 @@ namespace Single_Neuron_Debugging_Testbench
             Random rnd = new Random();
             int numInputs = 2;
             double learningRate = 0.5;
-            List<double> weightInit1 = new List<double>() { -0.5, -0.5 };
-            List<double> weightInit2 = new List<double>() { -0.5 };
+            List<double> weightInit1 = new List<double>() { rnd.NextDouble(), rnd.NextDouble() };
+            List<double> weightInit3 = new List<double>() { rnd.NextDouble(), rnd.NextDouble() };
+            List<double> weightInit2 = new List<double>() { rnd.NextDouble(), rnd.NextDouble() };
             // Creates the input to the test neuron
             List<Neuron> inputs = new List<Neuron>(numInputs);
             for (int i = 0; i < inputs.Capacity; i++)
@@ -27,7 +28,9 @@ namespace Single_Neuron_Debugging_Testbench
             // Creates an output layer neuron
             Neuron neuronTest1 = new Neuron(inputs,
                 weightInit1);
-            Neuron neuronTest2 = new Neuron(new List<Neuron>() { neuronTest1 },
+            Neuron neuronTest3 = new Neuron(inputs,
+                weightInit3);
+            Neuron neuronTest2 = new Neuron(new List<Neuron>() { neuronTest1, neuronTest3 },
                 weightInit2,
                 outputLayer: true);
             //Neuron neuronTest = new Neuron(inputs, outputLayer: true);
@@ -51,8 +54,9 @@ namespace Single_Neuron_Debugging_Testbench
             Console.WriteLine("The third inputs is: {0} and {1}", input[2][0], input[2][1]);
             Console.WriteLine("The fourth inputs is: {0} and {1}", input[3][0], input[3][1]);
             Console.WriteLine("The expected outputs will be: {0} and {1} and {2} and {3}", expectedOutput[0], expectedOutput[1], expectedOutput[2], expectedOutput[3]);
-            Console.WriteLine("The initial weights are {0}:{2} and {1}", neuronTest1.Weights[0], neuronTest2.Weights[0], neuronTest1.Weights[1]);
-            Console.WriteLine("The initial bias is {0} and {1}\n", neuronTest1.Bias, neuronTest2.Bias);
+            Console.WriteLine("The initial weights are {0}:{2}, {3}:{4}, and {1}", neuronTest1.Weights[0], neuronTest2.Weights[0], neuronTest1.Weights[1],
+                neuronTest3.Weights[0], neuronTest3.Weights[1]);
+            Console.WriteLine("The initial bias is {0}, {2}, and {1}\n", neuronTest1.Bias, neuronTest2.Bias, neuronTest3.Bias);
             Console.WriteLine("The learning rate is {0}", learningRate);
             Console.WriteLine("The momentum is 1");
 
@@ -60,8 +64,8 @@ namespace Single_Neuron_Debugging_Testbench
             do
             {
                 int currentSet = 0;
-                while (currentSet++ <= 10000)
-                {
+                //while (currentSet++ <= 10000)
+                //{
                     Console.WriteLine("\nIteration {0}", iteration++);
                     // Prepare the test
                     for (int epoch = 0; epoch < input.Count; epoch++)
@@ -97,20 +101,37 @@ namespace Single_Neuron_Debugging_Testbench
                         //Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight1 - neuronTest1.Weights[0], neuronTest1.Weights[0], prevWeight1);
                         //Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight2 - neuronTest1.Weights[1], neuronTest1.Weights[1], prevWeight2);
 
-                        if(currentSet - 1 == 10000)
-                        {
+                        //Console.WriteLine("The output of the  hidden neuron is {0} and should be {1}", neuronTest1.Activation, expectedOutput[epoch]);
+                        neuronTest3.AssignDelta(1, learningRate, 0, new List<Neuron>() { neuronTest2 }, false);    // Calculates the derivatives of the neuron's error
+                        //Console.WriteLine("The delta of the second neuron was {0}", neuronTest1.Delta);
+                        double prevBias3 = neuronTest3.Bias;
+                        double prevWeight3 = neuronTest3.Weights[0];
+                        neuronTest3.AdjustValues(1, learningRate, expectedOutput[epoch]);                        // Assigns the gradient to the weight and bias.
+                        //Console.WriteLine("The Bias was changed by a factor of {0} to {1} from {2}", prevBias1 - neuronTest1.Bias, neuronTest1.Bias, prevBias1);
+                        //Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight1 - neuronTest1.Weights[0], neuronTest1.Weights[0], prevWeight1);
+                        //Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight2 - neuronTest1.Weights[1], neuronTest1.Weights[1], prevWeight2);
+
+                        //if (currentSet - 1 == 10000)
+                        //{
                             Console.WriteLine("For this sample, the input is: {0} and {1}", input[epoch][0], input[epoch][1]);
                             Console.WriteLine("The output of the  output neuron is {0} and should be {1}", neuronTest2.Activation, expectedOutput[epoch]);
-                            Console.WriteLine("The delta of the first neuron was {0}", neuronTest2.Delta);
+                            /*Console.WriteLine("The delta of the first neuron was {0}", neuronTest2.Delta);
                             Console.WriteLine("The Bias was changed by a factor of {0} to {1} from {2}", prevBias2 - neuronTest2.Bias, neuronTest2.Bias, prevBias2);
                             Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight2 - neuronTest2.Weights[0], neuronTest2.Weights[0], prevWeight2);
-                            Console.WriteLine("The output of the  hidden neuron is {0} and should be {1}", neuronTest1.Activation, expectedOutput[epoch]);
-                            Console.WriteLine("The delta of the second neuron was {0}", neuronTest1.Delta);
+                            */
+                            Console.WriteLine("The output of the first hidden neuron is {0} and should be {1}", neuronTest1.Activation, neuronTest2.Weights[0] * neuronTest2.Delta);
+                            /*Console.WriteLine("The delta of the second neuron was {0}", neuronTest1.Delta);
                             Console.WriteLine("The Bias was changed by a factor of {0} to {1} from {2}", prevBias1 - neuronTest1.Bias, neuronTest1.Bias, prevBias1);
-                            Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight1 - neuronTest1.Weights[0], neuronTest1.Weights[0], prevWeight1);
-                        }
+                            Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight3 - neuronTest3.Weights[0], neuronTest3.Weights[0], prevWeight3);
+                            */
+                            Console.WriteLine("The output of the second hidden neuron is {0} and should be {1}", neuronTest3.Activation, neuronTest2.Weights[1] * neuronTest2.Delta);
+                            /*Console.WriteLine("The delta of the third neuron was {0}", neuronTest3.Delta);
+                            Console.WriteLine("The Bias was changed by a factor of {0} to {1} from {2}", prevBias3 - neuronTest3.Bias, neuronTest3.Bias, prevBias3);
+                            Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight3 - neuronTest3.Weights[0], neuronTest3.Weights[0], prevWeight3);
+                            */
+                        //}
                     }
-                }
+                //}
 
                 key = Console.ReadKey().KeyChar;
 
