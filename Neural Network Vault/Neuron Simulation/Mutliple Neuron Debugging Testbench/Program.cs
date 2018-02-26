@@ -64,8 +64,8 @@ namespace Single_Neuron_Debugging_Testbench
             do
             {
                 int currentSet = 0;
-                //while (currentSet++ <= 10000)
-                //{
+                while (currentSet++ <= 10000)
+                {
                     Console.WriteLine("\nIteration {0}", iteration++);
                     // Prepare the test
                     for (int epoch = 0; epoch < input.Count; epoch++)
@@ -111,8 +111,8 @@ namespace Single_Neuron_Debugging_Testbench
                         //Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight1 - neuronTest1.Weights[0], neuronTest1.Weights[0], prevWeight1);
                         //Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight2 - neuronTest1.Weights[1], neuronTest1.Weights[1], prevWeight2);
 
-                        //if (currentSet - 1 == 10000)
-                        //{
+                        if (currentSet - 1 == 10000)
+                        {
                             Console.WriteLine("For this sample, the input is: {0} and {1}", input[epoch][0], input[epoch][1]);
                             Console.WriteLine("The output of the  output neuron is {0} and should be {1}", neuronTest2.Activation, expectedOutput[epoch]);
                             /*Console.WriteLine("The delta of the first neuron was {0}", neuronTest2.Delta);
@@ -129,9 +129,9 @@ namespace Single_Neuron_Debugging_Testbench
                             Console.WriteLine("The Bias was changed by a factor of {0} to {1} from {2}", prevBias3 - neuronTest3.Bias, neuronTest3.Bias, prevBias3);
                             Console.WriteLine("The first Weight was changed by a factor of {0} to {1} from {2}", prevWeight3 - neuronTest3.Weights[0], neuronTest3.Weights[0], prevWeight3);
                             */
-                        //}
+                        }
                     }
-                //}
+                }
 
                 key = Console.ReadKey().KeyChar;
 
