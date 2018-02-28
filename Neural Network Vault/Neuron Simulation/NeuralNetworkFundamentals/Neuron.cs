@@ -233,7 +233,7 @@ namespace NeuralNetworkFundamentals
             bias = rnd.NextDouble();
         }
 
-        public void AdjustValues(double momentum = 1, double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
+        public void AdjustValues(double momentum = 0, double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
         {
             // Backpropagates the values of the weights and biases based on the delta of this neuron
             if (!inputLayer)
@@ -247,7 +247,7 @@ namespace NeuralNetworkFundamentals
             bias += momentum * prevDelta + learningRate * delta;
         }
 
-        public double AssignDelta(double momentum = 1, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
+        public double AssignDelta(double momentum = 0, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
         {
             // Calculates the delta for the neuron and updates the neuron's value.
             prevDelta = delta;
