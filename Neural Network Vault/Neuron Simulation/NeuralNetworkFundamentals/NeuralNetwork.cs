@@ -164,7 +164,7 @@ namespace NeuralNetworkFundamentals
         public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }
         public List<List<double>> Biases { get => GetBiases(); set => GenBiases(value); }
 
-        private void GenWeights(List<List<List<double>>> weights = null)
+        protected virtual void GenWeights(List<List<List<double>>> weights = null)
         {
             // Can allow the controller to generate the biases and weights prior to training.
 
@@ -188,7 +188,7 @@ namespace NeuralNetworkFundamentals
             }
         }
 
-        private void GenBiases(List<List<double>> biases = null)
+        protected virtual void GenBiases(List<List<double>> biases = null)
         {
             // Can allow the controller to generate the biases and weights prior to training.
 
@@ -209,7 +209,7 @@ namespace NeuralNetworkFundamentals
             }
         }
 
-        private List<List<List<double>>> GetWeights()
+        protected virtual List<List<List<double>>> GetWeights()
         {
             List<List<List<double>>> temp = new List<List<List<double>>>(layers.Count);
             for (int i = 1; i < layers.Count; i++)
@@ -223,7 +223,7 @@ namespace NeuralNetworkFundamentals
             return temp;
         }
 
-        private List<List<double>> GetBiases()
+        protected virtual List<List<double>> GetBiases()
         {
             List<List<double>> temp = new List<List<double>>(layers.Count);
             for (int i = 0; i < layers.Count; i++)
@@ -238,7 +238,7 @@ namespace NeuralNetworkFundamentals
         }
 
         // Training and propagation methods
-        public void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0.01,  bool Reset = false)
+        public virtual void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0.01,  bool Reset = false)
         {
             // Trains the neural network
 
@@ -298,7 +298,7 @@ namespace NeuralNetworkFundamentals
             }
         }
 
-        public void ForwardPropagate()
+        public virtual void ForwardPropagate()
         {
             // Propagates the network forward, computes an answer
 
@@ -319,7 +319,7 @@ namespace NeuralNetworkFundamentals
             while (activationCount < layers.Last().Count) ; // Waits until all ActivationFunction are complete
         }
 
-        public double BackPropagate(List<double> Sample)
+        public virtual double BackPropagate(List<double> Sample)
         {
             // Follows the tutorial found here:
             // https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
