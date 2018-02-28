@@ -66,7 +66,7 @@ namespace Single_Neuron_Debugging_Testbench
                 int currentSet = 0;
                 while (currentSet++ <= 10000)
                 {
-                    Console.WriteLine("\nIteration {0}", iteration++);
+                    Console.WriteLine("Iteration {0}", iteration++);
                     // Prepare the test
                     for (int epoch = 0; epoch < input.Count; epoch++)
                     {
