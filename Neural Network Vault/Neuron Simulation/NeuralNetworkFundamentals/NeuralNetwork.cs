@@ -267,13 +267,6 @@ namespace NeuralNetworkFundamentals
                         GenWeightsAndBiases();
                     }
 
-                    if (!hasSubscribed)
-                    {
-                        // Subscribes to each Activation event of the Neurons
-                        Subscribe();
-                        ////Console.WriteLine("Subscribed to the neurons!");
-                    }
-
                     // Begins iterations
                     for (int i = 0; i < sample_in.Count; i++)
                     {
@@ -308,6 +301,13 @@ namespace NeuralNetworkFundamentals
         public void ForwardPropagate()
         {
             // Propagates the network forward, computes an answer
+
+            if (!hasSubscribed)
+            {
+                // Subscribes to each Activation event of the Neurons
+                Subscribe();
+                ////Console.WriteLine("Subscribed to the neurons!");
+            }
 
             activationCount = 0;    // Resets the activation count
 
