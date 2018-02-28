@@ -316,7 +316,7 @@ namespace NeuralNetworkFundamentals
                 item.Activate();
             }
 
-            while (activationCount < neuronCount) ; // Waits until all ActivationFunction are complete
+            while (activationCount < layers.Last().Count) ; // Waits until all ActivationFunction are complete
         }
 
         public double BackPropagate(List<double> Sample)
@@ -424,9 +424,8 @@ namespace NeuralNetworkFundamentals
         {
             // Causes the neural network to subscribe to all of it's neuron's activation events
             // Subscribes to each Activation event of the Neurons
-            for (int i = 0; i < layers.Count; i++)
-                for (int j = 0; j < layers[i].Count; j++)
-                    layers[i][j].ActiveEvent += OnActiveEvent;
+            for (int i = 0; i < layers.Last().Count; i++)
+                layers.Last()[i].ActiveEvent += OnActiveEvent;
         }
     }
 }
