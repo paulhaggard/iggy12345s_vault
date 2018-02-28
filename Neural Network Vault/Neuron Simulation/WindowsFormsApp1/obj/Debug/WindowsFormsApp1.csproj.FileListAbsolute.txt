@@ -1,0 +1,4 @@
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.Cache
+C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
