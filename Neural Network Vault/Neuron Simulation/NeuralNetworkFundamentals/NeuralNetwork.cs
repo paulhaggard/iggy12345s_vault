@@ -242,14 +242,6 @@ namespace NeuralNetworkFundamentals
         {
             // Trains the neural network
 
-            // Sets up the Normal Distribution random number generator
-            NormalDistribution rndNorm = new NormalDistribution();
-            rndNorm.Sigma = 0.1;
-            rndNorm.Mu = 0;
-
-            // Sets up the binomial distribution random number generator
-            BinomialDistribution rndBin = new BinomialDistribution();
-
             trainingThread = new Thread(new ThreadStart(subTrain));
             trainingThread.Start();
 
