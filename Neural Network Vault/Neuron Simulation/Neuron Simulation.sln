@@ -19,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Neural Network Testbenches"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neuralSimGui", "neuralSimGui\neuralSimGui.csproj", "{F8FC3B8F-1086-4232-855B-1635D9A4564E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{ABBEA957-CE96-410C-AFD4-7A44285023FC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ABBEA957-CE96-410C-AFD4-7A44285023FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABBEA957-CE96-410C-AFD4-7A44285023FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABBEA957-CE96-410C-AFD4-7A44285023FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABBEA957-CE96-410C-AFD4-7A44285023FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

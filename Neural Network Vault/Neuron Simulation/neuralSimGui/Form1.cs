@@ -9,7 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using NeuralNetworkFundamentals;
 
-namespace Neuron_Simulation
+namespace neuralSimGui
 {
     public partial class Form1 : Form
     {
