@@ -1,4 +1,4 @@
-﻿namespace Neuron_Simulation
+﻿namespace neuralSimGui
 {
     partial class Form1
     {
