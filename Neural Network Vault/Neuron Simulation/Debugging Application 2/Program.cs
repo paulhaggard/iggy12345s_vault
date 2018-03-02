@@ -9,7 +9,7 @@ namespace Neural_Network_Testbench
     {
         // These are the test settings, learning rate, iterations, samples, expected outputs, etc...
         static bool IsTraining = false;
-        static int iterations = 10000;
+        static int iterations = 2000;
         static double learningRate = 0.5;
 
         static List<List<double>> sampleIn = new List<List<double>>()
@@ -32,35 +32,40 @@ namespace Neural_Network_Testbench
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Setting up test...");
-            Random rnd = new Random();
-
-            NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: learningRate);   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
-            net.TrainingUpdateEvent += OnTrainingUpdateEvent;
-            net.TrainingFinishEvent += OnTrainingFinishEvent;
-
-            // Sets the weights and biases of the network prior to training
-            // START HERE: http://web.cecs.pdx.edu/~mm/MachineLearningSpring2017/NNs.pdf On slide 42
-            
-            net.GenWeightsAndBiases();
-
-            // Trains the network
-            IsTraining = true;
-            net.Train(iterations, sampleIn, sampleOut);
-            while (IsTraining) ;
-
-            //Console.Clear();
-            Console.WriteLine("Training Complete!");
-            Console.WriteLine("Testing inputs");
-            foreach (List<double> sample in sampleIn)
+            char keypress;
+            do
             {
-                List<double> temp = net.Calc(sample);
-                Console.WriteLine("For Inputs [{0}, {1}]:", sample[0], sample[1]);
-                //Console.WriteLine("The output is: {0}, {1}\n", temp[0], temp[1]);
-                Console.WriteLine("The output is: {0}\n", temp[0]);
-            }
+                Console.WriteLine("Setting up test...");
+                Random rnd = new Random();
 
-            Console.ReadKey();
+                NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: learningRate);   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
+                net.TrainingUpdateEvent += OnTrainingUpdateEvent;
+                net.TrainingFinishEvent += OnTrainingFinishEvent;
+
+                // Sets the weights and biases of the network prior to training
+                // START HERE: http://web.cecs.pdx.edu/~mm/MachineLearningSpring2017/NNs.pdf On slide 42
+
+                net.GenWeightsAndBiases();
+
+                // Trains the network
+                IsTraining = true;
+                net.Train(iterations, sampleIn, sampleOut);
+                while (IsTraining) ;
+
+                //Console.Clear();
+                Console.WriteLine("Training Complete!");
+                Console.WriteLine("Testing inputs");
+                foreach (List<double> sample in sampleIn)
+                {
+                    List<double> temp = net.Calc(sample);
+                    Console.WriteLine("For Inputs [{0}, {1}]:", sample[0], sample[1]);
+                    //Console.WriteLine("The output is: {0}, {1}\n", temp[0], temp[1]);
+                    Console.WriteLine("The output is: {0}\n", temp[0]);
+                }
+
+                keypress = Console.ReadKey().KeyChar;
+
+            } while (keypress != 's');
         }
 
         public static void OnTrainingUpdateEvent(object sender, TrainingUpdateEventArgs result)

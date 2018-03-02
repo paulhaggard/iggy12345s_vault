@@ -11,3 +11,4 @@ C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Sim
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Neural Network Testbench.csproj.CoreCompileInputs.cache
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Debugging Application 2.exe
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Debugging Application 2.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Debugging Application 2\obj\Debug\Neural Network Testbench.csprojResolveAssemblyReference.cache
