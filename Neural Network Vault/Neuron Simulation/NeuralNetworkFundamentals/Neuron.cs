@@ -206,7 +206,7 @@ namespace NeuralNetworkFundamentals
             }
             else
             {
-                Net = rawInput + bias;
+                Net = rawInput;
                 activation = net;
             }
 
