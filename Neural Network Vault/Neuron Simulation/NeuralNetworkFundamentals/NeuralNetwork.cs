@@ -238,7 +238,8 @@ namespace NeuralNetworkFundamentals
         }
 
         // Training and propagation methods
-        public virtual void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0.01,  bool Reset = false)
+        public virtual void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0.01,  bool Reset = false,
+            bool RxErrEvents = false)
         {
             // Trains the neural network
 
@@ -281,8 +282,11 @@ namespace NeuralNetworkFundamentals
 
                     Error /= sample_in.Count;   // Calculate the average error of the total training session.
                     // Sends all of this iteration's data back to the observers
-                    temp = new TrainingUpdateEventArgs(iter, -1, layers, Error, false);
-                    OnTrainingUpdateEvent(temp);
+                    if (RxErrEvents)
+                    {
+                        temp = new TrainingUpdateEventArgs(iter, -1, layers, Error, false);
+                        OnTrainingUpdateEvent(temp);
+                    }
                     //if (Error <= errorThreshold)
                     //break;
                 }
