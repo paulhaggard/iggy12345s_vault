@@ -20,11 +20,15 @@ namespace NaturalLanguageProcessing
         private string name;
         private List<WordClasses> types;
         private List<List<DefinedWord>> definitions;
+        private long id;
+        private static long wordCount;
 
         // Accessor Methods
         public string Name { get => name; set => name = value; }
         public List<WordClasses> Types { get => types; set => types = value; }
         public List<List<DefinedWord>> Definitions { get => definitions; set => definitions = value; }
+        public long ID { get => id; set => id = value; }
+        public static long WordCount { get => wordCount; }
 
         // Constructor
         public Word(string name, List<WordClasses> types = null, List<List<DefinedWord>> definitions = null)
@@ -32,6 +36,7 @@ namespace NaturalLanguageProcessing
             this.name = name;
             this.types = types ?? new List<WordClasses>();
             this.definitions = definitions ?? new List<List<DefinedWord>>();
+            id = wordCount++;
         }
 
         // Method used for finding a definition of a word.
