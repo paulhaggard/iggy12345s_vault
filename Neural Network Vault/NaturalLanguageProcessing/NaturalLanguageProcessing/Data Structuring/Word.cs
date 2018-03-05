@@ -39,6 +39,38 @@ namespace NaturalLanguageProcessing
             id = wordCount++;
         }
 
+        // Method for merging definitions of one word with another.
+        public Tuple<List<WordClasses>, List<List<DefinedWord>>> DefinitionMerge(Word word)
+        {
+            bool found = false;
+            for(int i = 0; i < word.Definitions.Count; i++)
+            {
+                found = false;
+                // Compare all of the definitions from the other word with every definition from this word
+                for (int j = 0; j < Definitions.Count; j++)
+                {
+                    if (Types[i] != word.Types[i])
+                        continue;
+                    foreach (List<DefinedWord> def in Definitions)
+                    {
+                        List<DefinedWord> secondNotFirst = word.Definitions[i].Except(def).ToList();
+                        if (!secondNotFirst.Any())
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (!found)
+                {
+                    // Add the definition if it wasn't found
+                    Definitions.Add(word.Definitions[i]);
+                    Types.Add(word.Types[i]);
+                }
+            }
+            return new Tuple<List<WordClasses>, List<List<DefinedWord>>>(Types, Definitions);
+        }
+
         // Method used for finding a definition of a word.
         public virtual void Define(int index = 0)
         {
@@ -46,6 +78,16 @@ namespace NaturalLanguageProcessing
             {
                 word.Define();
             }
+        }
+
+        public static bool operator ==(Word word1, Word word2)
+        {
+            return word1.ID == word2.ID;
+        }
+
+        public static bool operator !=(Word word1, Word word2)
+        {
+            return word1.ID != word2.ID;
         }
     }
 }
