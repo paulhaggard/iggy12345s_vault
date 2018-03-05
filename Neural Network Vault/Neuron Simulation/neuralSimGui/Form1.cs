@@ -42,9 +42,8 @@ namespace neuralSimGui
         private Thread DrawingControllerThread;
         private Queue<List<List<Neuron>>> DrawingQueue;
         private bool IsExitting;
-        private List<int> numOfNeurons;
-        private List<List<double>> inputSamp;
-        private List<List<double>> outputSamp;
+        private List<List<double>> inputSamp = new List<List<double>>();
+        private List<List<double>> outputSamp = new List<List<double>>();
         Random Rnd = new Random();
 
         public Form1()
@@ -53,6 +52,11 @@ namespace neuralSimGui
             // Loads all of the memory we need to run this network
             IsExitting = false;
             // Generates the neural network
+            List<int> numOfNeurons = new List<int>();
+            numOfNeurons.Add(2);
+            numOfNeurons.Add(8);
+            numOfNeurons.Add(8);
+            numOfNeurons.Add(2);
             networkTest = new NeuralNetworkFundamentals.NeuralNetwork(numOfNeurons);
             networkTest.GenWeightsAndBiases();
             networkTest.TrainingUpdateEvent += OnTrainingUpdateEvent;
@@ -99,19 +103,24 @@ namespace neuralSimGui
             progressBar1.Visible = false;
 
             //sets up the samples given to the network
+            //List<List<double>> inputSamp = new List<List<double>>();
+            //inputSamp.Add(new List<double>());
             for(int i= 0; i<((int)(numSampCtrl.Value)); i++)
             {
+                inputSamp.Add(new List<double>());
                 for (int j = 0; j < ((int)(numSampCtrl.Value)); j++)
                 {
-                    inputSamp[i][j] = Rnd.Next();
+                    inputSamp[i].Add(Rnd.Next());
                 }
             }
-
+            //List<List<double>> outputSamp = new List<List<double>>();
+            //outputSamp.Add(new List<double>());
             for (int i = 0; i < ((int)(numSampCtrl.Value)); i++)
             {
+                outputSamp.Add(new List<double>());
                 for (int j = 0; j < ((int)(numSampCtrl.Value)); j++)
                 {
-                    outputSamp[i][j] = Rnd.Next();
+                    outputSamp[i].Add(Rnd.Next());
                 }
             }
 

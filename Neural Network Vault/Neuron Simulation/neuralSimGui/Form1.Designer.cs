@@ -49,6 +49,8 @@
             this.numItrCtrl = new System.Windows.Forms.NumericUpDown();
             this.numSampLbl = new System.Windows.Forms.Label();
             this.numItrLbl = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.NumNeurons = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAWeights)).BeginInit();
@@ -59,6 +61,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.OutputLayerActivations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSampCtrl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numItrCtrl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // LayoutBox
@@ -218,6 +221,11 @@
             this.numSampCtrl.Name = "numSampCtrl";
             this.numSampCtrl.Size = new System.Drawing.Size(120, 20);
             this.numSampCtrl.TabIndex = 12;
+            this.numSampCtrl.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // numItrCtrl
             // 
@@ -230,6 +238,11 @@
             this.numItrCtrl.Name = "numItrCtrl";
             this.numItrCtrl.Size = new System.Drawing.Size(118, 20);
             this.numItrCtrl.TabIndex = 13;
+            this.numItrCtrl.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // numSampLbl
             // 
@@ -249,11 +262,29 @@
             this.numItrLbl.TabIndex = 15;
             this.numItrLbl.Text = "num iterations";
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(523, 487);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 16;
+            // 
+            // NumNeurons
+            // 
+            this.NumNeurons.AutoSize = true;
+            this.NumNeurons.Location = new System.Drawing.Point(520, 471);
+            this.NumNeurons.Name = "NumNeurons";
+            this.NumNeurons.Size = new System.Drawing.Size(84, 13);
+            this.NumNeurons.TabIndex = 17;
+            this.NumNeurons.Text = "Num of Neurons";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 616);
+            this.Controls.Add(this.NumNeurons);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.numItrLbl);
             this.Controls.Add(this.numSampLbl);
             this.Controls.Add(this.numItrCtrl);
@@ -288,6 +319,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.OutputLayerActivations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSampCtrl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numItrCtrl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,6 +347,8 @@
         private System.Windows.Forms.NumericUpDown numItrCtrl;
         private System.Windows.Forms.Label numSampLbl;
         private System.Windows.Forms.Label numItrLbl;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label NumNeurons;
     }
 }
 

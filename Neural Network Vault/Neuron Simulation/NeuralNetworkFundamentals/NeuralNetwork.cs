@@ -73,7 +73,7 @@ namespace NeuralNetworkFundamentals
             this.learningRate = learningRate;
             this.momentum = momentum;
 
-            neuronCount = LayerInfo.Sum();
+            neuronCount = LayerInfo.Count;
 
             layers = new List<List<Neuron>>(LayerInfo.Count);
 
