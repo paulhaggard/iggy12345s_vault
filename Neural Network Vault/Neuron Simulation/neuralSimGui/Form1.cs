@@ -102,9 +102,26 @@ namespace neuralSimGui
             progressBar1.Value = 0;
             progressBar1.Visible = false;
 
+            //xor gate tester
+            inputSamp.Add(new List<double>());
+            inputSamp[0].Add(1);
+            inputSamp[0].Add(0);
+            inputSamp.Add(new List<double>());
+            inputSamp[1].Add(0);
+            inputSamp[1].Add(0);
+
+
+            outputSamp.Add(new List<double>());
+            outputSamp[0].Add(1);
+            outputSamp[0].Add(0);
+            outputSamp.Add(new List<double>());
+            outputSamp[1].Add(0);
+            outputSamp[1].Add(1);
+
             //sets up the samples given to the network
             //List<List<double>> inputSamp = new List<List<double>>();
             //inputSamp.Add(new List<double>());
+            /*
             for(int i= 0; i<((int)(numSampCtrl.Value)); i++)
             {
                 inputSamp.Add(new List<double>());
@@ -123,6 +140,7 @@ namespace neuralSimGui
                     outputSamp[i].Add(Rnd.Next());
                 }
             }
+            */
 
         }
 
