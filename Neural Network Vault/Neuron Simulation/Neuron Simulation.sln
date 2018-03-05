@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neural Network Testbench", "Debugging Application 2\Neural Network Testbench.csproj", "{F8768F0B-E1A6-435A-B71C-42B27E939F00}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Neural Network Testbenches", "Neural Network Testbenches", "{5D5A0E01-C2D3-40B5-B104-2A16BFC894C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetVisualizer", "NeuralNetVisualizer\NeuralNetVisualizer.csproj", "{DCCE3B91-CE1F-4BFD-BDA7-1042C07F1362}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neuralSimGui", "neuralSimGui\neuralSimGui.csproj", "{F8FC3B8F-1086-4232-855B-1635D9A4564E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{DCCE3B91-CE1F-4BFD-BDA7-1042C07F1362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCCE3B91-CE1F-4BFD-BDA7-1042C07F1362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCCE3B91-CE1F-4BFD-BDA7-1042C07F1362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
