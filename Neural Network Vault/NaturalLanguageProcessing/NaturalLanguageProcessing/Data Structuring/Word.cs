@@ -18,6 +18,7 @@ namespace NaturalLanguageProcessing
 
         // Properties
         private string name;
+        private List<string> strDefinitions;
         private List<WordClasses> types;
         private List<List<DefinedWord>> definitions;
         private long id;
@@ -29,12 +30,14 @@ namespace NaturalLanguageProcessing
         public List<List<DefinedWord>> Definitions { get => definitions; set => definitions = value; }
         public long ID { get => id; set => id = value; }
         public static long WordCount { get => wordCount; }
+        public List<string> StrDefinitions { get => strDefinitions; set => strDefinitions = value; }
 
         // Constructor
-        public Word(string name, List<WordClasses> types = null, List<List<DefinedWord>> definitions = null)
+        public Word(string name, List<WordClasses> types = null, List<string> strDefinitions = null, List<List<DefinedWord>> definitions = null)
         {
             this.name = name;
             this.types = types ?? new List<WordClasses>();
+            this.strDefinitions = strDefinitions ?? new List<string>();
             this.definitions = definitions ?? new List<List<DefinedWord>>();
             id = wordCount++;
         }

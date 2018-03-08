@@ -196,6 +196,29 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "ArtificialBrain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "NaturalLanguageProcessing": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ArtificialBrain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ArtificialBrain.dll": {}
+        }
+      },
+      "NaturalLanguageProcessing/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/NaturalLanguageProcessing.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NaturalLanguageProcessing.dll": {}
+        }
       }
     }
   },
@@ -656,10 +679,21 @@
         "netstandard.library.2.0.0.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "ArtificialBrain/1.0.0": {
+      "type": "project",
+      "path": "../ArtificialBrain/ArtificialBrain.csproj",
+      "msbuildProject": "../ArtificialBrain/ArtificialBrain.csproj"
+    },
+    "NaturalLanguageProcessing/1.0.0": {
+      "type": "project",
+      "path": "../NaturalLanguageProcessing/NaturalLanguageProcessing.csproj",
+      "msbuildProject": "../NaturalLanguageProcessing/NaturalLanguageProcessing.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "ArtificialBrain >= 1.0.0",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
   },
@@ -698,7 +732,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\NaturalLanguageProcessing\\ArtificialBrain\\ArtificialBrain.csproj": {
+              "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\NaturalLanguageProcessing\\ArtificialBrain\\ArtificialBrain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

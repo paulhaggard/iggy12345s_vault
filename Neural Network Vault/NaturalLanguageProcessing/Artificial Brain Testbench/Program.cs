@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ArtificialBrain;
+using NaturalLanguageProcessing;
+using System;
+using System.Collections.Generic;
 
 namespace Artificial_Brain_Testbench
 {
@@ -6,7 +9,15 @@ namespace Artificial_Brain_Testbench
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MindDB mind = new MindDB();
+            printf("Adding words to the dictionary...\n");
+            mind += new Word("Hello", new List<WordClasses>() { WordClasses.Noun },
+                new List<string>() { "an expression of greeting" });
+        }
+
+        static void printf(string message)
+        {
+            Console.Write(message);
         }
     }
 }
