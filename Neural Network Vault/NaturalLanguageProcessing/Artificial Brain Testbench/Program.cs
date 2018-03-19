@@ -13,6 +13,7 @@ namespace Artificial_Brain_Testbench
             printf("Adding words to the dictionary...\n");
             mind += new Word("Hello", new List<WordClasses>() { WordClasses.Noun },
                 new List<string>() { "an expression of greeting" });
+
         }
 
         static void printf(string message)
