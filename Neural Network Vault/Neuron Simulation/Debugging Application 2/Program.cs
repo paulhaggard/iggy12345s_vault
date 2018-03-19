@@ -9,7 +9,7 @@ namespace Neural_Network_Testbench
     {
         // These are the test settings, learning rate, iterations, samples, expected outputs, etc...
         static bool IsTraining = false;
-        static int iterations = 2000;
+        static int iterations = 20000;
         static double learningRate = 0.5;
 
         static List<List<double>> sampleIn = new List<List<double>>()
