@@ -68,6 +68,7 @@ namespace NeuralNetworkFundamentals
         public double Threshold { get => -bias; set => bias = -value; }
         public double Delta { get => delta; set => delta = value; }
         public List<double> PrevWeights { get => prevWeights; set => prevWeights = value; }
+        public static long Count { get => NeuronCount; }
 
         // Constructors
         // These all call the Setup Functions
