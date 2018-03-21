@@ -69,6 +69,9 @@ namespace NeuralNetworkFundamentals
         public double Delta { get => delta; set => delta = value; }
         public List<double> PrevWeights { get => prevWeights; set => prevWeights = value; }
         public static long Count { get => NeuronCount; }
+        public bool InputLayer { get => inputLayer; }
+        public bool OutputLayer { get => outputLayer; }
+        public double PrevDelta { get => prevDelta; }
 
         // Constructors
         // These all call the Setup Functions
@@ -147,7 +150,7 @@ namespace NeuralNetworkFundamentals
                 inputs_collected[i] = false;
             }
 
-            Setup(bias, defaultActivation, defaultParameters, inputLayer);
+            Setup(bias, defaultActivation, defaultParameters, InputLayer);
 
             for (int i = 0; i < inputNeurons.Count; i++)
             {
@@ -195,7 +198,7 @@ namespace NeuralNetworkFundamentals
             type = type ?? DefaultActivation;
             Params = Params ?? DefaultParameters;
 
-            if (!inputLayer)
+            if (!InputLayer)
             {
                 // Input layers don't have weights and activation functions, that's why they get an exclusive case
                 Net = bias;
@@ -219,7 +222,7 @@ namespace NeuralNetworkFundamentals
         public void RandomizeWeights(NormalDistribution rnd)
         {
             // Randomizes the weights according to the random generator sent in.
-            if (!inputLayer)
+            if (!InputLayer)
             {
                 for (int i = 0; i < weights.Count; i++)
                 {
@@ -237,15 +240,15 @@ namespace NeuralNetworkFundamentals
         public void AdjustValues(double momentum = 0, double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
         {
             // Backpropagates the values of the weights and biases based on the delta of this neuron
-            if (!inputLayer)
+            if (!InputLayer)
             {
                 for (int i = 0; i < weights.Count; i++)
                 {
                     PrevWeights[i] = weights[i];
-                    weights[i] += momentum * prevDelta + learningRate * delta * inputs[i];
+                    weights[i] += momentum * PrevDelta + learningRate * delta * inputs[i];
                 }
             }
-            bias += momentum * prevDelta + learningRate * delta;
+            bias += momentum * PrevDelta + learningRate * delta;
         }
 
         public double AssignDelta(double momentum = 0, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
@@ -256,7 +259,7 @@ namespace NeuralNetworkFundamentals
             if(nextLayerNeurons == null)
             {
                 // Performs delta calculation for output neurons
-                if (outputLayer)
+                if (OutputLayer)
                 {
                     delta *= (ExpectedOutput - activation);
                 }
@@ -311,7 +314,7 @@ namespace NeuralNetworkFundamentals
         public void OnActivation()
         {
             // A helper function used to call the OnActiveEvent event that requires no arguments.
-            OnActiveEvent(new ActivationEventArgs(activation, id, (inputLayer)?rawInput:net));
+            OnActiveEvent(new ActivationEventArgs(activation, id, (InputLayer)?rawInput:net));
         }
 
         public class ActivationEventArgs : EventArgs
