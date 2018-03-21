@@ -63,12 +63,15 @@ namespace NeuralNetworkFundamentals
         private double learningRate;
         private double momentum;
         private Thread trainingThread;
+        private long id;
+        private static long netCount = 0;
 
         // Constructor
         public NeuralNetwork(List<int> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
             double learningRate = 0.5, double momentum = 0)
         {
             // Creates a neural network with LayerInfo.Count layers and each Layer with int neurons.
+            id = netCount++;
 
             this.learningRate = learningRate;
             this.momentum = momentum;
@@ -163,6 +166,9 @@ namespace NeuralNetworkFundamentals
 
         public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }
         public List<List<double>> Biases { get => GetBiases(); set => GenBiases(value); }
+        public long ID { get => id; }
+        public static long NetCount { get => netCount; }
+        public double Momentum { get => momentum; set => momentum = value; }
 
         protected virtual void GenWeights(List<List<List<double>>> weights = null)
         {
@@ -388,9 +394,9 @@ namespace NeuralNetworkFundamentals
                          */
 
                     if (i == layers.Count - 1)
-                        layers[i][j].AssignDelta(momentum, learningRate, Sample[j]);
+                        layers[i][j].AssignDelta(Momentum, learningRate, Sample[j]);
                     else
-                        layers[i][j].AssignDelta(momentum, learningRate, nextLayerNeurons: layers[i + 1]);
+                        layers[i][j].AssignDelta(Momentum, learningRate, nextLayerNeurons: layers[i + 1]);
                 }
             }
 
