@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -54,9 +54,9 @@ namespace neuralSimGui
             // Generates the neural network
             List<int> numOfNeurons = new List<int>();
             numOfNeurons.Add(2);
-            numOfNeurons.Add(8);
-            numOfNeurons.Add(8);
             numOfNeurons.Add(2);
+            numOfNeurons.Add(2);
+            numOfNeurons.Add(1);
             networkTest = new NeuralNetworkFundamentals.NeuralNetwork(numOfNeurons);
             networkTest.GenWeightsAndBiases();
             networkTest.TrainingUpdateEvent += OnTrainingUpdateEvent;
@@ -107,16 +107,32 @@ namespace neuralSimGui
             inputSamp[0].Add(1);
             inputSamp[0].Add(0);
             inputSamp.Add(new List<double>());
-            inputSamp[1].Add(0);
-            inputSamp[1].Add(0);
+            inputSamp[1].Add(1);
+            inputSamp[1].Add(1);
+            
+            inputSamp.Add(new List<double>());
+            inputSamp[2].Add(0);
+            inputSamp[2].Add(1);
+            inputSamp.Add(new List<double>());
+            inputSamp[3].Add(0);
+            inputSamp[3].Add(0);
+            
 
 
             outputSamp.Add(new List<double>());
             outputSamp[0].Add(1);
-            outputSamp[0].Add(0);
+            //outputSamp[0].Add(0);
             outputSamp.Add(new List<double>());
+            //outputSamp[1].Add(0);
             outputSamp[1].Add(0);
-            outputSamp[1].Add(1);
+            
+            outputSamp.Add(new List<double>());
+            //outputSamp[2].Add(0);
+            outputSamp[2].Add(1);
+            outputSamp.Add(new List<double>());
+            outputSamp[3].Add(0);
+            //outputSamp[3].Add(1);
+            
 
             //sets up the samples given to the network
             //List<List<double>> inputSamp = new List<List<double>>();
@@ -412,14 +428,25 @@ namespace neuralSimGui
             for (int i = 0; i < 4; i++)
             {
                 List<double> Result = networkTest.Calc(new List<double> { a, b });
-                Console.WriteLine("The result of inserting ({0},{1}) is: {2}, {3}", a, b, Result[0], Result[1]);
-                if(++a > 1)
+                //Console.WriteLine("The result of inserting ({0},{1}) is: {2}, {3}", a, b, Result[0], Result[1]);
+                Console.WriteLine("The result of inserting ({0},{1}) is: {2}", a, b, Result[0]);
+                if (++a > 1)
                 {
                     a = 0;
                     if (++b > 1)
                         b = 0;
                 }
             }
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            networkTest.GenWeightsAndBiases();
         }
     }
 }

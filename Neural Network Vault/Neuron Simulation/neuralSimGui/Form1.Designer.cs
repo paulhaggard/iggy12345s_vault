@@ -1,4 +1,4 @@
-﻿namespace neuralSimGui
+namespace neuralSimGui
 {
     partial class Form1
     {
@@ -51,6 +51,7 @@
             this.numItrLbl = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.NumNeurons = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAWeights)).BeginInit();
@@ -268,6 +269,12 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 16;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // NumNeurons
             // 
@@ -278,11 +285,22 @@
             this.NumNeurons.TabIndex = 17;
             this.NumNeurons.Text = "Num of Neurons";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(745, 526);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 616);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.NumNeurons);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.numItrLbl);
@@ -349,6 +367,6 @@
         private System.Windows.Forms.Label numItrLbl;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label NumNeurons;
+        private System.Windows.Forms.Button button2;
     }
 }
-
