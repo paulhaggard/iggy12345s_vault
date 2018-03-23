@@ -139,6 +139,8 @@ namespace NeuralNetworkFundamentals
             // TODO: Write the tree to a file.
             // START HERE: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/serializing-xml-trees
 
+            rootTree.Save((path == "") ? defaultPath : path);
+
             return true;
         }
     }
