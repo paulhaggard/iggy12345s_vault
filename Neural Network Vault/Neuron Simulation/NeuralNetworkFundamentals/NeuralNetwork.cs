@@ -172,7 +172,7 @@ namespace NeuralNetworkFundamentals
         public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }
         public List<List<double>> Biases { get => GetBiases(); set => GenBiases(value); }
         public long ID { get => id; set => id = value; }
-        public static long NetCount { get => netCount; }
+        public static long NetCount { get => netCount; set => netCount = value; }
         public double Momentum { get => momentum; set => momentum = value; }
 
         protected virtual void GenWeights(List<List<List<double>>> weights = null)
