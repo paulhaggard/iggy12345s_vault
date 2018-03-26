@@ -43,7 +43,7 @@ namespace NeuralNetworkFundamentals
         }
     }
 
-    class NeuralFile
+    public class NeuralFile
     {
         private string defaultPath;
 
