@@ -70,7 +70,30 @@ namespace NeuralNetworkFundamentals
                 throw new Exception("Cannot load an empty file");
 
             // Sets the corresponding attribute to it's proper value
-            root.XPathSelectElement
+
+            // Retrieves the boolean values for what's in the file.
+            temp.HasNet = Convert.ToBoolean(root.XPathSelectElement("hasNets").Value);
+            temp.HasNeurons = Convert.ToBoolean(root.XPathSelectElement("hasNeurons").Value);
+            temp.HasOther = Convert.ToBoolean(root.XPathSelectElement("hasOther").Value);
+
+            if (temp.HasNet)
+            {
+                // Selects the list of all of the networks
+                List<XElement> nets = root.XPathSelectElements("Nets/Network").ToList();
+
+                foreach(XElement net in nets)
+                {
+                    temp.Nets.Add(new NeuralNetwork()
+                    {
+                        ID = (int)(object)net.XPathSelectElement("ID"),
+                        Layers = (List<List<Neuron>>)(object)net.XPathSelectElement("Layers"),
+                        LearningRate = (double)(object)net.XPathSelectElement("LearningRate"),
+                        Momentum = (double)(object)net.XPathSelectElement("Momentum")
+                    });
+                }
+            }
+
+            // TODO: Add functionality for neurons and other stuff.
 
             return temp;
         }
@@ -88,15 +111,12 @@ namespace NeuralNetworkFundamentals
             if(file.HasNet)
             {
                 // Adds all of the included networks into the xml tree.
-                XElement netTree = new XElement("Nets",
-                    new XAttribute("NetCount", NeuralNetwork.NetCount));
+                XElement netTree = new XElement("Nets");
                 foreach(NeuralNetwork net in file.Nets)
                 {
                     netTree.Add(new XElement("Network",
                         new XAttribute("ID", net.ID),
                         new XElement("Layers", net.Layers),
-                        new XElement("Weights", net.Weights),
-                        new XElement("Biases", net.Biases),
                         new XElement("LearningRate", net.LearningRate),
                         new XElement("Momentum", net.Momentum)));
                 }
