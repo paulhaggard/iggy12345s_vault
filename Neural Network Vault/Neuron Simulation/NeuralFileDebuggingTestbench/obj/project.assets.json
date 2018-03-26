@@ -196,6 +196,15 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "NeuralNetworkFundamentals/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/NeuralNetworkFundamentals.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NeuralNetworkFundamentals.dll": {}
+        }
       }
     }
   },
@@ -656,11 +665,17 @@
         "netstandard.library.2.0.0.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "NeuralNetworkFundamentals/1.0.0": {
+      "type": "project",
+      "path": "../NeuralNetworkFundamentals/NeuralNetworkFundamentals.csproj",
+      "msbuildProject": "../NeuralNetworkFundamentals/NeuralNetworkFundamentals.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "NeuralNetworkFundamentals >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -698,7 +713,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj": {
+              "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <hasNets>true</hasNets>
+  <hasNeurons>false</hasNeurons>
+  <hasOther>false</hasOther>
+  <Nets>
+    <Network ID="0">
+      <Layers>NeuralNetworkFundamentals.NeuronNeuralNetworkFundamentals.NeuronNeuralNetworkFundamentals.NeuronNeuralNetworkFundamentals.NeuronNeuralNetworkFundamentals.Neuron</Layers>
+      <LearningRate>0.5</LearningRate>
+      <Momentum>0</Momentum>
+    </Network>
+  </Nets>
+</Root>

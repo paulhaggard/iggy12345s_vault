@@ -37,9 +37,9 @@ namespace NeuralNetworkFundamentals
             this.hasNet = hasNet;
             this.hasNeurons = hasNeurons;
             this.hasOther = hasOther;
-            this.nets = nets;
-            this.neurons = neurons;
-            this.other = other;
+            this.nets = nets ?? new List<NeuralNetwork>();
+            this.neurons = neurons ?? new List<Neuron>();
+            this.other = other ?? new List<object>();
         }
     }
 
@@ -58,7 +58,7 @@ namespace NeuralNetworkFundamentals
         public virtual FileContents FileRead(string path = "")
         {
             // Reads an xml file for networks, custom neurons, and other things...
-            FileContents temp = new FileContents();
+            FileContents temp = new FileContents(false);
 
             path = (path == "") ? defaultPath : path;
 
