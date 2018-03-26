@@ -62,6 +62,15 @@ namespace NeuralNetworkFundamentals
 
             path = (path == "") ? defaultPath : path;
 
+            // Loads the file
+            XElement root = XElement.Load(path);
+
+            // Checks if the file has any contents
+            if (!root.HasElements)
+                throw new Exception("Cannot load an empty file");
+
+            // Sets the corresponding attribute to it's proper value
+            root.XPathSelectElement
 
             return temp;
         }
