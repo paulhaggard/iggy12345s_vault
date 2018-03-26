@@ -115,6 +115,11 @@ namespace NeuralNetworkFundamentals
             }
         }
 
+        public NeuralNetwork()
+        {
+
+        }
+
         // Accessor Methods
         public List<List<Neuron>> Layers { get => layers; set => layers = value; }
         public double LearningRate { get => learningRate; set => learningRate = value; }
@@ -166,7 +171,7 @@ namespace NeuralNetworkFundamentals
 
         public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }
         public List<List<double>> Biases { get => GetBiases(); set => GenBiases(value); }
-        public long ID { get => id; }
+        public long ID { get => id; set => id = value; }
         public static long NetCount { get => netCount; }
         public double Momentum { get => momentum; set => momentum = value; }
 
