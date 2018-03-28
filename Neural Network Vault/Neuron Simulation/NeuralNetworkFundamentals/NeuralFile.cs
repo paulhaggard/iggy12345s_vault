@@ -104,73 +104,21 @@ namespace NeuralNetworkFundamentals
             path = (path == "") ? defaultPath : path;
 
             XElement rootTree = new XElement("Root",
-                new XElement("hasNets", file.HasNet),
-                new XElement("hasNeurons", file.HasNeurons),
-                new XElement("hasOther", file.HasOther));
+                new XElement);
 
-            if(file.HasNet)
-            {
-                // Adds all of the included networks into the xml tree.
-                XElement netTree = new XElement("Nets");
-                foreach(NeuralNetwork net in file.Nets)
-                {
-                    netTree.Add(new XElement("Network",
-                        new XAttribute("ID", net.ID),
-                        new XElement("Layers", net.Layers),
-                        new XElement("LearningRate", net.LearningRate),
-                        new XElement("Momentum", net.Momentum)));
-                }
-
-                // Adds the sub tree back to the original.
-                rootTree.Add(netTree);
-            }
-
-            if(file.HasNeurons)
-            {
-                // Adds all of the included neurons into the xml tree.
-                XElement neuronTree = new XElement("Neurons",
-                    new XAttribute("NeuronCount", Neuron.Count));
-                foreach(Neuron neuron in file.Neurons)
-                {
-                    neuronTree.Add(new XElement("Neuron",
-                        new XAttribute("ID", neuron.ID),
-                        new XAttribute("InputLayer", neuron.InputLayer),
-                        new XAttribute("OutputLayer", neuron.OutputLayer),
-                        new XElement("Network", neuron.Net),
-                        new XElement("previousWeights", neuron.PrevWeights),
-                        new XElement("previousDelta", neuron.PrevDelta),
-                        new XElement("Weights", neuron.Weights),
-                        new XElement("Bias", neuron.Bias),
-                        new XElement("Activation", neuron.Activation),
-                        new XElement("DefaultActivation",
-                            new XAttribute("parameters", neuron.DefaultParameters),
-                            neuron.DefaultActivation),
-                        new XElement("Threshold", neuron.Threshold),
-                        new XElement("Delta", neuron.Delta),
-                        new XElement("RawInput", neuron.RawInput)));
-                }
-                rootTree.Add(neuronTree);
-            }
-
-            if(file.HasOther)
-            {
-                // Adds anything else to the xml tree
-                XElement otherTree = new XElement("Others");
-                for(int i = 0; i < file.Other.Count; i++)
-                {
-                    otherTree.Add(new XElement("Other",
-                        new XAttribute("ID", i),
-                        file.Other[i]));
-                }
-                rootTree.Add(otherTree);
-            }
-
-            // TODO: Write the tree to a file.
-            // START HERE: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/serializing-xml-trees
+            rootTree.Add(WriteList<>)
 
             rootTree.Save((path == "") ? defaultPath : path);
 
             return true;
+        }
+
+        private XElement WriteList<T>(List<T> list)
+        {
+            XElement temp = new XElement("List");
+            for (int i = 0; i < list.Count; i++)
+                temp.Add(new XElement("Element" + i, list[i]));
+            return temp;
         }
     }
 }
