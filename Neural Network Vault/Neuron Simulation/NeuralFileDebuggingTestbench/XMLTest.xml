@@ -5,9 +5,76 @@
   <hasOther>false</hasOther>
   <Nets>
     <Network ID="0">
-      <Layers>NeuralNetworkFundamentals.NeuronNeuralNetworkFundamentals.NeuronNeuralNetworkFundamentals.NeuronNeuralNetworkFundamentals.NeuronNeuralNetworkFundamentals.Neuron</Layers>
       <LearningRate>0.5</LearningRate>
       <Momentum>0</Momentum>
+      <Layers>
+        <Layer Index="0">
+          <Neuron ID="0" InputLayer="true" OutputLayer="false">
+            <Network>0</Network>
+            <previousWeights />
+            <previousDelta>0</previousDelta>
+            <Weights />
+            <Bias>0</Bias>
+            <Activation>0</Activation>
+            <DefaultActivation parameters="NeuralNetworkFundamentals.Activation_Functions.Functions.SigmoidParams">NeuralNetworkFundamentals.Activation_Functions.Functions.Sigmoid</DefaultActivation>
+            <Threshold>-0</Threshold>
+            <Delta>0</Delta>
+            <RawInput>0</RawInput>
+          </Neuron>
+          <Neuron ID="1" InputLayer="true" OutputLayer="false">
+            <Network>0</Network>
+            <previousWeights />
+            <previousDelta>0</previousDelta>
+            <Weights />
+            <Bias>0</Bias>
+            <Activation>0</Activation>
+            <DefaultActivation parameters="NeuralNetworkFundamentals.Activation_Functions.Functions.SigmoidParams">NeuralNetworkFundamentals.Activation_Functions.Functions.Sigmoid</DefaultActivation>
+            <Threshold>-0</Threshold>
+            <Delta>0</Delta>
+            <RawInput>0</RawInput>
+          </Neuron>
+        </Layer>
+        <Layer Index="1">
+          <Neuron ID="2" InputLayer="false" OutputLayer="false">
+            <Network>0</Network>
+            <previousWeights>00</previousWeights>
+            <previousDelta>0</previousDelta>
+            <Weights>00</Weights>
+            <Bias>0</Bias>
+            <Activation>0</Activation>
+            <DefaultActivation parameters="NeuralNetworkFundamentals.Activation_Functions.Functions.SigmoidParams">NeuralNetworkFundamentals.Activation_Functions.Functions.Sigmoid</DefaultActivation>
+            <Threshold>-0</Threshold>
+            <Delta>0</Delta>
+            <RawInput>0</RawInput>
+          </Neuron>
+          <Neuron ID="3" InputLayer="false" OutputLayer="false">
+            <Network>0</Network>
+            <previousWeights>00</previousWeights>
+            <previousDelta>0</previousDelta>
+            <Weights>00</Weights>
+            <Bias>0</Bias>
+            <Activation>0</Activation>
+            <DefaultActivation parameters="NeuralNetworkFundamentals.Activation_Functions.Functions.SigmoidParams">NeuralNetworkFundamentals.Activation_Functions.Functions.Sigmoid</DefaultActivation>
+            <Threshold>-0</Threshold>
+            <Delta>0</Delta>
+            <RawInput>0</RawInput>
+          </Neuron>
+        </Layer>
+        <Layer Index="2">
+          <Neuron ID="4" InputLayer="false" OutputLayer="true">
+            <Network>0</Network>
+            <previousWeights>00</previousWeights>
+            <previousDelta>0</previousDelta>
+            <Weights>00</Weights>
+            <Bias>0</Bias>
+            <Activation>0</Activation>
+            <DefaultActivation parameters="NeuralNetworkFundamentals.Activation_Functions.Functions.SigmoidParams">NeuralNetworkFundamentals.Activation_Functions.Functions.Sigmoid</DefaultActivation>
+            <Threshold>-0</Threshold>
+            <Delta>0</Delta>
+            <RawInput>0</RawInput>
+          </Neuron>
+        </Layer>
+      </Layers>
     </Network>
   </Nets>
 </Root>

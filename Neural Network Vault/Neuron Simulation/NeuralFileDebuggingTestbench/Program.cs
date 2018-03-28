@@ -25,11 +25,13 @@ namespace NeuralFileDebuggingTestbench
             file.FileWrite(new FileContents(true, false, false,
                 new List<NeuralNetwork> { net }));
             Console.WriteLine("Successfully wrote the network to file.\nTesting file read:");
+            /*
             net = file.FileRead().Nets[0];
             Console.WriteLine("Network information:\nnetCount: {0}\nNetwork ID: {1}\n" +
                 "Network Layers: {2}",
                 NeuralNetwork.NetCount, net.ID, net.Layers);
             Console.WriteLine("Successfully read the network from the file.");
+            */
         }
     }
 }
