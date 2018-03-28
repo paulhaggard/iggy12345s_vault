@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Troschuetz.Random;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace NeuralNetworkFundamentals
 {
@@ -433,6 +436,19 @@ namespace NeuralNetworkFundamentals
             // Subscribes to each Activation event of the Neurons
             for (int i = 0; i < layers.Last().Count; i++)
                 layers.Last()[i].ActiveEvent += OnActiveEvent;
+        }
+
+        public virtual bool SaveState(string path)
+        {
+            // Writes the current network's learning rate, momentum, and weights, and biases to an xml file.
+
+            return true;
+        }
+
+        public virtual bool LoadState(string path)
+        {
+            // Reads the current network's learning rate, momentum, and weights, and biases from an xml file.
+            return true;
         }
     }
 }
