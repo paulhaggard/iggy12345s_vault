@@ -44,6 +44,7 @@ namespace neuralSimGui
         private bool IsExitting;
         private List<List<double>> inputSamp = new List<List<double>>();
         private List<List<double>> outputSamp = new List<List<double>>();
+        //private List<List<List<double>>> weights;
         Random Rnd = new Random();
 
         public Form1()
@@ -52,11 +53,10 @@ namespace neuralSimGui
             // Loads all of the memory we need to run this network
             IsExitting = false;
             // Generates the neural network
-            List<int> numOfNeurons = new List<int>();
-            numOfNeurons.Add(2);
-            numOfNeurons.Add(2);
-            numOfNeurons.Add(2);
-            numOfNeurons.Add(1);
+            List<int> numOfNeurons = new List<int>() { 2, 2, 1 };
+            //numOfNeurons.Add(2);
+            //numOfNeurons.Add(2);
+            //numOfNeurons.Add(1);
             networkTest = new NeuralNetworkFundamentals.NeuralNetwork(numOfNeurons);
             networkTest.GenWeightsAndBiases();
             networkTest.TrainingUpdateEvent += OnTrainingUpdateEvent;
@@ -68,9 +68,10 @@ namespace neuralSimGui
                 prevWeights.Add(new List<List<double>>(networkTest.Layers[i].Count));
                 for (int j = 0; j < networkTest.Layers[i].Count; j++)
                 {
-                    prevWeights[i].Add(networkTest.Layers[i][j].Weights);
+                    prevWeights[i].Add(networkTest.Layers[i][j].PrevWeights);
                 }
             }
+            //List<List<List<double>>> weights; 
 
             // Stores a list of all of the coordinates of each neuron's position on the layout display.
             plotSize = 5;
@@ -363,7 +364,7 @@ namespace neuralSimGui
                 }
             }
 
-            using (Graphics g = Graphics.FromImage(layBWt))
+            /*using (Graphics g = Graphics.FromImage(layBWt))
             {
                 g.Clear(Color.White);
                 int i, j;
@@ -383,6 +384,7 @@ namespace neuralSimGui
                 }
                 pen.Color = Color.Black;
             }
+            */
 
             using (Graphics g = Graphics.FromImage(outputAct))
             {
