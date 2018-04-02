@@ -233,7 +233,25 @@ namespace NeuralNetworkFundamentals
             }
         }
 
+        public void RandomizeWeights(Random rnd)
+        {
+            // Randomizes the weights according to the random generator sent in.
+            if (!InputLayer)
+            {
+                for (int i = 0; i < weights.Count; i++)
+                {
+                    weights[i] = rnd.NextDouble();
+                }
+            }
+        }
+
         public void RandomizeBias(BinomialDistribution rnd)
+        {
+            // Randomizes the bias according to the random number generator sent in.
+            bias = rnd.NextDouble();
+        }
+
+        public void RandomizeBias(Random rnd)
         {
             // Randomizes the bias according to the random number generator sent in.
             bias = rnd.NextDouble();
