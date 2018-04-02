@@ -342,22 +342,27 @@ namespace NeuralNetworkFundamentals
             // Returns an Xelement that is writable to an xml file with all of the data that this neuron needs in order to be read.
 
             XElement temp = new XElement("Neuron",
+                new XAttribute("Input", inputLayer),
+                new XAttribute("Output", outputLayer),
                 new XElement("Bias", bias),
                 new XElement("PreviousDelta", prevDelta));
 
-            XElement weightTemp = new XElement("Weights");
-            for(int i = 0; i < Weights.Count; i++)
-                weightTemp.Add(new XElement("Weight",
-                    new XAttribute("Index", i), weights[i]));
+            if (!inputLayer)
+            {
+                XElement weightTemp = new XElement("Weights");
+                for (int i = 0; i < Weights.Count; i++)
+                    weightTemp.Add(new XElement("Weight",
+                        new XAttribute("Index", i), weights[i]));
 
-            temp.Add(weightTemp);
+                temp.Add(weightTemp);
 
-            XElement prevWeightTemp = new XElement("PreviousWeights");
-            for(int i = 0; i < prevWeights.Count; i++)
-                prevWeightTemp.Add(new XElement("Weight",
-                    new XAttribute("Index", i), prevWeights[i]));
+                XElement prevWeightTemp = new XElement("PreviousWeights");
+                for (int i = 0; i < prevWeights.Count; i++)
+                    prevWeightTemp.Add(new XElement("Weight",
+                        new XAttribute("Index", i), prevWeights[i]));
 
-            temp.Add(prevWeightTemp);
+                temp.Add(prevWeightTemp);
+            }
 
             return temp;
         }
@@ -366,26 +371,32 @@ namespace NeuralNetworkFundamentals
         {
             // Reads data from an Xml element passed in, to initialize all of the values in the neuron.
 
+            inputLayer = Convert.ToBoolean(element.Attribute("Input").Value);
+            outputLayer = Convert.ToBoolean(element.Attribute("Output").Value);
+
             bias = Convert.ToDouble(element.XPathSelectElement("Bias").Value);
             prevDelta = Convert.ToDouble(element.XPathSelectElement("PreviousDelta").Value);
 
             // Handles current weights
-            List<double> temp = new List<double>();
-            int i = 0;
-            while(element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + i + "]").Value != "")
+            if (!inputLayer)
             {
-                temp.Add(Convert.ToDouble(element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + (i++)+"]").Value));
-            }
-            weights = temp;
+                List<double> temp = new List<double>();
+                int i = 0;
+                while (element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + i + "]").Value != "")
+                {
+                    temp.Add(Convert.ToDouble(element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + (i++) + "]").Value));
+                }
+                weights = temp;
 
-            // Handles previous Weights
-            temp = new List<double>(weights.Count);
-            i = 0;
-            while (element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + i + "]").Value != "")
-            {
-                temp.Add(Convert.ToDouble(element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + (i++) + "]").Value));
+                // Handles previous Weights
+                temp = new List<double>(weights.Count);
+                i = 0;
+                while (element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + i + "]").Value != "")
+                {
+                    temp.Add(Convert.ToDouble(element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + (i++) + "]").Value));
+                }
+                prevWeights = temp;
             }
-            prevWeights = temp;
         }
 
         public class ActivationEventArgs : EventArgs

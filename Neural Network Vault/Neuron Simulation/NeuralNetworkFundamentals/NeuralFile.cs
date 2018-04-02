@@ -103,12 +103,12 @@ namespace NeuralNetworkFundamentals
             // Writes a neural network project to an xml file.
             path = (path == "") ? defaultPath : path;
 
-            XElement rootTree = new XElement("Root",
-                new XElement);
+            //XElement rootTree = new XElement("Root",
+                //new XElement);
 
-            rootTree.Add(WriteList<>)
+            //rootTree.Add(WriteList<>)
 
-            rootTree.Save((path == "") ? defaultPath : path);
+            //rootTree.Save((path == "") ? defaultPath : path);
 
             return true;
         }

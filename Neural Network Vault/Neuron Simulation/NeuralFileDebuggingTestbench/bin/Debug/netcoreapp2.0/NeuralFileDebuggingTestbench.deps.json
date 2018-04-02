@@ -1,33 +1,28 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    "signature": "962421228c26b7314a355c899cbd7e82d7cef967"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "NeuralFileDebuggingTestbench/1.0.0": {
         "dependencies": {
-          "NeuralNetworkFundamentals": "1.0.0"
+          "NeuralNetworkFundamentals": "1.0.0",
+          "Troschuetz.Random": "4.3.0"
         },
         "runtime": {
           "NeuralFileDebuggingTestbench.dll": {}
         }
       },
+      "Troschuetz.Random/4.3.0": {
+        "runtime": {
+          "lib/netstandard2.0/Troschuetz.Random.dll": {}
+        }
+      },
       "NeuralNetworkFundamentals/1.0.0": {
         "runtime": {
           "NeuralNetworkFundamentals.dll": {}
-        },
-        "resources": {
-          "de/Troschuetz.Random.resources.dll": {
-            "locale": "de"
-          },
-          "es/Troschuetz.Random.resources.dll": {
-            "locale": "es"
-          },
-          "fr/Troschuetz.Random.resources.dll": {
-            "locale": "fr"
-          }
         }
       }
     }
@@ -37,6 +32,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Troschuetz.Random/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MwfN3xAyJGGLPyFO0W7cq+jZ7RvSQWs93Jr+QWnLETC/FigyvrBp/NSRs/UpSmkmc03V0tyngppwxbA/3qmgQg==",
+      "path": "troschuetz.random/4.3.0",
+      "hashPath": "troschuetz.random.4.3.0.nupkg.sha512"
     },
     "NeuralNetworkFundamentals/1.0.0": {
       "type": "project",

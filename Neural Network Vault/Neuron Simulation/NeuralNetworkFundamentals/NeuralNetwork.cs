@@ -500,8 +500,11 @@ namespace NeuralNetworkFundamentals
 
                 foreach (Neuron neuron in layers[i])
                     layerTree.Add(neuron.SerializeXml());
-                
+
+                rootTree.Add(layerTree);
             }
+
+            rootTree.Save(path);
 
             return true;
         }
@@ -509,6 +512,9 @@ namespace NeuralNetworkFundamentals
         public virtual bool LoadState(string path)
         {
             // Reads the current network's learning rate, momentum, and weights, and biases from an xml file.
+
+
+
             return true;
         }
     }

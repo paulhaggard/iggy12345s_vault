@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root LearningRate="0.5" Momentum="0">
+  <Layer Index="0" Input="true" Output="false">
+    <Neuron Input="true" Output="false">
+      <Bias>0.310862759738631</Bias>
+      <PreviousDelta>0</PreviousDelta>
+    </Neuron>
+    <Neuron Input="true" Output="false">
+      <Bias>0.85915588208434912</Bias>
+      <PreviousDelta>0</PreviousDelta>
+    </Neuron>
+  </Layer>
+  <Layer Index="1" Input="false" Output="false">
+    <Neuron Input="false" Output="false">
+      <Bias>0.14529170428649135</Bias>
+      <PreviousDelta>0</PreviousDelta>
+      <Weights>
+        <Weight Index="0">0.088216654531758587</Weight>
+        <Weight Index="1">0.88450556522445078</Weight>
+      </Weights>
+      <PreviousWeights>
+        <Weight Index="0">0</Weight>
+        <Weight Index="1">0</Weight>
+      </PreviousWeights>
+    </Neuron>
+    <Neuron Input="false" Output="false">
+      <Bias>0.3955844502875509</Bias>
+      <PreviousDelta>0</PreviousDelta>
+      <Weights>
+        <Weight Index="0">0.78222894844702862</Weight>
+        <Weight Index="1">0.0047477106585855182</Weight>
+      </Weights>
+      <PreviousWeights>
+        <Weight Index="0">0</Weight>
+        <Weight Index="1">0</Weight>
+      </PreviousWeights>
+    </Neuron>
+  </Layer>
+  <Layer Index="2" Input="false" Output="true">
+    <Neuron Input="false" Output="true">
+      <Bias>0.46405116769673821</Bias>
+      <PreviousDelta>0</PreviousDelta>
+      <Weights>
+        <Weight Index="0">0.32635052005124771</Weight>
+        <Weight Index="1">0.48513601696357878</Weight>
+      </Weights>
+      <PreviousWeights>
+        <Weight Index="0">0</Weight>
+        <Weight Index="1">0</Weight>
+      </PreviousWeights>
+    </Neuron>
+  </Layer>
+</Root>

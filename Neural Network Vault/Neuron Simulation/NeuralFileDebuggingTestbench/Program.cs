@@ -21,9 +21,8 @@ namespace NeuralFileDebuggingTestbench
             string path = "XMLTest.xml";
             Console.WriteLine("Testing file write:");
             Console.WriteLine("Writing network {0} to {1}", net.ID, path);
-            NeuralFile file = new NeuralFile(path);
-            file.FileWrite(new FileContents(true, false, false,
-                new List<NeuralNetwork> { net }));
+            net.GenWeightsAndBiases();
+            net.SaveState(path);
             Console.WriteLine("Successfully wrote the network to file.\nTesting file read:");
             /*
             net = file.FileRead().Nets[0];

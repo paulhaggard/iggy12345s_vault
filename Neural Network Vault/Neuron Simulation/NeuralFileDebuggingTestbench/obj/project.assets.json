@@ -197,6 +197,15 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Troschuetz.Random/4.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Troschuetz.Random.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Troschuetz.Random.dll": {}
+        }
+      },
       "NeuralNetworkFundamentals/1.0.0": {
         "type": "project",
         "compile": {
@@ -666,6 +675,27 @@
         "netstandard.library.nuspec"
       ]
     },
+    "Troschuetz.Random/4.3.0": {
+      "sha512": "MwfN3xAyJGGLPyFO0W7cq+jZ7RvSQWs93Jr+QWnLETC/FigyvrBp/NSRs/UpSmkmc03V0tyngppwxbA/3qmgQg==",
+      "type": "package",
+      "path": "troschuetz.random/4.3.0",
+      "files": [
+        "lib/net35/Troschuetz.Random.dll",
+        "lib/net35/Troschuetz.Random.xml",
+        "lib/net40/Troschuetz.Random.dll",
+        "lib/net40/Troschuetz.Random.xml",
+        "lib/net45/Troschuetz.Random.dll",
+        "lib/net45/Troschuetz.Random.xml",
+        "lib/net461/Troschuetz.Random.dll",
+        "lib/net461/Troschuetz.Random.xml",
+        "lib/netstandard1.0/Troschuetz.Random.dll",
+        "lib/netstandard1.0/Troschuetz.Random.xml",
+        "lib/netstandard2.0/Troschuetz.Random.dll",
+        "lib/netstandard2.0/Troschuetz.Random.xml",
+        "troschuetz.random.4.3.0.nupkg.sha512",
+        "troschuetz.random.nuspec"
+      ]
+    },
     "NeuralNetworkFundamentals/1.0.0": {
       "type": "project",
       "path": "../NeuralNetworkFundamentals/NeuralNetworkFundamentals.csproj",
@@ -675,7 +705,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.NETCore.App >= 2.0.0",
-      "NeuralNetworkFundamentals >= 1.0.0"
+      "NeuralNetworkFundamentals >= 1.0.0",
+      "Troschuetz.Random >= 4.3.0"
     ]
   },
   "packageFolders": {
@@ -685,9 +716,6 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
       "projectUniqueName": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralFileDebuggingTestbench\\NeuralFileDebuggingTestbench.csproj",
       "projectName": "NeuralFileDebuggingTestbench",
@@ -733,6 +761,10 @@
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true
+          },
+          "Troschuetz.Random": {
+            "target": "Package",
+            "version": "[4.3.0, )"
           }
         },
         "imports": [
