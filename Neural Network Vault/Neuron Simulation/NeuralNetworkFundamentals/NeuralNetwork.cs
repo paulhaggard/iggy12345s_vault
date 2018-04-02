@@ -60,7 +60,6 @@ namespace NeuralNetworkFundamentals
 
         // Properties
         private List<List<Neuron>> layers;      // The collection of physical layers of the neural network
-        private int neuronCount;
         private int activationCount;
         private bool hasSubscribed = false; // state of whether the network has subscribed to the neurons' activation events or not.
         private double learningRate;
@@ -78,8 +77,6 @@ namespace NeuralNetworkFundamentals
 
             this.learningRate = learningRate;
             this.momentum = momentum;
-
-            neuronCount = LayerInfo.Sum();
 
             layers = new List<List<Neuron>>(LayerInfo.Count);
 
@@ -145,30 +142,43 @@ namespace NeuralNetworkFundamentals
         {
             // Can allow the controller to generate the biases and weights prior to training.
 
-            // Sets up the Normal Distribution random number generator
-            NormalDistribution rndNorm = new NormalDistribution();
-            rndNorm.Sigma = 0.5;
-            rndNorm.Mu = 0;
-
-            // Sets up the binomial distribution random number generator
-            BinomialDistribution rndBin = new BinomialDistribution();
-
-            // Assigns the biases, and weights
-            for (int i = 0; i < layers.Count; i++)
+            try
             {
-                for (int j = 0; j < layers[i].Count; j++)
-                {
-                    // Initializes the network's biases and weights
-                    if (weights == null)
-                        layers[i][j].RandomizeWeights(rndNorm);
-                    else
-                        layers[i][j].Weights = weights[i][j];
+                // Sets up the Normal Distribution random number generator
+                NormalDistribution rndNorm = new NormalDistribution();
+                rndNorm.Sigma = 0.5;
+                rndNorm.Mu = 0;
 
-                    if (biases == null)
-                        layers[i][j].RandomizeBias(rndBin);
-                    else
-                        layers[i][j].Bias = biases[i][j];
+                // Sets up the binomial distribution random number generator
+                BinomialDistribution rndBin = new BinomialDistribution();
+
+                // Assigns the biases, and weights
+                for (int i = 0; i < layers.Count; i++)
+                {
+                    for (int j = 0; j < layers[i].Count; j++)
+                    {
+                        // Initializes the network's biases and weights
+                        if (weights == null)
+                            layers[i][j].RandomizeWeights(rndNorm);
+                        else
+                            layers[i][j].Weights = weights[i][j];
+
+                        if (biases == null)
+                            layers[i][j].RandomizeBias(rndBin);
+                        else
+                            layers[i][j].Bias = biases[i][j];
+                    }
                 }
+            }
+            catch(Exception e)
+            {
+                Random rnd = new Random();
+                foreach(List<Neuron> layer in layers)
+                    foreach(Neuron neuron in layer)
+                    {
+                        neuron.RandomizeBias(rnd);
+                        neuron.RandomizeWeights(rnd);
+                    }
             }
         }
 
@@ -177,28 +187,39 @@ namespace NeuralNetworkFundamentals
         public long ID { get => id; set => id = value; }
         public static long NetCount { get => netCount; set => netCount = value; }
         public double Momentum { get => momentum; set => momentum = value; }
+        public int NeuronCount { get => GetNeuralCount(); }
 
         protected virtual void GenWeights(List<List<List<double>>> weights = null)
         {
             // Can allow the controller to generate the biases and weights prior to training.
 
-            // Sets up the Normal Distribution random number generator
-            NormalDistribution rndNorm = new NormalDistribution();
-            rndNorm.Sigma = 0.05;
-            rndNorm.Mu = 0;
-
-            // Assigns the biases, and weights
-            for (int i = 1; i < layers.Count - 1; i++)
+            try
             {
-                for (int j = 0; j < layers[i].Count; j++)
-                {
-                    // Initializes the network's biases and weights
+                // Sets up the Normal Distribution random number generator
+                NormalDistribution rndNorm = new NormalDistribution();
+                rndNorm.Sigma = 0.05;
+                rndNorm.Mu = 0;
 
-                    if (weights == null)
-                        layers[i][j].RandomizeWeights(rndNorm);
-                    else
-                        layers[i][j].Weights = weights[i][j];
+                // Assigns the biases, and weights
+                for (int i = 1; i < layers.Count - 1; i++)
+                {
+                    for (int j = 0; j < layers[i].Count; j++)
+                    {
+                        // Initializes the network's biases and weights
+
+                        if (weights == null)
+                            layers[i][j].RandomizeWeights(rndNorm);
+                        else
+                            layers[i][j].Weights = weights[i][j];
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                // Troschuetz.Random isn't working, use Random instead.
+                foreach (List<Neuron> layer in layers)
+                    foreach (Neuron neuron in layer)
+                        neuron.RandomizeWeights(new Random());
             }
         }
 
@@ -206,20 +227,29 @@ namespace NeuralNetworkFundamentals
         {
             // Can allow the controller to generate the biases and weights prior to training.
 
-            // Sets up the binomial distribution random number generator
-            BinomialDistribution rndBin = new BinomialDistribution();
-
-            // Assigns the biases, and weights
-            for (int i = 0; i < layers.Count; i++)
+            try
             {
-                for (int j = 0; j < layers[i].Count; j++)
+                // Sets up the binomial distribution random number generator
+                BinomialDistribution rndBin = new BinomialDistribution();
+
+                // Assigns the biases, and weights
+                for (int i = 0; i < layers.Count; i++)
                 {
-                    // Initializes the network's biases and weights
-                    if (biases == null)
-                        layers[i][j].RandomizeBias(rndBin);
-                    else
-                        layers[i][j].Bias = biases[i][j];
+                    for (int j = 0; j < layers[i].Count; j++)
+                    {
+                        // Initializes the network's biases and weights
+                        if (biases == null)
+                            layers[i][j].RandomizeBias(rndBin);
+                        else
+                            layers[i][j].Bias = biases[i][j];
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                foreach (List<Neuron> layer in layers)
+                    foreach (Neuron neuron in layer)
+                        neuron.RandomizeBias(new Random());
             }
         }
 
@@ -249,6 +279,15 @@ namespace NeuralNetworkFundamentals
                 }
             }
             return temp;
+        }
+
+        public virtual int GetNeuralCount()
+        {
+            int sum = 0;
+            foreach (List<Neuron> layer in layers)
+                foreach (Neuron neuron in layer)
+                    sum++;
+            return sum;
         }
 
         // Training and propagation methods
@@ -438,9 +477,27 @@ namespace NeuralNetworkFundamentals
                 layers.Last()[i].ActiveEvent += OnActiveEvent;
         }
 
+        // Methods for saving a reading states.
+
         public virtual bool SaveState(string path)
         {
             // Writes the current network's learning rate, momentum, and weights, and biases to an xml file.
+
+            XElement rootTree = new XElement("Root",
+                new XAttribute("LearningRate", learningRate),
+                new XAttribute("Momentum", momentum));
+
+            for(int i = 0; i < layers.Count; i++)
+            {
+                XElement layerTree = new XElement("Layer",
+                    new XAttribute("Index", i),
+                    new XAttribute("Input", layers[i][0].InputLayer),       // Is input layer?
+                    new XAttribute("Output", layers[i][0].OutputLayer));    // Is output layer?
+
+                foreach (Neuron neuron in layers[i])
+                    layerTree.Add(neuron.SerializeXml());
+                
+            }
 
             return true;
         }
