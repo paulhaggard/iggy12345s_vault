@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using Troschuetz.Random;
+//using Troschuetz.Random;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -141,9 +141,10 @@ namespace NeuralNetworkFundamentals
         public void GenWeightsAndBiases(List<List<List<double>>> weights = null, List<List<double>> biases = null)
         {
             // Can allow the controller to generate the biases and weights prior to training.
-
+            /*
             try
             {
+                
                 // Sets up the Normal Distribution random number generator
                 NormalDistribution rndNorm = new NormalDistribution();
                 rndNorm.Sigma = 0.5;
@@ -172,6 +173,7 @@ namespace NeuralNetworkFundamentals
             }
             catch(Exception e)
             {
+            */
                 Random rnd = new Random();
                 foreach(List<Neuron> layer in layers)
                     foreach(Neuron neuron in layer)
@@ -179,7 +181,7 @@ namespace NeuralNetworkFundamentals
                         neuron.RandomizeBias(rnd);
                         neuron.RandomizeWeights(rnd);
                     }
-            }
+            //}
         }
 
         public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }
@@ -192,7 +194,7 @@ namespace NeuralNetworkFundamentals
         protected virtual void GenWeights(List<List<List<double>>> weights = null)
         {
             // Can allow the controller to generate the biases and weights prior to training.
-
+            /*
             try
             {
                 // Sets up the Normal Distribution random number generator
@@ -216,17 +218,18 @@ namespace NeuralNetworkFundamentals
             }
             catch (Exception e)
             {
+            */
                 // Troschuetz.Random isn't working, use Random instead.
                 foreach (List<Neuron> layer in layers)
                     foreach (Neuron neuron in layer)
                         neuron.RandomizeWeights(new Random());
-            }
+            //}
         }
 
         protected virtual void GenBiases(List<List<double>> biases = null)
         {
             // Can allow the controller to generate the biases and weights prior to training.
-
+            /*
             try
             {
                 // Sets up the binomial distribution random number generator
@@ -247,10 +250,11 @@ namespace NeuralNetworkFundamentals
             }
             catch (Exception e)
             {
+            */
                 foreach (List<Neuron> layer in layers)
                     foreach (Neuron neuron in layer)
                         neuron.RandomizeBias(new Random());
-            }
+            //}
         }
 
         protected virtual List<List<List<double>>> GetWeights()
