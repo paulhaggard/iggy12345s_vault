@@ -44,8 +44,12 @@ namespace neuralSimGui
         private bool IsExitting;
         private List<List<double>> inputSamp = new List<List<double>>();
         private List<List<double>> outputSamp = new List<List<double>>();
-        //private List<List<List<double>>> weights;
+        private List<List<List<double>>> weights;
         Random Rnd = new Random();
+        //these arefo finding a good set is weights and biases
+        private double outputA;
+        private double outputB;
+        private double outputC;
 
         public Form1()
         {
@@ -71,7 +75,15 @@ namespace neuralSimGui
                     prevWeights[i].Add(networkTest.Layers[i][j].PrevWeights);
                 }
             }
-            //List<List<List<double>>> weights; 
+            weights = new List<List<List<double>>>(networkTest.Layers.Count);
+            for (int i = 0; i < networkTest.Layers.Count; i++)
+            {
+                weights.Add(new List<List<double>>(networkTest.Layers[i].Count));
+                for (int j = 0; j < networkTest.Layers[i].Count; j++)
+                {
+                    weights[i].Add(networkTest.Layers[i][j].Weights);
+                }
+            }
 
             // Stores a list of all of the coordinates of each neuron's position on the layout display.
             plotSize = 5;
@@ -432,6 +444,14 @@ namespace neuralSimGui
                 List<double> Result = networkTest.Calc(new List<double> { a, b });
                 //Console.WriteLine("The result of inserting ({0},{1}) is: {2}, {3}", a, b, Result[0], Result[1]);
                 Console.WriteLine("The result of inserting ({0},{1}) is: {2}", a, b, Result[0]);
+                //new bit of code to look for aset of good outputs
+                if (i == 0)
+                    outputA = Result[0];
+                if (i == 1)
+                    outputB = Result[0];
+                if (i == 3)
+                    outputC = Result[0];
+
                 if (++a > 1)
                 {
                     a = 0;
@@ -449,6 +469,17 @@ namespace neuralSimGui
         private void button2_Click(object sender, EventArgs e)
         {
             networkTest.GenWeightsAndBiases();
+        }
+
+        private void Mega_Test_Click(object sender, EventArgs e)
+        {
+            do
+            {
+                button2.PerformClick();
+                //button1.PerformClick();
+                TestNet.PerformClick();
+
+            } while (outputA - outputB < 0.5 && outputC - outputB <0.5 && outputC - outputA<0.2);
         }
     }
 }
