@@ -399,6 +399,20 @@ namespace NeuralNetworkFundamentals
             }
         }
 
+        // Static Methods for saving and loading from files, calls the overridable methods.
+
+        public static XElement Save(Neuron neuron)
+        {
+            return neuron.SerializeXml();
+        }
+
+        public static Neuron Load(XElement element)
+        {
+            Neuron temp = new Neuron();
+            temp.InitializeFromXml(element);
+            return temp;
+        }
+
         public class ActivationEventArgs : EventArgs
         {
             public double Activation { get; set; }
