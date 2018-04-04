@@ -382,7 +382,7 @@ namespace NeuralNetworkFundamentals
             {
                 List<double> temp = new List<double>();
                 int i = 0;
-                while (element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + i + "]").Value != "")
+                while (element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + i + "]") != null)
                 {
                     temp.Add(Convert.ToDouble(element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + (i++) + "]").Value));
                 }
@@ -391,7 +391,7 @@ namespace NeuralNetworkFundamentals
                 // Handles previous Weights
                 temp = new List<double>(weights.Count);
                 i = 0;
-                while (element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + i + "]").Value != "")
+                while (element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + i + "]") != null)
                 {
                     temp.Add(Convert.ToDouble(element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + (i++) + "]").Value));
                 }
