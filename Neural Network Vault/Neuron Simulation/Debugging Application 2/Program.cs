@@ -3,99 +3,69 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Debugging_Application_2
+namespace Neural_Network_Testbench
 {
     class Program
     {
-        static bool IsTraining;
-        static int iterations;
+        // These are the test settings, learning rate, iterations, samples, expected outputs, etc...
+        static bool IsTraining = false;
+        static int iterations = 20000;
+        static double learningRate = 0.5;
 
-        static List<List<double>> sampleIn;
+        static List<List<double>> sampleIn = new List<List<double>>()
+        {
+            new List<double>(){0, 0 },
+            new List<double>(){0, 1 },
+            new List<double>(){1, 0 },
+            new List<double>(){1, 1 }
+        };
 
-        static List<List<double>> sampleOut;
+        static List<List<double>> sampleOut = new List<List<double>>()
+        {
+            new List<double>(){0},
+            new List<double>(){1},
+            new List<double>(){1},
+            new List<double>(){0}
+        };
+
+        static List<int> layerInfo = new List<int>() { 2, 2, 1 };
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Setting up test...");
-            iterations = 2000;
-            List<int> layerInfo = new List<int>() { 2, 2, 1 };
-            Random rnd = new Random();
-
-            NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: 0.01);   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
-            net.TrainingUpdateEvent += OnTrainingUpdateEvent;
-            net.TrainingFinishEvent += OnTrainingFinishEvent;
-
-            // Sets the weights and biases of the network prior to training
-            // START HERE: http://web.cecs.pdx.edu/~mm/MachineLearningSpring2017/NNs.pdf On slide 42
-            
-            net.Biases = new List<List<double>>()
+            char keypress;
+            do
             {
-                new List<double>(){0.1, 0.1 },
-                new List<double>(){0.1, 0.1 },
-                new List<double>(){0.1 }
-            };
+                Console.WriteLine("Setting up test...");
+                Random rnd = new Random();
 
-            net.Weights = new List<List<List<double>>>()
-            {
-                new List<List<double>>()
+                NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: learningRate);   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
+                net.TrainingUpdateEvent += OnTrainingUpdateEvent;
+                net.TrainingFinishEvent += OnTrainingFinishEvent;
+
+                // Sets the weights and biases of the network prior to training
+                // START HERE: http://web.cecs.pdx.edu/~mm/MachineLearningSpring2017/NNs.pdf On slide 42
+
+                net.GenWeightsAndBiases();
+
+                // Trains the network
+                IsTraining = true;
+                net.Train(iterations, sampleIn, sampleOut);
+                while (IsTraining) ;
+
+                //Console.Clear();
+                Console.WriteLine("Training Complete!");
+                Console.WriteLine("Testing inputs");
+                foreach (List<double> sample in sampleIn)
                 {
-                    new List<double>(){0.1, 0.1 },
-                    new List<double>(){0.1, 0.1 }
-                },
-                new List<List<double>>()
-                {
-                    new List<double>(){0.1, 0.1 },
-                    new List<double>(){0.1, 0.1 }
-                },
-                new List<List<double>>()
-                {
-                    new List<double>(){0.1, 0.1 }
+                    List<double> temp = net.Calc(sample);
+                    Console.WriteLine("For Inputs [{0}, {1}]:", sample[0], sample[1]);
+                    //Console.WriteLine("The output is: {0}, {1}\n", temp[0], temp[1]);
+                    Console.WriteLine("The output is: {0}\n", temp[0]);
                 }
-            };
-            
-            
-            //net.GenWeightsAndBiases();
 
-            // Creates the samples and outputs
-            
-            sampleIn = new List<List<double>>()
-            {
-                new List<double>(){0, 0 },
-                new List<double>(){0, 1 },
-                new List<double>(){1, 0 },
-                new List<double>(){1, 1 }
-            };
+                keypress = Console.ReadKey().KeyChar;
 
-            sampleOut = new List<List<double>>()
-            {
-                new List<double>(){0},
-                new List<double>(){1},
-                new List<double>(){1},
-                new List<double>(){0}
-            };
-            
-            
-
-            //sampleIn = new List<List<double>>() { new List<double>() { 1, 0 }, new List<double>() { 0, 1 } };
-            //sampleOut = new List<List<double>>() { new List<double>() { 0.9 }, new List<double>() { 0 } };
-
-            // Trains the network
-            IsTraining = true;
-            net.Train(iterations, sampleIn, sampleOut);
-            while (IsTraining) ;
-
-            Console.Clear();
-            Console.WriteLine("Training Complete!");
-            Console.WriteLine("Testing inputs");
-            foreach (List<double> sample in sampleIn)
-            {
-                List<double> temp = net.Calc(sample);
-                Console.WriteLine("For Inputs [{0}, {1}]:", sample[0], sample[1]);
-                //Console.WriteLine("The output is: {0}, {1}\n", temp[0], temp[1]);
-                Console.WriteLine("The output is: {0}\n", temp[0]);
-            }
-
-            Console.ReadKey();
+            } while (keypress != 's');
         }
 
         public static void OnTrainingUpdateEvent(object sender, TrainingUpdateEventArgs result)

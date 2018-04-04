@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Troschuetz.Random;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace NeuralNetworkFundamentals
 { 
@@ -68,6 +70,10 @@ namespace NeuralNetworkFundamentals
         public double Threshold { get => -bias; set => bias = -value; }
         public double Delta { get => delta; set => delta = value; }
         public List<double> PrevWeights { get => prevWeights; set => prevWeights = value; }
+        public static long Count { get => NeuronCount; }
+        public bool InputLayer { get => inputLayer; }
+        public bool OutputLayer { get => outputLayer; }
+        public double PrevDelta { get => prevDelta; }
 
         // Constructors
         // These all call the Setup Functions
@@ -146,7 +152,7 @@ namespace NeuralNetworkFundamentals
                 inputs_collected[i] = false;
             }
 
-            Setup(bias, defaultActivation, defaultParameters, inputLayer);
+            Setup(bias, defaultActivation, defaultParameters, InputLayer);
 
             for (int i = 0; i < inputNeurons.Count; i++)
             {
@@ -194,7 +200,7 @@ namespace NeuralNetworkFundamentals
             type = type ?? DefaultActivation;
             Params = Params ?? DefaultParameters;
 
-            if (!inputLayer)
+            if (!InputLayer)
             {
                 // Input layers don't have weights and activation functions, that's why they get an exclusive case
                 Net = bias;
@@ -206,7 +212,7 @@ namespace NeuralNetworkFundamentals
             }
             else
             {
-                Net = rawInput + bias;
+                Net = rawInput;
                 activation = net;
             }
 
@@ -218,7 +224,19 @@ namespace NeuralNetworkFundamentals
         public void RandomizeWeights(NormalDistribution rnd)
         {
             // Randomizes the weights according to the random generator sent in.
-            if (!inputLayer)
+            if (!InputLayer)
+            {
+                for (int i = 0; i < weights.Count; i++)
+                {
+                    weights[i] = rnd.NextDouble();
+                }
+            }
+        }
+
+        public void RandomizeWeights(Random rnd)
+        {
+            // Randomizes the weights according to the random generator sent in.
+            if (!InputLayer)
             {
                 for (int i = 0; i < weights.Count; i++)
                 {
@@ -233,21 +251,27 @@ namespace NeuralNetworkFundamentals
             bias = rnd.NextDouble();
         }
 
-        public void AdjustValues(double momentum = 1, double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
+        public void RandomizeBias(Random rnd)
+        {
+            // Randomizes the bias according to the random number generator sent in.
+            bias = rnd.NextDouble();
+        }
+
+        public void AdjustValues(double momentum = 0, double learningRate = 1, double ExpectedOutput = 0, List < Neuron> nextLayerNeurons = null)
         {
             // Backpropagates the values of the weights and biases based on the delta of this neuron
-            if (!inputLayer)
+            if (!InputLayer)
             {
                 for (int i = 0; i < weights.Count; i++)
                 {
                     PrevWeights[i] = weights[i];
-                    weights[i] += momentum * prevDelta + learningRate * delta * inputs[i];
+                    weights[i] += momentum * PrevDelta + learningRate * delta * inputs[i];
                 }
             }
-            bias += momentum * prevDelta + learningRate * delta;
+            bias += momentum * PrevDelta + learningRate * delta;
         }
 
-        public double AssignDelta(double momentum = 1, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
+        public double AssignDelta(double momentum = 0, double learningRate = 1,  double ExpectedOutput = 0, List<Neuron> nextLayerNeurons = null, bool AdjustValues = true)
         {
             // Calculates the delta for the neuron and updates the neuron's value.
             prevDelta = delta;
@@ -255,7 +279,7 @@ namespace NeuralNetworkFundamentals
             if(nextLayerNeurons == null)
             {
                 // Performs delta calculation for output neurons
-                if (outputLayer)
+                if (OutputLayer)
                 {
                     delta *= (ExpectedOutput - activation);
                 }
@@ -310,7 +334,83 @@ namespace NeuralNetworkFundamentals
         public void OnActivation()
         {
             // A helper function used to call the OnActiveEvent event that requires no arguments.
-            OnActiveEvent(new ActivationEventArgs(activation, id, (inputLayer)?rawInput:net));
+            OnActiveEvent(new ActivationEventArgs(activation, id, (InputLayer)?rawInput:net));
+        }
+
+        public virtual XElement SerializeXml()
+        {
+            // Returns an Xelement that is writable to an xml file with all of the data that this neuron needs in order to be read.
+
+            XElement temp = new XElement("Neuron",
+                new XAttribute("Input", inputLayer),
+                new XAttribute("Output", outputLayer),
+                new XElement("Bias", bias),
+                new XElement("PreviousDelta", prevDelta));
+
+            if (!inputLayer)
+            {
+                XElement weightTemp = new XElement("Weights");
+                for (int i = 0; i < Weights.Count; i++)
+                    weightTemp.Add(new XElement("Weight",
+                        new XAttribute("Index", i), weights[i]));
+
+                temp.Add(weightTemp);
+
+                XElement prevWeightTemp = new XElement("PreviousWeights");
+                for (int i = 0; i < prevWeights.Count; i++)
+                    prevWeightTemp.Add(new XElement("Weight",
+                        new XAttribute("Index", i), prevWeights[i]));
+
+                temp.Add(prevWeightTemp);
+            }
+
+            return temp;
+        }
+
+        public virtual void InitializeFromXml(XElement element)
+        {
+            // Reads data from an Xml element passed in, to initialize all of the values in the neuron.
+
+            inputLayer = Convert.ToBoolean(element.Attribute("Input").Value);
+            outputLayer = Convert.ToBoolean(element.Attribute("Output").Value);
+
+            bias = Convert.ToDouble(element.XPathSelectElement("Bias").Value);
+            prevDelta = Convert.ToDouble(element.XPathSelectElement("PreviousDelta").Value);
+
+            // Handles current weights
+            if (!inputLayer)
+            {
+                List<double> temp = new List<double>();
+                int i = 0;
+                while (element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + i + "]") != null)
+                {
+                    temp.Add(Convert.ToDouble(element.XPathSelectElement("Weights").XPathSelectElement("Weight[@Index=" + (i++) + "]").Value));
+                }
+                weights = temp;
+
+                // Handles previous Weights
+                temp = new List<double>(weights.Count);
+                i = 0;
+                while (element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + i + "]") != null)
+                {
+                    temp.Add(Convert.ToDouble(element.XPathSelectElement("PreviousWeights").XPathSelectElement("Weight[@Index=" + (i++) + "]").Value));
+                }
+                prevWeights = temp;
+            }
+        }
+
+        // Static Methods for saving and loading from files, calls the overridable methods.
+
+        public static XElement Save(Neuron neuron)
+        {
+            return neuron.SerializeXml();
+        }
+
+        public static Neuron Load(XElement element)
+        {
+            Neuron temp = new Neuron();
+            temp.InitializeFromXml(element);
+            return temp;
         }
 
         public class ActivationEventArgs : EventArgs

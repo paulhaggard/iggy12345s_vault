@@ -34,21 +34,3 @@ G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mut
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.AssemblyInfo.cs
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.dll
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.pdb
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.deps.json
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.runtimeconfig.json
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.runtimeconfig.dev.json
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.dll
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.pdb
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\NeuralNetworkFundamentals.dll
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Troschuetz.Random.dll
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\NeuralNetworkFundamentals.pdb
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Troschuetz.Random.xml
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\de\Troschuetz.Random.resources.dll
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\es\Troschuetz.Random.resources.dll
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\fr\Troschuetz.Random.resources.dll
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.csprojResolveAssemblyReference.cache
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.csproj.CoreCompileInputs.cache
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.AssemblyInfoInputs.cache
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.AssemblyInfo.cs
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.dll
-C:\Users\Matt\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Mutliple Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Mutliple Neuron Debugging Testbench.pdb
