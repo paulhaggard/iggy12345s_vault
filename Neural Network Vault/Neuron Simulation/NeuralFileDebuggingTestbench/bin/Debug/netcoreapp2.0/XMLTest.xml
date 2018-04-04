@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root LearningRate="0.5" Momentum="0">
-  <Layer Index="0" Input="true" Output="false">
+  <Layer Index="0" Input="true" Output="false" Count="2">
     <Neuron Input="true" Output="false">
-      <Bias>0.310862759738631</Bias>
+      <Bias>0.71481633871552364</Bias>
       <PreviousDelta>0</PreviousDelta>
     </Neuron>
     <Neuron Input="true" Output="false">
-      <Bias>0.85915588208434912</Bias>
+      <Bias>0.86565517674463577</Bias>
       <PreviousDelta>0</PreviousDelta>
     </Neuron>
   </Layer>
-  <Layer Index="1" Input="false" Output="false">
+  <Layer Index="1" Input="false" Output="false" Count="2">
     <Neuron Input="false" Output="false">
-      <Bias>0.14529170428649135</Bias>
+      <Bias>0.88649504673038382</Bias>
       <PreviousDelta>0</PreviousDelta>
       <Weights>
-        <Weight Index="0">0.088216654531758587</Weight>
-        <Weight Index="1">0.88450556522445078</Weight>
+        <Weight Index="0">0.826061468490428</Weight>
+        <Weight Index="1">0.97487824874691587</Weight>
       </Weights>
       <PreviousWeights>
         <Weight Index="0">0</Weight>
@@ -24,11 +24,11 @@
       </PreviousWeights>
     </Neuron>
     <Neuron Input="false" Output="false">
-      <Bias>0.3955844502875509</Bias>
+      <Bias>0.42711312203999291</Bias>
       <PreviousDelta>0</PreviousDelta>
       <Weights>
-        <Weight Index="0">0.78222894844702862</Weight>
-        <Weight Index="1">0.0047477106585855182</Weight>
+        <Weight Index="0">0.056438546188379894</Weight>
+        <Weight Index="1">0.28274225456767821</Weight>
       </Weights>
       <PreviousWeights>
         <Weight Index="0">0</Weight>
@@ -36,13 +36,13 @@
       </PreviousWeights>
     </Neuron>
   </Layer>
-  <Layer Index="2" Input="false" Output="true">
+  <Layer Index="2" Input="false" Output="true" Count="1">
     <Neuron Input="false" Output="true">
-      <Bias>0.46405116769673821</Bias>
+      <Bias>0.084700746966852217</Bias>
       <PreviousDelta>0</PreviousDelta>
       <Weights>
-        <Weight Index="0">0.32635052005124771</Weight>
-        <Weight Index="1">0.48513601696357878</Weight>
+        <Weight Index="0">0.63128366257589485</Weight>
+        <Weight Index="1">0.98305227606699441</Weight>
       </Weights>
       <PreviousWeights>
         <Weight Index="0">0</Weight>

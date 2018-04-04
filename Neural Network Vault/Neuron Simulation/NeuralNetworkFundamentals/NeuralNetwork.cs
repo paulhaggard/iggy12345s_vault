@@ -516,24 +516,26 @@ namespace NeuralNetworkFundamentals
 
             XElement root = XElement.Load(path);
 
-            learningRate = Convert.ToDouble(root.Attribute("LearningRate").Value);          // Initializes the learning rate
-            momentum = Convert.ToDouble(root.Attribute("Momentum").Value);                  // Initializes the momentum
+            learningRate = Convert.ToDouble(root.Attribute("LearningRate").Value);                  // Initializes the learning rate
+            momentum = Convert.ToDouble(root.Attribute("Momentum").Value);                          // Initializes the momentum
 
             int i = 0;
             List<List<Neuron>> temp = new List<List<Neuron>>();
-            XElement layer = root.XPathSelectElement("Layer[@Index=" + i + "]");            // Condenses the XPath selection to a variable, DOES NOT increment i
-            while (layer != null)
+            while (root.XPathSelectElement("Layer[@Index=" + i + "]") != null)
             {
                 List<Neuron> temptemp = new List<Neuron>();
-                layer = root.XPathSelectElement("Layer[@Index=" + (i++) + "]");             // Condenses the XPath selection to a variable and increments i
-                List<XElement> neuronList = layer.XPathSelectElements("Neuron").ToList();   // Gets the list of neurons in the layer.
-                foreach (XElement neuron in neuronList)
+                XElement layer = root.XPathSelectElement("Layer[@Index=" + (i++) + "]");            // Condenses the XPath selection to a variable and increments i
+                if (layer != null)
                 {
-                    temptemp.Add(Neuron.Load(neuron));                                      // Loads each neuron
+                    List<XElement> neuronList = layer.XPathSelectElements("//Neuron").ToList();     // Gets the list of neurons in the layer.
+                    foreach (XElement neuron in neuronList)
+                    {
+                        temptemp.Add(Neuron.Load(neuron));                                          // Loads each neuron
+                    }
+                    temp.Add(temptemp);                                                             // Loads that new layer
                 }
-                temp.Add(temptemp);                                                         // Loads that new layer
             }
-            layers = temp;                                                                  // Initializes the layer variable with the new layers
+            layers = temp;                                                                          // Initializes the layer variable with the new layers
 
             return true;
         }
