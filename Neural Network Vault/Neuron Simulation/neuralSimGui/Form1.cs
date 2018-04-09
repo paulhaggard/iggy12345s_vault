@@ -52,13 +52,7 @@ namespace neuralSimGui
             // Loads all of the memory we need to run this network
             IsExitting = false;
             // Generates the neural network
-            List<int> numOfNeurons = new List<int>
-            {
-                2,
-                8,
-                8,
-                2
-            };
+            List<int> numOfNeurons = new List<int> { 2, 3, 3, 2 };  // Layer info
             networkTest = new NeuralNetwork(numOfNeurons);
             networkTest.GenWeightsAndBiases();
             networkTest.TrainingUpdateEvent += OnTrainingUpdateEvent;
@@ -194,7 +188,6 @@ namespace neuralSimGui
         private void DrawNetwork(List<List<Neuron>> layers)
         {
             Image layout = LayoutBox.Image;
-            /*
             Image inputAct = InputLayerActivations.Image;
             Image inputWt = InputLayerWeights.Image;
             Image layAAct = HiddenLayerAActivations.Image;
@@ -202,7 +195,7 @@ namespace neuralSimGui
             Image layBAct = HiddenLayerBActivations.Image;
             Image layBWt = HiddenLayerBWeights.Image;
             Image outputAct = OutputLayerActivations.Image;
-            */
+            
 
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush, 1);
@@ -226,13 +219,13 @@ namespace neuralSimGui
                             {
                                 for (int k = 0; k < neuronCoord[i - 1].Count; k++)
                                 {
-                                    int red = (int)(Math.Abs(1 - (neuron.PrevDelta - neuron.PrevDelta)) * 255);
-                                    int green = (int)(Math.Abs(1 - (neuron.PrevWeights[0] - neuron.Weights[0])) * 255);
-                                    int blue = (int)(Math.Abs(neuron.Activation * 255));
+                                    int blue = (neuron.Weights[0] <= neuron.PrevWeights[0]) ? 255 : 0; //(int)(Math.Abs(1 - (neuron.PrevDelta - neuron.PrevDelta)) * 255);
+                                    int red = (neuron.Weights[0] > neuron.PrevWeights[0]) ? 255 : 0;//(int)(Math.Abs(1 - (neuron.PrevWeights[0] - neuron.Weights[0])) * 255);
+                                    int green = (int)(Math.Abs(neuron.Activation * 127));
                                     pen.Color = Color.FromArgb(255,
-                                        (neuron.Activation > 0) ? 255 : 0, //(red > 255) ? 255 : ((red < 0) ? 0 : red),
-                                        0, //(green > 255) ? 255 : ((green < 0) ? 0 : green),
-                                        (neuron.Activation <= 0) ? 255 : 0); // (blue > 255) ? 255 : ((blue < 0) ? 0 : blue));
+                                        (red > 255) ? 255 : ((red < 0) ? 0 : red),
+                                        (green > 127) ? 127 : ((green < 0) ? 0 : green),
+                                        (blue > 255) ? 255 : ((blue < 0) ? 0 : blue));
                                     g.DrawLine(pen, new Point(neuronCoord[i][j].Item1 + (plotSize / 2), neuronCoord[i][j].Item2 + (plotSize / 2)),
                                         new Point(neuronCoord[i - 1][k].Item1 + (plotSize / 2), neuronCoord[i - 1][k].Item2 + (plotSize / 2)));
                                 }
