@@ -51,6 +51,7 @@ namespace neuralSimGui
             this.numItrLbl = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.NumNeurons = new System.Windows.Forms.Label();
+            this.ResetNetworkCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.LayoutBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputLayerWeights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HiddenLayerAWeights)).BeginInit();
@@ -278,11 +279,22 @@ namespace neuralSimGui
             this.NumNeurons.TabIndex = 17;
             this.NumNeurons.Text = "Num of Neurons";
             // 
+            // ResetNetworkCheckbox
+            // 
+            this.ResetNetworkCheckbox.AutoSize = true;
+            this.ResetNetworkCheckbox.Location = new System.Drawing.Point(546, 425);
+            this.ResetNetworkCheckbox.Name = "ResetNetworkCheckbox";
+            this.ResetNetworkCheckbox.Size = new System.Drawing.Size(60, 17);
+            this.ResetNetworkCheckbox.TabIndex = 18;
+            this.ResetNetworkCheckbox.Text = "Reset?";
+            this.ResetNetworkCheckbox.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(930, 616);
+            this.Controls.Add(this.ResetNetworkCheckbox);
             this.Controls.Add(this.NumNeurons);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.numItrLbl);
@@ -349,5 +361,6 @@ namespace neuralSimGui
         private System.Windows.Forms.Label numItrLbl;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label NumNeurons;
+        private System.Windows.Forms.CheckBox ResetNetworkCheckbox;
     }
 }
