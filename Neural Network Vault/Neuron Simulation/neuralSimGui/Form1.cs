@@ -94,7 +94,7 @@ namespace neuralSimGui
             DrawingQueue.Enqueue(networkTest.Layers);
 
             // Sets up the progress bar
-            progressBar1.Maximum =(int) (numSampCtrl.Value * numItrCtrl.Value);
+            //progressBar1.Maximum =(int) (numSampCtrl.Value * numItrCtrl.Value);   // This is done farther down vvv
             progressBar1.Minimum = 0;
             progressBar1.Value = 0;
             progressBar1.Visible = false;
@@ -110,6 +110,8 @@ namespace neuralSimGui
             outputSamp.Add(new List<double>() { 1, 0 });
             outputSamp.Add(new List<double>() { 1, 0 });
             outputSamp.Add(new List<double>() { 0, 1 });
+
+            progressBar1.Maximum = (int)(inputSamp.Count * numItrCtrl.Value);       // HERE!!!
 
             //sets up the samples given to the network
             //List<List<double>> inputSamp = new List<List<double>>();
@@ -178,7 +180,14 @@ namespace neuralSimGui
                 // Continuously checks the drawing queue and draws anything it finds.
                 if (DrawingQueue.Count > 0)
                 {
-                    Invoke(d, new object[] { DrawingQueue.Dequeue()});
+                    try
+                    {
+                        Invoke(d, new object[] { DrawingQueue.Dequeue() });
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                 }
             }
         }
@@ -245,7 +254,7 @@ namespace neuralSimGui
                 Console.WriteLine(e.Message);
             }
 
-            /*
+            
             using (Graphics g = Graphics.FromImage(inputAct))
             {
                 g.Clear(Color.White);
@@ -264,6 +273,7 @@ namespace neuralSimGui
                         j++;
                     }
                 }
+                InputLayerActivations.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(inputWt))
@@ -289,6 +299,7 @@ namespace neuralSimGui
                     j++;
                 }
                 pen.Color = Color.Black;
+                InputLayerWeights.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(layAAct))
@@ -309,6 +320,7 @@ namespace neuralSimGui
                         j++;
                     }
                 }
+                HiddenLayerAActivations.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(layAWt))
@@ -330,6 +342,7 @@ namespace neuralSimGui
                     j++;
                 }
                 pen.Color = Color.Black;
+                HiddenLayerAWeights.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(layBAct))
@@ -350,6 +363,7 @@ namespace neuralSimGui
                         j++;
                     }
                 }
+                HiddenLayerBActivations.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(layBWt))
@@ -371,6 +385,7 @@ namespace neuralSimGui
                     j++;
                 }
                 pen.Color = Color.Black;
+                HiddenLayerBWeights.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(outputAct))
@@ -391,8 +406,9 @@ namespace neuralSimGui
                         j++;
                     }
                 }
+                OutputLayerActivations.Invalidate();
             }
-            */
+            
 
             // Saves the current weights for comparison later
             for (int i = 0; i < networkTest.Layers.Count; i++)
