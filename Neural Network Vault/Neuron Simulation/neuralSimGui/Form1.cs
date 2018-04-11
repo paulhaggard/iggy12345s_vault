@@ -52,7 +52,7 @@ namespace neuralSimGui
             // Loads all of the memory we need to run this network
             IsExitting = false;
             // Generates the neural network
-            List<int> numOfNeurons = new List<int> { 2, 3, 3, 2 };  // Layer info
+            List<int> numOfNeurons = new List<int> { 2, 16, 16, 2 };  // Layer info
             networkTest = new NeuralNetwork(numOfNeurons);
             networkTest.GenWeightsAndBiases();
             networkTest.TrainingUpdateEvent += OnTrainingUpdateEvent;
@@ -213,7 +213,7 @@ namespace neuralSimGui
             {
                 using (Graphics g = Graphics.FromImage(layout))
                 {
-                    g.Clear(Color.White);
+                    g.Clear(Color.DimGray);
 
                     int i = 0;
                     int j = 0;
@@ -245,14 +245,7 @@ namespace neuralSimGui
                         i++;
                     }
                     LayoutBox.Invalidate();
-                    //g.Dispose();
                 }
-                //layout.Dispose();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
 
             
             using (Graphics g = Graphics.FromImage(inputAct))
@@ -408,7 +401,12 @@ namespace neuralSimGui
                 }
                 OutputLayerActivations.Invalidate();
             }
-            
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
 
             // Saves the current weights for comparison later
             for (int i = 0; i < networkTest.Layers.Count; i++)
