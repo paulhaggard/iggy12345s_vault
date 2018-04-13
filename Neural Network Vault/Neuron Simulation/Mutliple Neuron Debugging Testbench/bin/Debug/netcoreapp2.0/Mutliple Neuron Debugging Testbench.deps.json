@@ -17,17 +17,6 @@
       "NeuralNetworkFundamentals/1.0.0": {
         "runtime": {
           "NeuralNetworkFundamentals.dll": {}
-        },
-        "resources": {
-          "de/Troschuetz.Random.resources.dll": {
-            "locale": "de"
-          },
-          "es/Troschuetz.Random.resources.dll": {
-            "locale": "es"
-          },
-          "fr/Troschuetz.Random.resources.dll": {
-            "locale": "fr"
-          }
         }
       }
     }

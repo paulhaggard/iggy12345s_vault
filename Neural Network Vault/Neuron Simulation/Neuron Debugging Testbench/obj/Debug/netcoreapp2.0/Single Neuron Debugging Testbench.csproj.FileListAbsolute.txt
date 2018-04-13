@@ -24,13 +24,10 @@ C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Sim
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\NeuralNetworkFundamentals.dll
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Troschuetz.Random.dll
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\NeuralNetworkFundamentals.pdb
-C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\Troschuetz.Random.xml
-C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\de\Troschuetz.Random.resources.dll
-C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\es\Troschuetz.Random.resources.dll
-C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\bin\Debug\netcoreapp2.0\fr\Troschuetz.Random.resources.dll
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Single Neuron Debugging Testbench.csprojResolveAssemblyReference.cache
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Single Neuron Debugging Testbench.csproj.CoreCompileInputs.cache
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Single Neuron Debugging Testbench.AssemblyInfoInputs.cache
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Single Neuron Debugging Testbench.AssemblyInfo.cs
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Single Neuron Debugging Testbench.dll
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Single Neuron Debugging Testbench.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neuron Debugging Testbench\obj\Debug\netcoreapp2.0\Single Neuron Debugging Testbench.csproj.CopyComplete
