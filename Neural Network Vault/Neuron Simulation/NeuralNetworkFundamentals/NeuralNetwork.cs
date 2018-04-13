@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-//using Troschuetz.Random;
+using Troschuetz.Random;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -141,7 +141,7 @@ namespace NeuralNetworkFundamentals
         public void GenWeightsAndBiases(List<List<List<double>>> weights = null, List<List<double>> biases = null)
         {
             // Can allow the controller to generate the biases and weights prior to training.
-            /*
+            
             try
             {
                 
@@ -173,7 +173,7 @@ namespace NeuralNetworkFundamentals
             }
             catch(Exception e)
             {
-            */
+            
                 Random rnd = new Random();
                 foreach(List<Neuron> layer in layers)
                     foreach(Neuron neuron in layer)
@@ -181,7 +181,7 @@ namespace NeuralNetworkFundamentals
                         neuron.RandomizeBias(rnd);
                         neuron.RandomizeWeights(rnd);
                     }
-            //}
+            }
         }
 
         public List<List<List<double>>> Weights { get => GetWeights(); set => GenWeights(value); }

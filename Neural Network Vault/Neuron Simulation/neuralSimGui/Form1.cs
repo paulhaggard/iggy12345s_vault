@@ -18,11 +18,12 @@ namespace neuralSimGui
         public void OnTrainingUpdateEvent(object sender, TrainingUpdateEventArgs result)
         {
             // Executes every time the network finishes a training sample
+            Console.WriteLine("{0} XOR {1} is {2}", result.Layers[0][0].RawInput, result.Layers[0][1].RawInput, result.Layers.Last()[0].Activation);
             DrawingQueue.Enqueue(result.Layers);    // Adds this layer set to the queue to be drawn
-            if(this.progressBar1.InvokeRequired)
+            if (progressBar1.InvokeRequired)
             {
                 IncrementProgressBarCallback d = new IncrementProgressBarCallback(IncrementProgressBar);
-                this.Invoke(d, new object[] { result.Error });
+                Invoke(d, new object[] { result.Error });
             }
             else
                 progressBar1.Increment(1);
@@ -34,11 +35,10 @@ namespace neuralSimGui
             ErrorLabel.Text = Error.ToString();
         }
 
-        private NeuralNetworkFundamentals.NeuralNetwork networkTest;
+        private NeuralNetwork networkTest;
         private List<List<Tuple<int, int>>> neuronCoord;
         private int plotSize;
         private List<List<List<double>>> prevWeights;
-        private bool IsDrawing;
         private Thread DrawingControllerThread;
         private Queue<List<List<Neuron>>> DrawingQueue;
         private bool IsExitting;
@@ -52,14 +52,12 @@ namespace neuralSimGui
             // Loads all of the memory we need to run this network
             IsExitting = false;
             // Generates the neural network
-            List<int> numOfNeurons = new List<int>();
-            numOfNeurons.Add(2);
-            numOfNeurons.Add(8);
-            numOfNeurons.Add(8);
-            numOfNeurons.Add(2);
-            networkTest = new NeuralNetworkFundamentals.NeuralNetwork(numOfNeurons);
+            List<int> numOfNeurons = new List<int> { 2, 16, 16, 2 };  // Layer info
+            networkTest = new NeuralNetwork(numOfNeurons);
             networkTest.GenWeightsAndBiases();
             networkTest.TrainingUpdateEvent += OnTrainingUpdateEvent;
+
+            ResetNetworkCheckbox.Checked = true;
 
             // Populates the weight and prevWeight lists
             prevWeights = new List<List<List<double>>>(networkTest.Layers.Count);
@@ -78,7 +76,6 @@ namespace neuralSimGui
             GenNeuronCoord();
 
             // sets all the images up
-            IsDrawing = false;
             InputLayerActivations.Image = new Bitmap(InputLayerActivations.Width, InputLayerActivations.Height);
             InputLayerWeights.Image = new Bitmap(InputLayerWeights.Width, InputLayerWeights.Height);
             HiddenLayerAActivations.Image = new Bitmap(HiddenLayerAActivations.Width, HiddenLayerAActivations.Height);
@@ -97,26 +94,24 @@ namespace neuralSimGui
             DrawingQueue.Enqueue(networkTest.Layers);
 
             // Sets up the progress bar
-            progressBar1.Maximum =(int) (numSampCtrl.Value * numItrCtrl.Value);
+            //progressBar1.Maximum =(int) (numSampCtrl.Value * numItrCtrl.Value);   // This is done farther down vvv
             progressBar1.Minimum = 0;
             progressBar1.Value = 0;
             progressBar1.Visible = false;
 
             //xor gate tester
-            inputSamp.Add(new List<double>());
-            inputSamp[0].Add(1);
-            inputSamp[0].Add(0);
-            inputSamp.Add(new List<double>());
-            inputSamp[1].Add(0);
-            inputSamp[1].Add(0);
+            inputSamp.Add(new List<double>() { 0, 0 });
+            inputSamp.Add(new List<double>() { 1, 0 });
+            inputSamp.Add(new List<double>() { 0, 1 });
+            inputSamp.Add(new List<double>() { 1, 1 });
 
 
-            outputSamp.Add(new List<double>());
-            outputSamp[0].Add(1);
-            outputSamp[0].Add(0);
-            outputSamp.Add(new List<double>());
-            outputSamp[1].Add(0);
-            outputSamp[1].Add(1);
+            outputSamp.Add(new List<double>() { 0, 1 });
+            outputSamp.Add(new List<double>() { 1, 0 });
+            outputSamp.Add(new List<double>() { 1, 0 });
+            outputSamp.Add(new List<double>() { 0, 1 });
+
+            progressBar1.Maximum = (int)(inputSamp.Count * numItrCtrl.Value);       // HERE!!!
 
             //sets up the samples given to the network
             //List<List<double>> inputSamp = new List<List<double>>();
@@ -153,9 +148,10 @@ namespace neuralSimGui
         private void button1_Click(object sender, EventArgs e)
         {
             // Starts the training
+            progressBar1.Maximum = (int)(inputSamp.Count * numItrCtrl.Value); // Sets up the progress bar
             progressBar1.Value = 0;
             progressBar1.Visible = true;
-            networkTest.Train(((int)(numItrCtrl.Value)), inputSamp, outputSamp);
+            networkTest.Train(((int)(numItrCtrl.Value)), inputSamp, outputSamp, Reset: ResetNetworkCheckbox.Checked);
         }
 
         private void GenNeuronCoord()
@@ -178,22 +174,25 @@ namespace neuralSimGui
 
         private void DrawingController()
         {
+            DrawNetworkCallback d = new DrawNetworkCallback(DrawNetwork);
             while(!IsExitting)
             {
                 // Continuously checks the drawing queue and draws anything it finds.
-                if (DrawingQueue.Count > 0 && !IsDrawing)
+                if (DrawingQueue.Count > 0)
                 {
-                    IsDrawing = true;   //  Updates that the draw is currently drawing and cannot be used right now.
-                    Thread DrawingThread = new Thread(new ThreadStart(DrawNetworkStart));
-                    DrawingThread.Start();
+                    try
+                    {
+                        Invoke(d, new object[] { DrawingQueue.Dequeue() });
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                 }
             }
-            
-            void DrawNetworkStart()
-            {
-                DrawNetwork(DrawingQueue.Dequeue());
-            }
         }
+
+        delegate void DrawNetworkCallback(List<List<Neuron>> layers);
 
         private void DrawNetwork(List<List<Neuron>> layers)
         {
@@ -205,42 +204,50 @@ namespace neuralSimGui
             Image layBAct = HiddenLayerBActivations.Image;
             Image layBWt = HiddenLayerBWeights.Image;
             Image outputAct = OutputLayerActivations.Image;
-
-            NeuralNetwork net = networkTest;
+            
 
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush, 1);
 
-            using (Graphics g = Graphics.FromImage(layout))
+            try
             {
-                g.Clear(Color.White);
-
-                int i = 0;
-                int j = 0;
-
-                foreach(List<Neuron> layer in layers)
+                using (Graphics g = Graphics.FromImage(layout))
                 {
-                    j = 0;
-                    foreach(Neuron neuron in layer)
-                    {
-                        g.DrawEllipse(pen, new Rectangle(new Point(neuronCoord[i][j].Item1, neuronCoord[i][j].Item2), new Size(plotSize, plotSize)));
-                        if ((i > 0)&&(neuron.PrevWeights.Count > 0))
-                        {
-                            for (int k = 0; k < neuronCoord[i - 1].Count; k++)
-                            {
-                                pen.Color = Color.FromArgb(255, (neuron.PrevWeights[k] <= prevWeights[i][j][k]) ? 200 : 0, (Math.Abs(neuron.PrevWeights[k]) > 1)?255:(int)(Math.Abs(neuron.PrevWeights[k]) * 255), (neuron.PrevWeights[k] > prevWeights[i][j][k]) ? 200 : 0);
-                                g.DrawLine(pen, new Point(neuronCoord[i][j].Item1 + (plotSize / 2), neuronCoord[i][j].Item2 + (plotSize / 2)),
-                                    new Point(neuronCoord[i-1][k].Item1 + (plotSize/2), neuronCoord[i-1][k].Item2 + (plotSize / 2)));
-                            }
-                        }
-                        pen.Color = Color.Black;
-                        j++;
-                    }
-                    i++;
-                }
-                LayoutBox.Invalidate();
-            }
+                    g.Clear(Color.DimGray);
 
+                    int i = 0;
+                    int j = 0;
+
+                    foreach (List<Neuron> layer in layers)
+                    {
+                        j = 0;
+                        foreach (Neuron neuron in layer)
+                        {
+                            g.DrawEllipse(pen, new Rectangle(new Point(neuronCoord[i][j].Item1, neuronCoord[i][j].Item2), new Size(plotSize, plotSize)));
+                            if ((i > 0) && (neuron.PrevWeights.Count > 0))
+                            {
+                                for (int k = 0; k < neuronCoord[i - 1].Count; k++)
+                                {
+                                    int blue = (neuron.Weights[0] <= neuron.PrevWeights[0]) ? 255 : 0; //(int)(Math.Abs(1 - (neuron.PrevDelta - neuron.PrevDelta)) * 255);
+                                    int red = (neuron.Weights[0] > neuron.PrevWeights[0]) ? 255 : 0;//(int)(Math.Abs(1 - (neuron.PrevWeights[0] - neuron.Weights[0])) * 255);
+                                    int green = (int)(Math.Abs(neuron.Activation * 127));
+                                    pen.Color = Color.FromArgb(255,
+                                        (red > 255) ? 255 : ((red < 0) ? 0 : red),
+                                        (green > 127) ? 127 : ((green < 0) ? 0 : green),
+                                        (blue > 255) ? 255 : ((blue < 0) ? 0 : blue));
+                                    g.DrawLine(pen, new Point(neuronCoord[i][j].Item1 + (plotSize / 2), neuronCoord[i][j].Item2 + (plotSize / 2)),
+                                        new Point(neuronCoord[i - 1][k].Item1 + (plotSize / 2), neuronCoord[i - 1][k].Item2 + (plotSize / 2)));
+                                }
+                            }
+                            pen.Color = Color.Black;
+                            j++;
+                        }
+                        i++;
+                    }
+                    LayoutBox.Invalidate();
+                }
+
+            
             using (Graphics g = Graphics.FromImage(inputAct))
             {
                 g.Clear(Color.White);
@@ -259,6 +266,7 @@ namespace neuralSimGui
                         j++;
                     }
                 }
+                InputLayerActivations.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(inputWt))
@@ -284,6 +292,7 @@ namespace neuralSimGui
                     j++;
                 }
                 pen.Color = Color.Black;
+                InputLayerWeights.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(layAAct))
@@ -304,6 +313,7 @@ namespace neuralSimGui
                         j++;
                     }
                 }
+                HiddenLayerAActivations.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(layAWt))
@@ -325,6 +335,7 @@ namespace neuralSimGui
                     j++;
                 }
                 pen.Color = Color.Black;
+                HiddenLayerAWeights.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(layBAct))
@@ -345,6 +356,7 @@ namespace neuralSimGui
                         j++;
                     }
                 }
+                HiddenLayerBActivations.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(layBWt))
@@ -366,6 +378,7 @@ namespace neuralSimGui
                     j++;
                 }
                 pen.Color = Color.Black;
+                HiddenLayerBWeights.Invalidate();
             }
 
             using (Graphics g = Graphics.FromImage(outputAct))
@@ -386,7 +399,14 @@ namespace neuralSimGui
                         j++;
                     }
                 }
+                OutputLayerActivations.Invalidate();
             }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
 
             // Saves the current weights for comparison later
             for (int i = 0; i < networkTest.Layers.Count; i++)

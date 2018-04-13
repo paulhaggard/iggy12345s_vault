@@ -11,3 +11,16 @@ C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Sim
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.exe
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.pdb
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csproj.CopyComplete
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.Form1.resources
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.Properties.Resources.resources
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csproj.GenerateResource.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.exe
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\bin\Debug\neuralSimGui.exe
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\bin\Debug\neuralSimGui.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\bin\Debug\NeuralNetworkFundamentals.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\bin\Debug\Troschuetz.Random.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\bin\Debug\NeuralNetworkFundamentals.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csproj.CopyComplete
