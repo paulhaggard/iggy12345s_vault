@@ -39,6 +39,15 @@ namespace NeuralNetworkFundamentals
 
     public class NeuralNetwork
     {
+        // Static Methods
+        public static NeuralNetwork Clone(NeuralNetwork net)
+        {
+            // Creates a copy of the passed in neural network and returns it.
+            NeuralNetwork temp = new NeuralNetwork();
+            temp = net;
+            return temp;
+        }
+
         // Event Information
         public delegate void TrainingUpdateEventHandler(object sender, TrainingUpdateEventArgs e);
 
