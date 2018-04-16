@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace NeuralNetworkFundamentals.Windows_Form_Controls
 {
-    public partial class NeuralNetVisualizerBox : UserControl
+    public partial class NetworkViewer : PictureBox
     {
         // Properties
         private NeuralNetwork net;
@@ -22,15 +22,15 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         public NeuralNetwork Net { get => net; set => SetupNewNetwork(value); }
         public int PlotSize { get => plotSize; set => plotSize = value; }
 
-        public NeuralNetVisualizerBox(ref NeuralNetwork net, int plotSize = 5)
+        public NetworkViewer(ref NeuralNetwork net, int plotSize = 5) : base()
         {
             InitializeComponent();
             SetupNewNetwork(net);
             this.plotSize = plotSize;
 
-            // Adjusts the picturebox control.
-            picturebox.Width = Width;
-            picturebox.Height = Height;
+            // Adjusts the this control.
+            Width = Width;
+            Height = Height;
         }
 
         public void TrainingUpdateEvent(object sender, TrainingUpdateEventArgs e)
@@ -52,16 +52,16 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
             GenNeuronCoord();
 
             // Sets up the bitmap
-            picturebox.Image = new Bitmap(picturebox.Width, picturebox.Height);
+            Image = new Bitmap(Width, Height);
         }
 
         protected virtual void PaintNetwork(NeuralNetwork net)
         {
             // Paints the network onto the image
-            NeuralNetwork netTemp = NeuralNetwork.Clone(net);   // Creates a clone of the network to prevent simultaneaous accessing.
+            NeuralNetwork netTemp = NeuralNetwork.Clone(net??this.net);   // Creates a clone of the network to prevent simultaneaous accessing.
 
             // Sets up the canvas
-            Image picture = picturebox.Image;
+            Image picture = Image;
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush, 1);
 
@@ -98,7 +98,7 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
                     }
                     i++;
                 }
-                picturebox.Invalidate();
+                Invalidate();
             }
         }
 
@@ -108,9 +108,9 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
             for (int i = 0; i < net.Layers.Count; i++)
             {
                 List<Tuple<int, int>> temp = new List<Tuple<int, int>>(net.Layers[i].Count);
-                double scale_x = (1 / (double)(net.Layers.Count)) * picturebox.Size.Width;
-                double scale_y = (1 / (double)(net.Layers[i].Count)) * picturebox.Size.Height;
-                double spacing = (picturebox.Size.Height - (net.Layers[i].Count - 1) * scale_y) / 2;
+                double scale_x = (1 / (double)(net.Layers.Count)) * Size.Width;
+                double scale_y = (1 / (double)(net.Layers[i].Count)) * Size.Height;
+                double spacing = (Size.Height - (net.Layers[i].Count - 1) * scale_y) / 2;
                 for (int j = 0; j < net.Layers[i].Count; j++)
                 {
                     int scaled_y = (int)(j * scale_y + spacing);
@@ -121,10 +121,10 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
             }
         }
 
-        private void NeuralNetVisualizerBox_Resize(object sender, EventArgs e)
+        protected override void OnPaint(PaintEventArgs pe)
         {
-            picturebox.Width = Width;
-            picturebox.Height = Height;
+            PaintNetwork(net);
+            base.OnPaint(pe);
         }
     }
 }
