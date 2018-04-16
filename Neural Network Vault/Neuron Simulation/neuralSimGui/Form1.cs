@@ -228,6 +228,8 @@ namespace neuralSimGui
                             {
                                 for (int k = 0; k < neuronCoord[i - 1].Count; k++)
                                 {
+                                    //foreach (int Weights in neuron.Weights)
+                                        //{
                                     int blue = (neuron.Weights[0] <= neuron.PrevWeights[0]) ? 255 : 0; //(int)(Math.Abs(1 - (neuron.PrevDelta - neuron.PrevDelta)) * 255);
                                     int red = (neuron.Weights[0] > neuron.PrevWeights[0]) ? 255 : 0;//(int)(Math.Abs(1 - (neuron.PrevWeights[0] - neuron.Weights[0])) * 255);
                                     int green = (int)(Math.Abs(neuron.Activation * 127));
@@ -237,6 +239,7 @@ namespace neuralSimGui
                                         (blue > 255) ? 255 : ((blue < 0) ? 0 : blue));
                                     g.DrawLine(pen, new Point(neuronCoord[i][j].Item1 + (plotSize / 2), neuronCoord[i][j].Item2 + (plotSize / 2)),
                                         new Point(neuronCoord[i - 1][k].Item1 + (plotSize / 2), neuronCoord[i - 1][k].Item2 + (plotSize / 2)));
+                                    //}
                                 }
                             }
                             pen.Color = Color.Black;
