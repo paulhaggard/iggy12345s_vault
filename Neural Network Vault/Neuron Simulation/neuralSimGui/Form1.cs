@@ -45,6 +45,7 @@ namespace neuralSimGui
         private List<List<double>> inputSamp = new List<List<double>>();
         private List<List<double>> outputSamp = new List<List<double>>();
         Random Rnd = new Random();
+        private ViewBox viewboxForm;
 
         public Form1()
         {
@@ -112,6 +113,10 @@ namespace neuralSimGui
             outputSamp.Add(new List<double>() { 0, 1 });
 
             progressBar1.Maximum = (int)(inputSamp.Count * numItrCtrl.Value);       // HERE!!!
+
+            // Sets up the viewing box form
+            viewboxForm = new ViewBox(ref networkTest);
+            viewboxForm.Visible = true;
 
             //sets up the samples given to the network
             //List<List<double>> inputSamp = new List<List<double>>();

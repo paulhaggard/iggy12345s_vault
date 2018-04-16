@@ -22,15 +22,17 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         public NeuralNetwork Net { get => net; set => SetupNewNetwork(value); }
         public int PlotSize { get => plotSize; set => plotSize = value; }
 
-        public NetworkViewer(ref NeuralNetwork net, int plotSize = 5) : base()
+        public NetworkViewer(NeuralNetwork net, int plotSize = 5) : base()
         {
             InitializeComponent();
-            SetupNewNetwork(net);
+            SetupNewNetwork(net??new NeuralNetwork());
             this.plotSize = plotSize;
+        }
 
-            // Adjusts the this control.
-            Width = Width;
-            Height = Height;
+        // Only for the designer
+        public NetworkViewer() : base()
+        {
+            InitializeComponent();
         }
 
         public void TrainingUpdateEvent(object sender, TrainingUpdateEventArgs e)
@@ -42,7 +44,8 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         private void SetupNewNetwork(NeuralNetwork net)
         {
             // Updates the subscription status of the events
-            netRef.TrainingUpdateEvent -= TrainingUpdateEvent;
+            if(netRef != null)
+                netRef.TrainingUpdateEvent -= TrainingUpdateEvent;
             netRef = net;
             net.TrainingUpdateEvent += TrainingUpdateEvent;
 
@@ -55,7 +58,7 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
             Image = new Bitmap(Width, Height);
         }
 
-        protected virtual void PaintNetwork(NeuralNetwork net)
+        public virtual void PaintNetwork(NeuralNetwork net)
         {
             // Paints the network onto the image
             NeuralNetwork netTemp = NeuralNetwork.Clone(net??this.net);   // Creates a clone of the network to prevent simultaneaous accessing.
@@ -123,7 +126,7 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            PaintNetwork(net);
+            //PaintNetwork(net);
             base.OnPaint(pe);
         }
     }
