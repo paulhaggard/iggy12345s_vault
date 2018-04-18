@@ -36,7 +36,7 @@
             // 
             this.networkViewer1.Location = new System.Drawing.Point(12, 12);
             this.networkViewer1.Name = "networkViewer1";
-            this.networkViewer1.Net = null;
+            //this.networkViewer1.Net = null;
             this.networkViewer1.PlotSize = 0;
             this.networkViewer1.Size = new System.Drawing.Size(776, 426);
             this.networkViewer1.TabIndex = 0;

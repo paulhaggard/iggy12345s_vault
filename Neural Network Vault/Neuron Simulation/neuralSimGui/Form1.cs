@@ -91,9 +91,6 @@ namespace neuralSimGui
             DrawingControllerThread = new Thread(new ThreadStart(DrawingController));
             DrawingControllerThread.Start();
 
-            // Draws the neural network onto the bitmaps and updates the activations and weight displays
-            DrawingQueue.Enqueue(networkTest.Layers);
-
             // Sets up the progress bar
             //progressBar1.Maximum =(int) (numSampCtrl.Value * numItrCtrl.Value);   // This is done farther down vvv
             progressBar1.Minimum = 0;
@@ -117,6 +114,9 @@ namespace neuralSimGui
             // Sets up the viewing box form
             viewboxForm = new ViewBox(ref networkTest);
             viewboxForm.Visible = true;
+
+            // Draws the neural network onto the bitmaps and updates the activations and weight displays
+            DrawingQueue.Enqueue(networkTest.Layers);
 
             //sets up the samples given to the network
             //List<List<double>> inputSamp = new List<List<double>>();
@@ -201,6 +201,10 @@ namespace neuralSimGui
 
         private void DrawNetwork(List<List<Neuron>> layers)
         {
+            // Calls the viewboxForm's update visual method to cause the satellite window to update it's image.
+            viewboxForm.UpdateVisual();
+
+            /*
             Image layout = LayoutBox.Image;
             Image inputAct = InputLayerActivations.Image;
             Image inputWt = InputLayerWeights.Image;
@@ -421,6 +425,7 @@ namespace neuralSimGui
                     prevWeights[i][j] = networkTest.Layers[i][j].Weights;
                 }
             }
+            */
         }
 
         private void Form1_ResizeEnd(object sender, EventArgs e)

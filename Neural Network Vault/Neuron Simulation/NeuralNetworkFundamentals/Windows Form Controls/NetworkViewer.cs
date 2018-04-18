@@ -17,6 +17,7 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         private List<List<Tuple<int, int>>> neuronCoord;
         private NeuralNetwork netRef;
         private int plotSize;
+        private Graphics g;
 
         // Accessor Methods
         public NeuralNetwork Net { get => net; set => SetupNewNetwork(value); }
@@ -41,21 +42,25 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
             PaintNetwork(net);  // Calls the painter.
         }
 
-        private void SetupNewNetwork(NeuralNetwork net)
+        private void SetupNewNetwork(NeuralNetwork NewNet)
         {
-            // Updates the subscription status of the events
-            if(netRef != null)
-                netRef.TrainingUpdateEvent -= TrainingUpdateEvent;
-            netRef = net;
-            net.TrainingUpdateEvent += TrainingUpdateEvent;
+            //if (NewNet != null)
+            //{
+                // Updates the subscription status of the events
+                if (netRef != null)
+                    netRef.TrainingUpdateEvent -= TrainingUpdateEvent;
+                netRef = NewNet;
+                NewNet.TrainingUpdateEvent += TrainingUpdateEvent;
 
-            // Clones the new network and regenerates the coordinate list
-            this.net = NeuralNetwork.Clone(net);
-            neuronCoord = new List<List<Tuple<int, int>>>(this.net.Layers.Count);
-            GenNeuronCoord();
+                // Clones the new network and regenerates the coordinate list
+                net = NeuralNetwork.Clone(NewNet);
+                neuronCoord = new List<List<Tuple<int, int>>>(net.Layers.Count);
+                GenNeuronCoord();
 
-            // Sets up the bitmap
-            Image = new Bitmap(Width, Height);
+                // Sets up the bitmap
+                Image = new Bitmap(Width, Height);
+
+            //}
         }
 
         public virtual void PaintNetwork(NeuralNetwork net)
@@ -64,44 +69,53 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
             NeuralNetwork netTemp = NeuralNetwork.Clone(net??this.net);   // Creates a clone of the network to prevent simultaneaous accessing.
 
             // Sets up the canvas
-            Image picture = Image;
-            Brush brush = new SolidBrush(Color.Black);
-            Pen pen = new Pen(brush, 1);
-
-            using (Graphics g = Graphics.FromImage(picture))
+            //Image picture = Image;
+            lock (Image)
+                g = Graphics.FromImage(Image);
+            lock (Image)
             {
-                g.Clear(Color.DimGray);
+                g = Graphics.FromImage((Image)Image.Clone());
+                Brush brush = new SolidBrush(Color.Black);
+                Pen pen = new Pen((Brush)brush.Clone(), 1);
 
-                int i = 0;
-                int j = 0;
-
-                foreach (List<Neuron> layer in netTemp.Layers)
+                using (g)
                 {
-                    j = 0;
-                    foreach (Neuron neuron in layer)
+                    g.Clear(Color.DimGray);
+
+                    int i = 0;
+                    int j = 0;
+
+                    foreach (List<Neuron> layer in netTemp.Layers)
                     {
-                        g.DrawEllipse(pen, new Rectangle(new Point(neuronCoord[i][j].Item1, neuronCoord[i][j].Item2), new Size(PlotSize, PlotSize)));
-                        if ((i > 0) && (neuron.PrevWeights.Count > 0))
+                        j = 0;
+                        foreach (Neuron neuron in layer)
                         {
-                            for (int k = 0; k < neuronCoord[i - 1].Count; k++)
+                            lock(pen)
+                                g.DrawEllipse(pen, new Rectangle(new Point(neuronCoord[i][j].Item1, neuronCoord[i][j].Item2), new Size(PlotSize, PlotSize)));
+                            if ((i > 0) && (neuron.PrevWeights.Count > 0))
                             {
-                                int blue = (neuron.Weights[0] <= neuron.PrevWeights[0]) ? 255 : 0; //(int)(Math.Abs(1 - (neuron.PrevDelta - neuron.PrevDelta)) * 255);
-                                int red = (neuron.Weights[0] > neuron.PrevWeights[0]) ? 255 : 0;//(int)(Math.Abs(1 - (neuron.PrevWeights[0] - neuron.Weights[0])) * 255);
-                                int green = (int)(Math.Abs(neuron.Activation * 127));
-                                pen.Color = Color.FromArgb(255,
-                                    (red > 255) ? 255 : ((red < 0) ? 0 : red),
-                                    (green > 127) ? 127 : ((green < 0) ? 0 : green),
-                                    (blue > 255) ? 255 : ((blue < 0) ? 0 : blue));
-                                g.DrawLine(pen, new Point(neuronCoord[i][j].Item1 + (PlotSize / 2), neuronCoord[i][j].Item2 + (PlotSize / 2)),
-                                    new Point(neuronCoord[i - 1][k].Item1 + (PlotSize / 2), neuronCoord[i - 1][k].Item2 + (PlotSize / 2)));
+                                for (int k = 0; k < neuronCoord[i - 1].Count; k++)
+                                {
+                                    int blue = (neuron.Weights[0] <= neuron.PrevWeights[0]) ? 255 : 0; //(int)(Math.Abs(1 - (neuron.PrevDelta - neuron.PrevDelta)) * 255);
+                                    int red = (neuron.Weights[0] > neuron.PrevWeights[0]) ? 255 : 0;//(int)(Math.Abs(1 - (neuron.PrevWeights[0] - neuron.Weights[0])) * 255);
+                                    int green = (int)(Math.Abs(neuron.Activation * 127));
+                                    pen.Color = Color.FromArgb(255,
+                                        (red > 255) ? 255 : ((red < 0) ? 0 : red),
+                                        (green > 127) ? 127 : ((green < 0) ? 0 : green),
+                                        (blue > 255) ? 255 : ((blue < 0) ? 0 : blue));
+                                    lock(pen)
+                                        g.DrawLine(pen, new Point(neuronCoord[i][j].Item1 + (PlotSize / 2), neuronCoord[i][j].Item2 + (PlotSize / 2)),
+                                            new Point(neuronCoord[i - 1][k].Item1 + (PlotSize / 2), neuronCoord[i - 1][k].Item2 + (PlotSize / 2)));
+                                }
                             }
+                            pen.Color = Color.Black;
+                            j++;
                         }
-                        pen.Color = Color.Black;
-                        j++;
+                        i++;
                     }
-                    i++;
+                    Invalidate();
+                    g.Dispose();
                 }
-                Invalidate();
             }
         }
 
