@@ -1,6 +1,6 @@
-﻿namespace neuralSimGui
+﻿namespace NeuralNetworkFundamentals.Windows_Form_Controls
 {
-    partial class ViewBox
+    partial class NetworkViewBox
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.networkViewer1 = new NeuralNetworkFundamentals.Windows_Form_Controls.NetworkViewer();
-            ((System.ComponentModel.ISupportInitialize)(this.networkViewer1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // networkViewer1
+            // pictureBox1
             // 
-            this.networkViewer1.Location = new System.Drawing.Point(12, 12);
-            this.networkViewer1.Name = "networkViewer1";
-            //this.networkViewer1.Net = null;
-            this.networkViewer1.PlotSize = 0;
-            this.networkViewer1.Size = new System.Drawing.Size(776, 426);
-            this.networkViewer1.TabIndex = 0;
-            this.networkViewer1.TabStop = false;
-            //this.networkViewer1.Click += new System.EventHandler(this.networkViewer1_Click);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(602, 255);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
-            // ViewBox
+            // NetworkViewBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.networkViewer1);
-            this.Name = "ViewBox";
-            this.Text = "ViewBox";
-            ((System.ComponentModel.ISupportInitialize)(this.networkViewer1)).EndInit();
+            this.Controls.Add(this.pictureBox1);
+            this.Name = "NetworkViewBox";
+            this.Text = "NetworkViewBox";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private NeuralNetworkFundamentals.Windows_Form_Controls.NetworkViewer networkViewer1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

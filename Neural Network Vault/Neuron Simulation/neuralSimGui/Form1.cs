@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using NeuralNetworkFundamentals;
 
@@ -112,8 +113,12 @@ namespace neuralSimGui
             progressBar1.Maximum = (int)(inputSamp.Count * numItrCtrl.Value);       // HERE!!!
 
             // Sets up the viewing box form
-            viewboxForm = new ViewBox(ref networkTest);
-            viewboxForm.Visible = true;
+            viewboxForm = new ViewBox(ref networkTest)
+            {
+                Visible = true
+            };
+            viewboxForm.CreateControl();
+            viewboxForm.CreateGraphics();
 
             // Draws the neural network onto the bitmaps and updates the activations and weight displays
             DrawingQueue.Enqueue(networkTest.Layers);
@@ -179,7 +184,9 @@ namespace neuralSimGui
 
         private void DrawingController()
         {
-            DrawNetworkCallback d = new DrawNetworkCallback(DrawNetwork);
+            DrawNetworkCallback d = new DrawNetworkCallback(DrawNetwork);   // Delegate for the DrawNetwork function, allows controls on this form to be accessed from the other thread.
+            Task paintThread;   // Task to be created for the DrawNetwork function call.
+            List<List<Neuron>> tempLayers;
             while(!IsExitting)
             {
                 // Continuously checks the drawing queue and draws anything it finds.
@@ -187,11 +194,14 @@ namespace neuralSimGui
                 {
                     try
                     {
-                        Invoke(d, new object[] { DrawingQueue.Dequeue() });
+                        // THIS MUST BE SYNCHRONOUS!!! VVV
+                        tempLayers = DrawingQueue.Dequeue();    // Stops the controller from trying to dequeue the drawing request, and then scheduling a task to draw the same request, when the queue is empty.
+                        paintThread = new Task(() => Invoke(d, new object[] { tempLayers }));
+                        paintThread.Start();
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
-                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e);
                     }
                 }
             }
@@ -202,7 +212,8 @@ namespace neuralSimGui
         private void DrawNetwork(List<List<Neuron>> layers)
         {
             // Calls the viewboxForm's update visual method to cause the satellite window to update it's image.
-            viewboxForm.UpdateVisual();
+            // The viewboxForm is already subscribed to the Training update event, this call is redundant.
+            //viewboxForm.UpdateVisual();
 
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush, 1);
