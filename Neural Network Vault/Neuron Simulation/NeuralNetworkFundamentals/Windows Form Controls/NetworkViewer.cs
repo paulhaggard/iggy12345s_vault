@@ -23,29 +23,38 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         public NeuralNetwork Net { get => net; set => SetupNewNetwork(value); }
         public int PlotSize { get => plotSize; set => plotSize = value; }
 
-        public NetworkViewer(NeuralNetwork net, int plotSize = 5) : base()
+        public NetworkViewer(ref NeuralNetwork net, int plotSize = 5) : base()
         {
             InitializeComponent();
             SetupNewNetwork(net??new NeuralNetwork());
             this.plotSize = plotSize;
+            
         }
 
         // Only for the designer
         public NetworkViewer() : base()
         {
             InitializeComponent();
+            Image = new Bitmap(Width, Height);
         }
 
         public void TrainingUpdateEvent(object sender, TrainingUpdateEventArgs e)
         {
-            net.Layers = e.Layers;
-            PaintNetwork(net);  // Calls the painter.
+            // If the window hasn't been initialized, then initialize it, so the drawing shows up.
+            if (!IsHandleCreated)
+                CreateControl();
+
+            Task.Factory.StartNew(() =>
+            {
+                PaintNetworkCallback d = PaintNetwork;
+                Task.Factory.StartNew(() => BeginInvoke(d, new object[] { net.Layers }));
+            });  // Calls the painter on a different thread.
         }
 
         private void SetupNewNetwork(NeuralNetwork NewNet)
         {
-            //if (NewNet != null)
-            //{
+            if (NewNet != null)
+            {
                 // Updates the subscription status of the events
                 if (netRef != null)
                     netRef.TrainingUpdateEvent -= TrainingUpdateEvent;
@@ -60,18 +69,22 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
                 // Sets up the bitmap
                 Image = new Bitmap(Width, Height);
 
-            //}
+            }
         }
 
-        public virtual void PaintNetwork(NeuralNetwork net)
-        {
-            // Paints the network onto the image
-            NeuralNetwork netTemp = NeuralNetwork.Clone(net??this.net);   // Creates a clone of the network to prevent simultaneaous accessing.
+        protected delegate void PaintNetworkCallback(List<List<Neuron>> layers);
 
-            // Sets up the canvas
-            //Image picture = Image;
-            lock (Image)
-                g = Graphics.FromImage(Image);
+        public virtual void PaintNetwork(List<List<Neuron>> layers)
+        {
+            // If the window hasn't been initialized, then initialize it, so the drawing shows up.
+            if (!IsHandleCreated)
+                CreateControl();
+
+            // If the image can't be seen, then make it visible.
+            if (!Visible)
+                Visible = true;
+
+            // Paints the network onto the image
             lock (Image)
             {
                 g = Graphics.FromImage((Image)Image.Clone());
@@ -85,7 +98,7 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
                     int i = 0;
                     int j = 0;
 
-                    foreach (List<Neuron> layer in netTemp.Layers)
+                    foreach (List<Neuron> layer in layers)
                     {
                         j = 0;
                         foreach (Neuron neuron in layer)
@@ -114,7 +127,7 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
                         i++;
                     }
                     Invalidate();
-                    g.Dispose();
+                    //g.Dispose();
                 }
             }
         }
@@ -139,8 +152,7 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         }
 
         protected override void OnPaint(PaintEventArgs pe)
-        {
-            //PaintNetwork(net);
+        { 
             base.OnPaint(pe);
         }
     }
