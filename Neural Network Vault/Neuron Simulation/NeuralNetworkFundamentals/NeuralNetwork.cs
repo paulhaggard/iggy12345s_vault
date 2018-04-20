@@ -304,8 +304,8 @@ namespace NeuralNetworkFundamentals
         }
 
         // Training and propagation methods
-        public virtual void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0.01,  bool Reset = false,
-            bool RxErrEvents = false)
+        public virtual void Train(int iterations, List<List<double>> sample_in, List<List<double>> sample_out, double errorThreshold = 0,  bool Reset = false,
+            int delay = 0, bool RxErrEvents = false)
         {
             // Trains the neural network
 
@@ -342,19 +342,28 @@ namespace NeuralNetworkFundamentals
                         temp = new TrainingUpdateEventArgs(iter, i, layers, Error, false);
 
                         OnTrainingUpdateEvent(temp);
-                        //if (Error <= errorThreshold)
-                            //break;
+
+                        // Stops if error is less than the threshold provided.
+                        if (Error <= errorThreshold)
+                            break;
+
+                        // sleeps to free up processor space, if requested.
+                        if (delay > 0)
+                            Thread.Sleep(delay);
                     }
 
                     Error /= sample_in.Count;   // Calculate the average error of the total training session.
+
                     // Sends all of this iteration's data back to the observers
                     if (RxErrEvents)
                     {
                         temp = new TrainingUpdateEventArgs(iter, -1, layers, Error, false);
                         OnTrainingUpdateEvent(temp);
                     }
-                    //if (Error <= errorThreshold)
-                    //break;
+
+                    // Stops if error is less than the threshold provided.
+                    if (Error <= errorThreshold)
+                        break;
                 }
                 OnTrainingFinishEvent();    // Sends out an event notifying that training has completed.
             }
