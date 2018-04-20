@@ -38,6 +38,8 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         protected virtual void Setup()
         {
             pictureBox1.Image = new Bitmap(Width, Height);
+            SetupNewNetwork(net ?? new NeuralNetwork());
+            Visible = true;
         }
 
         private void SetupNewNetwork(NeuralNetwork NewNet)
@@ -57,6 +59,9 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
 
                 // Sets up the bitmap
                 pictureBox1.Image = new Bitmap(Width, Height);
+                pictureBox1.Width = Width;
+                pictureBox1.Height = Height;
+                pictureBox1.Location = new Point(0, 0);
 
             }
         }
@@ -120,20 +125,36 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         protected virtual void GenNeuronCoord()
         {
             // Generates the coordinate locations for each neuron in the network.
+            neuronCoord = new List<List<Tuple<int, int>>>(net.Layers.Count);
             for (int i = 0; i < net.Layers.Count; i++)
             {
                 List<Tuple<int, int>> temp = new List<Tuple<int, int>>(net.Layers[i].Count);
-                double scale_x = (1 / (double)(net.Layers.Count)) * Size.Width;
-                double scale_y = (1 / (double)(net.Layers[i].Count)) * Size.Height;
-                double spacing = (Size.Height - (net.Layers[i].Count - 1) * scale_y) / 2;
+                double scale_x = (pictureBox1.Width * 0.9)/(net.Layers.Count);
+                double scale_y = (pictureBox1.Height - FontHeight)/(net.Layers[i].Count);
+                double spacing_y = ((pictureBox1.Height - FontHeight) - (net.Layers[i].Count - 1) * scale_y) / 2;
+                double spacing_x = (pictureBox1.Width - (net.Layers.Count - 1) * scale_x) / 2;
                 for (int j = 0; j < net.Layers[i].Count; j++)
                 {
-                    int scaled_y = (int)(j * scale_y + spacing);
-                    int scaled_x = (int)(i * scale_x);
+                    int scaled_y = (int)(j * scale_y + spacing_y);
+                    int scaled_x = (int)(i * scale_x + spacing_x);
                     temp.Add(new Tuple<int, int>(scaled_x, scaled_y));
                 }
                 neuronCoord.Add(temp);
             }
+        }
+
+        private void UpdateSize()
+        {
+            lock(pictureBox1.Image)
+                pictureBox1.Image = new Bitmap(Width, Height);  // Changes the bitmap size
+
+            pictureBox1.Width = Width;  // Changes the phsyical control size
+            pictureBox1.Height = Height - FontHeight;    // Changes the physical control size
+            pictureBox1.Location = new Point(0, 0); // Re-asserts the origin position
+
+            GenNeuronCoord();   // Regenerates the coordinates.
+
+            pictureBox1.Invalidate();   // Forces a re-draw.
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -146,6 +167,21 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
                     Task.Factory.StartNew(() => BeginInvoke(d, new object[] { net.Layers }));
                 });  // Calls the painter on a different thread.
             }
+        }
+
+        private void NetworkViewBox_ResizeEnd(object sender, EventArgs e)
+        {
+            UpdateSize();
+        }
+
+        private void NetworkViewBox_Paint(object sender, PaintEventArgs e)
+        {
+            UpdateSize();
+        }
+
+        private void NetworkViewBox_Resize(object sender, EventArgs e)
+        {
+            UpdateSize();
         }
     }
 }

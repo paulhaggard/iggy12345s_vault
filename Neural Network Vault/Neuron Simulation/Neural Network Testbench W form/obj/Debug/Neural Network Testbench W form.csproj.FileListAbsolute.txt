@@ -1,0 +1,11 @@
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\bin\Debug\Neural Network Testbench W form.exe.config
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\bin\Debug\Neural Network Testbench W form.exe
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\bin\Debug\Neural Network Testbench W form.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\bin\Debug\NeuralNetworkFundamentals.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\bin\Debug\Troschuetz.Random.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\bin\Debug\NeuralNetworkFundamentals.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\obj\Debug\Neural Network Testbench W form.csprojResolveAssemblyReference.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\obj\Debug\Neural Network Testbench W form.csproj.CoreCompileInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\obj\Debug\Neural Network Testbench W form.csproj.CopyComplete
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\obj\Debug\Neural Network Testbench W form.exe
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neural Network Testbench W form\obj\Debug\Neural Network Testbench W form.pdb

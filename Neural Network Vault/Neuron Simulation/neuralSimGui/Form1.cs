@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NeuralNetworkFundamentals;
+using NeuralNetworkFundamentals.Windows_Form_Controls;
 
 namespace neuralSimGui
 {
@@ -46,7 +47,7 @@ namespace neuralSimGui
         private List<List<double>> inputSamp = new List<List<double>>();
         private List<List<double>> outputSamp = new List<List<double>>();
         Random Rnd = new Random();
-        private ViewBox viewboxForm;
+        private NetworkViewBox viewboxForm;
 
         public Form1()
         {
@@ -113,12 +114,7 @@ namespace neuralSimGui
             progressBar1.Maximum = (int)(inputSamp.Count * numItrCtrl.Value);       // HERE!!!
 
             // Sets up the viewing box form
-            viewboxForm = new ViewBox(ref networkTest)
-            {
-                Visible = true
-            };
-            viewboxForm.CreateControl();
-            viewboxForm.CreateGraphics();
+            viewboxForm = new NetworkViewBox(ref networkTest);
 
             // Draws the neural network onto the bitmaps and updates the activations and weight displays
             DrawingQueue.Enqueue(networkTest.Layers);
@@ -215,6 +211,7 @@ namespace neuralSimGui
             // The viewboxForm is already subscribed to the Training update event, this call is redundant.
             //viewboxForm.UpdateVisual();
 
+            /*
             Brush brush = new SolidBrush(Color.Black);
             Pen pen = new Pen(brush, 1);
 
@@ -438,7 +435,7 @@ namespace neuralSimGui
             {
                 Console.WriteLine(e.Message);
             }
-
+            */
 
             // Saves the current weights for comparison later
             for (int i = 0; i < networkTest.Layers.Count; i++)

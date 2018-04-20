@@ -24,4 +24,3 @@ G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neu
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\bin\Debug\Troschuetz.Random.dll
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\bin\Debug\NeuralNetworkFundamentals.pdb
 G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.csproj.CopyComplete
-C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\neuralSimGui\obj\Debug\neuralSimGui.ViewBox.resources

@@ -23,7 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neuralSimGui", "neuralSimGu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Neural File Testbenches", "Neural File Testbenches", "{C5244FAA-F50E-47D9-B4CB-3F0267235765}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralFileDebuggingTestbench", "NeuralFileDebuggingTestbench\NeuralFileDebuggingTestbench.csproj", "{800BFB59-C05E-49DE-88CD-957A054215BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralFileDebuggingTestbench", "NeuralFileDebuggingTestbench\NeuralFileDebuggingTestbench.csproj", "{800BFB59-C05E-49DE-88CD-957A054215BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neural Network Testbench W form", "Neural Network Testbench W form\Neural Network Testbench W form.csproj", "{5BE1623B-4EBE-47D8-A67E-31FCD7AF89C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{800BFB59-C05E-49DE-88CD-957A054215BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{800BFB59-C05E-49DE-88CD-957A054215BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{800BFB59-C05E-49DE-88CD-957A054215BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE1623B-4EBE-47D8-A67E-31FCD7AF89C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE1623B-4EBE-47D8-A67E-31FCD7AF89C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE1623B-4EBE-47D8-A67E-31FCD7AF89C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE1623B-4EBE-47D8-A67E-31FCD7AF89C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{5D5A0E01-C2D3-40B5-B104-2A16BFC894C2} = {604B64FB-AA5B-4A06-BB61-1947F8CB84D9}
 		{C5244FAA-F50E-47D9-B4CB-3F0267235765} = {604B64FB-AA5B-4A06-BB61-1947F8CB84D9}
 		{800BFB59-C05E-49DE-88CD-957A054215BC} = {C5244FAA-F50E-47D9-B4CB-3F0267235765}
+		{5BE1623B-4EBE-47D8-A67E-31FCD7AF89C0} = {5D5A0E01-C2D3-40B5-B104-2A16BFC894C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83D1F70B-EC1A-4FD6-966B-4CE0BBCDB6D0}

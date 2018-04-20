@@ -1,18 +1,21 @@
-﻿using NeuralNetworkFundamentals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NeuralNetworkFundamentals;
 using NeuralNetworkFundamentals.Windows_Form_Controls;
+using System.Windows.Forms;
 
-namespace Neural_Network_Testbench
+namespace Neural_Network_Testbench_W_form
 {
     class Program
     {
         // These are the test settings, learning rate, iterations, samples, expected outputs, etc...
         static bool IsTraining = false;
-        static int iterations = 2000;
+        static int iterations = 5000;
+        static int delay = 3;
         static double learningRate = 0.5;
-        //static NetworkViewBox viewbox;
 
         static List<List<double>> sampleIn = new List<List<double>>()
         {
@@ -30,22 +33,27 @@ namespace Neural_Network_Testbench
             new List<double>(){0}
         };
 
-        static List<int> layerInfo = new List<int>() { 2, 2, 1 };
+        static List<int> layerInfo = new List<int>() { 2, 3, 1 };
 
+        [STAThread]
         static void Main(string[] args)
         {
             char keypress;
+
+            NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: learningRate);   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
+            net.TrainingUpdateEvent += OnTrainingUpdateEvent;
+            net.TrainingFinishEvent += OnTrainingFinishEvent;
+
+            Task.Factory.StartNew(() =>
+            {
+                Application.EnableVisualStyles();
+                Application.Run(new NetworkViewBox(ref net, 10));
+            });
+
             do
             {
                 Console.WriteLine("Setting up test...");
                 Random rnd = new Random();
-
-                NeuralNetwork net = new NeuralNetwork(layerInfo, learningRate: learningRate);   // Creates a network with 2 inputs, 1 hidden layer of 2, and 2 outputs
-                net.TrainingUpdateEvent += OnTrainingUpdateEvent;
-                net.TrainingFinishEvent += OnTrainingFinishEvent;
-
-                // Creates a viewing box for the network.
-                //viewbox = new NetworkViewBox(ref net);
 
                 // Sets the weights and biases of the network prior to training
                 // START HERE: http://web.cecs.pdx.edu/~mm/MachineLearningSpring2017/NNs.pdf On slide 42
@@ -54,7 +62,7 @@ namespace Neural_Network_Testbench
 
                 // Trains the network
                 IsTraining = true;
-                net.Train(iterations, sampleIn, sampleOut);
+                net.Train(iterations, sampleIn, sampleOut, delay: delay);
                 while (IsTraining) ;
 
                 //Console.Clear();
@@ -77,6 +85,7 @@ namespace Neural_Network_Testbench
         {
             // Executes every time the network finishes a training sample
             //Console.WriteLine("Finished Iteration " + result.Iteration);
+            Console.Title = "Iteration: " + result.Iteration;
             Console.WriteLine("Sample [{0}, {1}] XOR [{2}]", result.Layers[0][0].Activation, result.Layers[0][1].Activation, result.Layers.Last()[0].Activation);
             //Console.WriteLine("Error: {0}", result.Error);
         }

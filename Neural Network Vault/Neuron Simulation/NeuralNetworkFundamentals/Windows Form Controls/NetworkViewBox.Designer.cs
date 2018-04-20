@@ -49,6 +49,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "NetworkViewBox";
             this.Text = "NetworkViewBox";
+            this.SizeChanged += new System.EventHandler(this.NetworkViewBox_Resize);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.NetworkViewBox_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
