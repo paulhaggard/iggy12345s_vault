@@ -17,7 +17,7 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         private int plotSize;
 
         // Accessor Methods
-        public NeuralNetwork Net { get => net; set => SetupNewNetwork(value); }
+        public NeuralNetwork Net { get => net; set => SetupNewNetwork(ref value); }
         public int PlotSize { get => plotSize; set => plotSize = value; }
 
         public NetworkViewBox()
@@ -38,11 +38,12 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
         protected virtual void Setup()
         {
             pictureBox1.Image = new Bitmap(Width, Height);
-            SetupNewNetwork(net ?? new NeuralNetwork());
+            net = net ?? new NeuralNetwork();
+            SetupNewNetwork(ref net);
             Visible = true;
         }
 
-        private void SetupNewNetwork(NeuralNetwork NewNet)
+        public void SetupNewNetwork(ref NeuralNetwork NewNet)
         {
             if (NewNet != null)
             {
@@ -96,20 +97,40 @@ namespace NeuralNetworkFundamentals.Windows_Form_Controls
                         j = 0;
                         foreach (Neuron neuron in layer)
                         {
+                            Point curNeuron = new Point(neuronCoord[i][j].Item1 + (plotSize / 2), neuronCoord[i][j].Item2 + (plotSize / 2));
+
                             g.DrawEllipse(pen, new Rectangle(new Point(neuronCoord[i][j].Item1, neuronCoord[i][j].Item2), new Size(plotSize, plotSize)));
+
+                            // Draws the activation of the current neuron directly above the current plot point.
+                            g.DrawString(Math.Round(neuron.Activation, 2).ToString(),
+                                        new Font(Font.SystemFontName, 12), brush,
+                                        curNeuron.X, curNeuron.Y - 20);
+
                             if ((i > 0) && (neuron.PrevWeights.Count > 0))
                             {
                                 for (int k = 0; k < neuronCoord[i - 1].Count; k++)
                                 {
-                                    int blue = (neuron.Weights[0] <= neuron.PrevWeights[0]) ? 255 : 0; //(int)(Math.Abs(1 - (neuron.PrevDelta - neuron.PrevDelta)) * 255);
-                                    int red = (neuron.Weights[0] > neuron.PrevWeights[0]) ? 255 : 0;//(int)(Math.Abs(1 - (neuron.PrevWeights[0] - neuron.Weights[0])) * 255);
+                                    Point prevNeuron = new Point(neuronCoord[i - 1][k].Item1 + (plotSize / 2), neuronCoord[i - 1][k].Item2 + (plotSize / 2));
+
+                                    int dX = prevNeuron.X - curNeuron.X;
+                                    int dY = prevNeuron.Y - curNeuron.Y;
+
+                                    int blue = (neuron.Weights[k] <= neuron.PrevWeights[k]) ? 255 : 0; //(int)(Math.Abs(1 - (neuron.PrevDelta - neuron.PrevDelta)) * 255);
+                                    int red = (neuron.Weights[k] > neuron.PrevWeights[k]) ? 255 : 0;//(int)(Math.Abs(1 - (neuron.PrevWeights[0] - neuron.Weights[0])) * 255);
                                     int green = (int)(Math.Abs(neuron.Activation * 127));
+
                                     pen.Color = Color.FromArgb(255,
                                         (red > 255) ? 255 : ((red < 0) ? 0 : red),
                                         (green > 127) ? 127 : ((green < 0) ? 0 : green),
                                         (blue > 255) ? 255 : ((blue < 0) ? 0 : blue));
-                                    g.DrawLine(pen, new Point(neuronCoord[i][j].Item1 + (plotSize / 2), neuronCoord[i][j].Item2 + (plotSize / 2)),
-                                        new Point(neuronCoord[i - 1][k].Item1 + (plotSize / 2), neuronCoord[i - 1][k].Item2 + (plotSize / 2)));
+
+                                    // Draws the line that connects this neuron to each of the previous neurons via their weights.
+                                    g.DrawLine(pen, curNeuron, prevNeuron);
+
+                                    // Draws all of the weight values on their corresponding lines.
+                                    g.DrawString(Math.Round(neuron.Weights[k], 2).ToString(), 
+                                        new Font(Font.SystemFontName, 12), brush,
+                                        curNeuron.X + (dX / 2), curNeuron.Y + (dY/2) - 20);
                                 }
                             }
                             pen.Color = Color.Black;

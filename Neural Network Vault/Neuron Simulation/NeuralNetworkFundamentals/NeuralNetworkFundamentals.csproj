@@ -79,6 +79,7 @@
     <Compile Include="Windows Form Controls\NetworkViewBox.Designer.cs">
       <DependentUpon>NetworkViewBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Windows Form Controls\NeuralNetworkForms.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Windows Form Controls\NetworkViewBox.resx">
