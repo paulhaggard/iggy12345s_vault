@@ -19,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Neural Network Testbenches"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetVisualizer", "NeuralNetVisualizer\NeuralNetVisualizer.csproj", "{DCCE3B91-CE1F-4BFD-BDA7-1042C07F1362}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neuralSimGui", "neuralSimGui\neuralSimGui.csproj", "{F8FC3B8F-1086-4232-855B-1635D9A4564E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Neural File Testbenches", "Neural File Testbenches", "{C5244FAA-F50E-47D9-B4CB-3F0267235765}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralFileDebuggingTestbench", "NeuralFileDebuggingTestbench\NeuralFileDebuggingTestbench.csproj", "{800BFB59-C05E-49DE-88CD-957A054215BC}"
@@ -53,10 +51,6 @@ Global
 		{DCCE3B91-CE1F-4BFD-BDA7-1042C07F1362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCCE3B91-CE1F-4BFD-BDA7-1042C07F1362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCCE3B91-CE1F-4BFD-BDA7-1042C07F1362}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8FC3B8F-1086-4232-855B-1635D9A4564E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{800BFB59-C05E-49DE-88CD-957A054215BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{800BFB59-C05E-49DE-88CD-957A054215BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{800BFB59-C05E-49DE-88CD-957A054215BC}.Release|Any CPU.ActiveCfg = Release|Any CPU

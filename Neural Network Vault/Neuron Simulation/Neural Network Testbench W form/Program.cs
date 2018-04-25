@@ -13,7 +13,7 @@ namespace Neural_Network_Testbench_W_form
     {
         // These are the test settings, learning rate, iterations, samples, expected outputs, etc...
         static bool IsTraining = false;
-        static int iterations = 5000;
+        static int iterations = 1000;
         static int delay = 3;
         static double learningRate = 0.5;
 
