@@ -70,6 +70,8 @@
     <Compile Include="Activation Functions\Functions\Softsign.cs" />
     <Compile Include="Activation Functions\Functions\SReLU.cs" />
     <Compile Include="Activation Functions\Functions\Tanh.cs" />
+    <Compile Include="Custom Neurons\Recurrent.cs" />
+    <Compile Include="Layer.cs" />
     <Compile Include="NeuralNetwork.cs" />
     <Compile Include="Neuron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
