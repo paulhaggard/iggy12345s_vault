@@ -24,6 +24,8 @@ namespace NeuralNetworkFundamentals
         public RecurrentNetwork(List<LayerDesc> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
             double learningRate = 0.5, double momentum = 0)
         {
+            Layers = new List<List<Neuron>>(LayerInfo.Count);
+
             if (defaultActivationFunction == null)
             {
                 defaultActivationFunction = new List<ActivationFunction>(LayerInfo.Count);
