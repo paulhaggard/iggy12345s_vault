@@ -105,7 +105,19 @@ namespace NeuralNetworkFundamentals
         {
             if (Reset)
             {
-                // TO DO: FIGURE OUT HOW TO ERASE THE MEMORY THAT IS IN THE NETWORK
+                foreach(Tuple<List<Neuron>, int> layer in recurrentLayers)
+                {
+                    foreach (Neuron neuron in layer.Item1)
+                    {
+                        // Resets all of the input values to this neuron.
+                        for (int i = 0; i < neuron.InputValues.Count; i++)
+                            neuron.InputValues[i] = 0;
+
+                        // Activates teh neuron to update the value in the recurrent neuron's input.
+                        neuron.Activate();
+                    }
+                }
+                firstActivation = false;
             }
 
             base.Train(iterations, sample_in, sample_out, errorThreshold, Reset, delay, RxErrEvents);
@@ -123,6 +135,22 @@ namespace NeuralNetworkFundamentals
             }
 
             base.ForwardPropagate();
+        }
+
+        protected override void GenWeights(List<List<List<double>>> weights = null)
+        {
+            base.GenWeights(weights);
+            foreach (Tuple<List<Neuron>, int> layer in recurrentLayers)
+                foreach (Neuron neuron in layer.Item1)
+                    neuron.RandomizeWeights(new Random());
+        }
+
+        protected override void GenBiases(List<List<double>> biases = null)
+        {
+            base.GenBiases(biases);
+            foreach (Tuple<List<Neuron>, int> layer in recurrentLayers)
+                foreach (Neuron neuron in layer.Item1)
+                    neuron.RandomizeBias(new Random());
         }
     }
 }

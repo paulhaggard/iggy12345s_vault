@@ -38,14 +38,14 @@ namespace RecurrentNetworkTestbench
             Console.WriteLine("Setup complete!");
             Console.WriteLine("Running tests...");
 
-            net.Train(iterations, sampleIn, sampleOut);
+            net.Train(iterations, sampleIn, sampleOut, Reset: true);
 
             Console.ReadKey();
         }
 
         static void OnTrainingUpdate(object sender, TrainingUpdateEventArgs e)
         {
-            Console.WriteLine("Received update from network at iteration {0}", e.Iteration);
+            Console.WriteLine("input sequence [{0}, {1}] is {2}", e.Layers[0][0].Activation, e.Layers[0][1].Activation, e.Layers.Last()[0].Activation);
         }
     }
 }
