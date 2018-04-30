@@ -74,6 +74,7 @@ namespace NeuralNetworkFundamentals
         public bool InputLayer { get => inputLayer; }
         public bool OutputLayer { get => outputLayer; }
         public double PrevDelta { get => prevDelta; }
+        public List<double> InputValues { get => inputs; set => inputs = value; }
 
         // Constructors
         // These all call the Setup Functions
