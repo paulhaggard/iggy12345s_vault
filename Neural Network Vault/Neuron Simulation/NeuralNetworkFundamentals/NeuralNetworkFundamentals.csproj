@@ -70,8 +70,6 @@
     <Compile Include="Activation Functions\Functions\Softsign.cs" />
     <Compile Include="Activation Functions\Functions\SReLU.cs" />
     <Compile Include="Activation Functions\Functions\Tanh.cs" />
-    <Compile Include="Custom Neurons\Recurrent.cs" />
-    <Compile Include="Layer.cs" />
     <Compile Include="NeuralNetwork.cs" />
     <Compile Include="Neuron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +87,9 @@
     <EmbeddedResource Include="Windows Form Controls\NetworkViewBox.resx">
       <DependentUpon>NetworkViewBox.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Custom Neurons\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -24,6 +24,8 @@ namespace NeuralNetworkFundamentals
         public RecurrentNetwork(List<LayerDesc> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
             double learningRate = 0.5, double momentum = 0)
         {
+            firstActivation = true; // Flags that the network has never been fed forward before and the hidden recurrent layers should be activated.
+
             Layers = new List<List<Neuron>>(LayerInfo.Count);
 
             if (defaultActivationFunction == null)
@@ -113,9 +115,12 @@ namespace NeuralNetworkFundamentals
         {
             // This section of the override will take care of activating the hidden recurrent layers.
             if (firstActivation)
+            {
                 foreach (Tuple<List<Neuron>, int> layer in recurrentLayers)
                     foreach (Neuron neuron in layer.Item1)
                         neuron.Activate();
+                firstActivation = false;
+            }
 
             base.ForwardPropagate();
         }
