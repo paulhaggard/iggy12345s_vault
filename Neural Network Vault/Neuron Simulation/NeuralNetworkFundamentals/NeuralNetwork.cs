@@ -501,15 +501,15 @@ namespace NeuralNetworkFundamentals
 
         // Methods for saving a reading states.
 
-        public virtual bool SaveState(string path)
+        protected virtual XElement GenerateFileContents()
         {
-            // Writes the current network's learning rate, momentum, and weights, and biases to an xml file.
+            // An overloadable method for generating the contents of the xml file.
 
             XElement rootTree = new XElement("Root",
                 new XAttribute("LearningRate", learningRate),
                 new XAttribute("Momentum", momentum));
 
-            for(int i = 0; i < layers.Count; i++)
+            for (int i = 0; i < layers.Count; i++)
             {
                 XElement layerTree = new XElement("Layer",
                     new XAttribute("Index", i),
@@ -523,17 +523,11 @@ namespace NeuralNetworkFundamentals
                 rootTree.Add(layerTree);
             }
 
-            rootTree.Save(path);
-
-            return true;
+            return rootTree;
         }
 
-        public virtual bool LoadState(string path)
+        protected virtual void ParseFileContents(XElement root)
         {
-            // Reads the current network's learning rate, momentum, and weights, and biases from an xml file.
-
-            XElement root = XElement.Load(path);
-
             learningRate = Convert.ToDouble(root.Attribute("LearningRate").Value);                  // Initializes the learning rate
             momentum = Convert.ToDouble(root.Attribute("Momentum").Value);                          // Initializes the momentum
 
@@ -554,6 +548,26 @@ namespace NeuralNetworkFundamentals
                 }
             }
             layers = temp;                                                                          // Initializes the layer variable with the new layers
+        }
+
+        public virtual bool SaveState(string path)
+        {
+            // Writes the current network's learning rate, momentum, and weights, and biases to an xml file.
+
+            XElement rootTree = GenerateFileContents();
+
+            rootTree.Save(path);
+
+            return true;
+        }
+
+        public virtual bool LoadState(string path)
+        {
+            // Reads the current network's learning rate, momentum, and weights, and biases from an xml file.
+
+            XElement root = XElement.Load(path);
+
+            ParseFileContents(root);
 
             return true;
         }
