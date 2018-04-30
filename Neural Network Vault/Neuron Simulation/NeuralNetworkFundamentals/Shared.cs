@@ -26,17 +26,6 @@ namespace NeuralNetworkFundamentals
 
         // For output layer (-1: Current)
         // Leave output layer null for only current layer
-        public LayerDesc(int count, LayerType type = LayerType.normal, int[] outputLayerIndex = null,
-            ActivationFunction recurrentLayerActivation = null,
-            ActivationParameters recurrentLayerParameters = null)
-        {
-            this.count = count;
-            this.type = type;
-            this.recurrentLayerActivation = recurrentLayerActivation;
-            this.recurrentLayerParameters = recurrentLayerParameters;
-            recurrentOutputLayer = outputLayerIndex.ToList();
-        }
-
         public LayerDesc(int count, LayerType type = LayerType.normal, List<int> outputLayerIndex = null,
             ActivationFunction recurrentLayerActivation = null,
             ActivationParameters recurrentLayerParameters = null)
