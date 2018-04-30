@@ -170,6 +170,8 @@ namespace NeuralNetworkFundamentals
             List<bool> tempCollected = inputs_collected.ToList();
             tempCollected.Add(false);
             inputs_collected = tempCollected.ToArray();
+            weights.Add(0);
+            prevWeights.Add(0);
 
             inputs.Add(0);
             inputNeurons.Add(neuron.ID);
@@ -194,6 +196,8 @@ namespace NeuralNetworkFundamentals
                 tempCollected.RemoveAt(index);
                 inputs_collected = tempCollected.ToArray();
                 inputs.RemoveAt(index);
+                weights.RemoveAt(index);
+                prevWeights.RemoveAt(index);
 
                 return true;
             }
