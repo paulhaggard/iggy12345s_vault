@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace NeuralNetworkFundamentals
 { 
@@ -19,6 +21,7 @@ namespace NeuralNetworkFundamentals
         // Thus, why we need to activate them during the first iteration of training, after that, every time the recurrent neuron fires, it will cause the hidden layer to fire as well.
 
         private List<Tuple<List<Neuron>, int>> recurrentLayers;     // Holds a list of all of the hidden recurrent networks in the network
+        private List<List<int>> outputLayerConnections;             // Used for file IO, contains the lists of layers that the recurrent layers are connected to.
         private bool firstActivation;                               // Used to determine if the network has been through it's first feed-forward pass yet
 
         public RecurrentNetwork(List<LayerDesc> LayerInfo, List<ActivationFunction> defaultActivationFunction = null, List<ActivationParameters> Params = null,
@@ -27,6 +30,7 @@ namespace NeuralNetworkFundamentals
             firstActivation = true; // Flags that the network has never been fed forward before and the hidden recurrent layers should be activated.
 
             Layers = new List<List<Neuron>>(LayerInfo.Count);
+            outputLayerConnections = new List<List<int>>();
 
             if (defaultActivationFunction == null)
             {
@@ -79,22 +83,28 @@ namespace NeuralNetworkFundamentals
                             defaultActivation: defaultActivationFunction[i],
                             defaultParameters: Params[i]));     // Generates a list of neurons that are linked to the output of the current layer
 
-                    if(LayerInfo[i].HasOutputs)
+                    if (LayerInfo[i].HasOutputs)
                     {
                         // Determines where to send the output.
-                        foreach(int index in LayerInfo[i].OutputIndex)
+                        List<int> tempOutIndex = new List<int>();
+                        foreach (int index in LayerInfo[i].OutputIndex)
                         {
                             // Subscribes each output to each layer of neurons indicated in the Output Index list.
                             foreach (Neuron recNeuron in tempRec.Item1)
-                                foreach (Neuron normNeuron in Layers[((index==-1) ? Layers.Count - 1 : index)])
+                                foreach (Neuron normNeuron in Layers[((index == -1) ? Layers.Count - 1 : index)])
                                     normNeuron.SubscribeToActivation(recNeuron);
+                            tempOutIndex.Add(((index == -1) ? Layers.Count - 1 : index));
                         }
+                        outputLayerConnections.Add(tempOutIndex);
                     }
                     else
+                    {
                         // Subscribes each recurrent neuron to the original layer's neurons
                         foreach (Neuron recNeuron in tempRec.Item1)
                             foreach (Neuron normNeuron in Layers[Layers.Count - 1])
                                 normNeuron.SubscribeToActivation(recNeuron);
+                        outputLayerConnections.Add(new List<int>() { Layers.Count - 1 });
+                    }
 
                     recurrentLayers.Add(tempRec);   // Adds the current layer to the archive of recurrent layers.
                 }
@@ -151,6 +161,67 @@ namespace NeuralNetworkFundamentals
             foreach (Tuple<List<Neuron>, int> layer in recurrentLayers)
                 foreach (Neuron neuron in layer.Item1)
                     neuron.RandomizeBias(new Random());
+        }
+
+        // File IO
+        protected override XElement GenerateFileContents()
+        {
+            XElement root =  base.GenerateFileContents();
+
+            for (int i = 0; i < recurrentLayers.Count; i++)
+            {
+                XElement layerTree = new XElement("RecurrentLayer",
+                    new XAttribute("Index", i),
+                    new XAttribute("Input", recurrentLayers[i].Item1[0].InputLayer),        // Is input layer?
+                    new XAttribute("Output", recurrentLayers[i].Item1[0].OutputLayer),      // Is output layer?
+                    new XAttribute("Count", recurrentLayers[i].Item1.Count),
+                    new XAttribute("LinkedInputLayer", recurrentLayers[i].Item2));          // Input layer connection
+
+                // Serializes the output connection list
+                for (int j = 0; j < outputLayerConnections.Count; j++)
+                    layerTree.Add(new XElement("Output", outputLayerConnections[i]));
+
+                foreach (Neuron neuron in recurrentLayers[i].Item1)
+                    layerTree.Add(neuron.SerializeXml());
+
+                root.Add(layerTree);
+            }
+
+            return root;
+        }
+
+        // START HERE!!!
+        protected override void ParseFileContents(XElement root)
+        {
+            base.ParseFileContents(root);
+
+            int i = 0;
+            List<Tuple<List<Neuron>, int>> temp = new List<Tuple<List<Neuron>, int>>();
+            while (root.XPathSelectElement("RecurrentLayer[@Index=" + i + "]") != null)
+            {
+                // TO DO: READ IN THE INDEX OF THE LAYER THAT INPUTS INTO THIS RECURRENT LAYER FROM THE FILE
+
+                Tuple<List<Neuron>, int> temptemp = new Tuple<List<Neuron>, int>(new List<Neuron>(), 0);
+                XElement layer = root.XPathSelectElement("RecurrentLayer[@Index=" + (i++) + "]");               // Condenses the XPath selection to a variable and increments i
+                if (layer != null)
+                {
+                    List<XElement> neuronList = layer.XPathSelectElements("//Neuron").ToList();                 // Gets the list of neurons in the layer.
+                    foreach (XElement neuron in neuronList)
+                    {
+                        temptemp.Item1.Add(Neuron.Load(neuron));                                                // Loads each neuron
+                    }
+                    temp.Add(temptemp);                                                                         // Loads that new layer
+
+                    // TO DO: VERIFY THAT THIS FINDS ALL OF THE OUTPUT SPOTS
+
+                    List<XElement> outputList = layer.XPathSelectElements("//Output").ToList();                 // Gets the list of output links in the layer.
+                    foreach (XElement output in outputList)
+                    {
+                        // TO DO: TAKE THE INT AND ADD IT TO THE LIST OF OUTPUT INDICES FOR THIS LAYER
+                    }
+                }
+            }
+            recurrentLayers = temp;
         }
     }
 }
