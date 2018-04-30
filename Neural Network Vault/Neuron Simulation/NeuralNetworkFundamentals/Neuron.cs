@@ -161,6 +161,45 @@ namespace NeuralNetworkFundamentals
         }
 
         // Methods
+        public void SubscribeToActivation(Neuron neuron)
+        {
+            // Call to have the current neuron subscribe to a neuron that's passed in.
+            neuron.ActiveEvent += OnActivate;
+
+            // Sets up the input collection arrays and subscription lists.
+            List<bool> tempCollected = inputs_collected.ToList();
+            tempCollected.Add(false);
+            inputs_collected = tempCollected.ToArray();
+
+            inputs.Add(0);
+            inputNeurons.Add(neuron.ID);
+        }
+
+        public bool DeSubscribeFromActivation(Neuron neuron)
+        {
+            // Call to have the current neuron desubscribe from the neuron that's passed in.
+            // Returns a boolean representing whether the neuron was subscribed to that neuron, or not.
+            if(inputNeurons.Contains(neuron.ID))
+            {
+                // THIS. IS. ABSURD!!!
+                long tempLong = neuron.ID;  // Fuck ref and anonymous values in lambda expressions............ -_________________-
+                Predicate<long> idFinder =  delegate(long l){ return l == tempLong; };   // Why does this even exist, wtf???
+                int index = inputNeurons.FindIndex(idFinder);
+
+                neuron.ActiveEvent -= OnActivate;
+                inputNeurons.Remove(neuron.ID);
+
+                // Removes the subscription from the list of inputs, collection array, etc...
+                List<bool> tempCollected = inputs_collected.ToList();
+                tempCollected.RemoveAt(index);
+                inputs_collected = tempCollected.ToArray();
+                inputs.RemoveAt(index);
+
+                return true;
+            }
+            return false;
+        }
+
         public void OnActivate(object sender, ActivationEventArgs e)
         {
             // Figures out which Neuron fired this event, and then collects it's data.
