@@ -21,16 +21,12 @@ namespace RecurrentNetworkTestbench
 
             List<List<double>> sampleIn = new List<List<double>>()
             {
-                new List<double>() { 0, 0 },
-                new List<double>() { 0, 1 },
                 new List<double>() { 1, 0 },
-                new List<double>() { 1, 1 }
+                new List<double>() { 0, 1 }
             };
 
             List<List<double>> sampleOut = new List<List<double>>()
             {
-                new List<double>(){0 },
-                new List<double>(){1 },
                 new List<double>(){1 },
                 new List<double>(){0 }
             };
@@ -45,7 +41,10 @@ namespace RecurrentNetworkTestbench
 
         static void OnTrainingUpdate(object sender, TrainingUpdateEventArgs e)
         {
-            Console.WriteLine("input sequence [{0}, {1}] is {2}", e.Layers[0][0].Activation, e.Layers[0][1].Activation, e.Layers.Last()[0].Activation);
+            Console.WriteLine("input sequence [{0}, {1}] is {2}, iteration: {3}", e.Layers[0][0].Activation,
+                e.Layers[0][1].Activation,
+                e.Layers.Last()[0].Activation,
+                e.Iteration);
         }
     }
 }

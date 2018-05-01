@@ -147,6 +147,27 @@ namespace NeuralNetworkFundamentals
             base.ForwardPropagate();
         }
 
+        public override double BackPropagate(List<double> Sample)
+        {
+            double error =  base.BackPropagate(Sample);
+
+            // Performs the back propagation on the hidden recurrent layers.
+            foreach (Tuple<List<Neuron>, int> layer in recurrentLayers)
+            {
+                for (int j = 0; j < layer.Item1.Count; j++)
+                {
+                    /* Variable meanings:
+                     * i = current layer
+                     * j = current neuron of current layer
+                     */
+                        
+                    layer.Item1[j].AssignDelta(Momentum, LearningRate, nextLayerNeurons: Layers[layer.Item2]);
+                }
+            }
+
+            return error;
+        }
+
         protected override void GenWeights(List<List<List<double>>> weights = null)
         {
             base.GenWeights(weights);
@@ -190,21 +211,22 @@ namespace NeuralNetworkFundamentals
             return root;
         }
 
-        // START HERE!!!
         protected override void ParseFileContents(XElement root)
         {
             base.ParseFileContents(root);
 
             int i = 0;
             List<Tuple<List<Neuron>, int>> temp = new List<Tuple<List<Neuron>, int>>();
+            List<List<int>> tempOut = new List<List<int>>();
             while (root.XPathSelectElement("RecurrentLayer[@Index=" + i + "]") != null)
             {
-                // TO DO: READ IN THE INDEX OF THE LAYER THAT INPUTS INTO THIS RECURRENT LAYER FROM THE FILE
-
-                Tuple<List<Neuron>, int> temptemp = new Tuple<List<Neuron>, int>(new List<Neuron>(), 0);
+                List<int> outTemptemp = new List<int>();
                 XElement layer = root.XPathSelectElement("RecurrentLayer[@Index=" + (i++) + "]");               // Condenses the XPath selection to a variable and increments i
                 if (layer != null)
                 {
+                    Tuple<List<Neuron>, int> temptemp = new Tuple<List<Neuron>, int>(new List<Neuron>(),
+                        Convert.ToInt32(layer.Attribute("LinkedInputLayer").Value));
+                    
                     List<XElement> neuronList = layer.XPathSelectElements("//Neuron").ToList();                 // Gets the list of neurons in the layer.
                     foreach (XElement neuron in neuronList)
                     {
@@ -212,16 +234,16 @@ namespace NeuralNetworkFundamentals
                     }
                     temp.Add(temptemp);                                                                         // Loads that new layer
 
-                    // TO DO: VERIFY THAT THIS FINDS ALL OF THE OUTPUT SPOTS
-
                     List<XElement> outputList = layer.XPathSelectElements("//Output").ToList();                 // Gets the list of output links in the layer.
                     foreach (XElement output in outputList)
                     {
-                        // TO DO: TAKE THE INT AND ADD IT TO THE LIST OF OUTPUT INDICES FOR THIS LAYER
+                        outTemptemp.Add(Convert.ToInt32(output.Value));
                     }
+                    tempOut.Add(outTemptemp);
                 }
             }
             recurrentLayers = temp;
+            outputLayerConnections = tempOut;
         }
     }
 }

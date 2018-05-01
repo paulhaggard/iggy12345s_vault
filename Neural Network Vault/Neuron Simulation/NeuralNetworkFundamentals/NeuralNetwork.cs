@@ -373,6 +373,9 @@ namespace NeuralNetworkFundamentals
         {
             // Propagates the network forward, computes an answer
 
+            List<Task> launchedTasks = new List<Task>(layers[0].Count);
+            Predicate<Task> findActive = (Task t) => { return t.Status != TaskStatus.RanToCompletion; };
+
             if (!hasSubscribed)
             {
                 // Subscribes to each Activation event of the Neurons
@@ -384,10 +387,11 @@ namespace NeuralNetworkFundamentals
 
             foreach (Neuron item in layers[0])
             {
-                item.Activate();
+                launchedTasks.Add(Task.Run(() => { item.Activate(); }));
             }
 
-            while (activationCount < layers.Last().Count) ; // Waits until all ActivationFunction are complete
+            // START HERE!!!
+            while (activationCount < layers.Last().Count /*|| launchedTasks.Find(findActive) == null*/) ; // Waits until all ActivationFunction are complete or until the tasks have all ended.
         }
 
         public virtual double BackPropagate(List<double> Sample)
