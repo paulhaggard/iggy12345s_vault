@@ -46,9 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\NeuralNetworkFundamentals\NeuralNetworkFundamentals.csproj">
       <Project>{8b12ec9a-3453-4c7a-9c30-211c5b1a9010}</Project>
       <Name>NeuralNetworkFundamentals</Name>

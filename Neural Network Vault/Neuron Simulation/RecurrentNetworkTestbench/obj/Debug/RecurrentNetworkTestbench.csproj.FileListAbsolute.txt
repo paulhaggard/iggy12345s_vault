@@ -9,3 +9,13 @@ C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Sim
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\obj\Debug\RecurrentNetworkTestbench.csproj.CopyComplete
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\obj\Debug\RecurrentNetworkTestbench.exe
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\obj\Debug\RecurrentNetworkTestbench.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\obj\Debug\RecurrentNetworkTestbench.exe
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\obj\Debug\RecurrentNetworkTestbench.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\RecurrentNetworkTestbench.exe
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\RecurrentNetworkTestbench.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\NeuralNetworkFundamentals.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\Troschuetz.Random.dll
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\NeuralNetworkFundamentals.pdb
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\obj\Debug\RecurrentNetworkTestbench.csprojResolveAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\obj\Debug\RecurrentNetworkTestbench.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\obj\Debug\RecurrentNetworkTestbench.csproj.CopyComplete

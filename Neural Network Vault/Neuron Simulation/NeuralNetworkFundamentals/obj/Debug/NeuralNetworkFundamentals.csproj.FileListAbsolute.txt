@@ -16,3 +16,5 @@ G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\Neu
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.csprojResolveAssemblyReference.cache
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.Windows_Form_Controls.NetworkViewBox.resources
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.csproj.GenerateResource.cache
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.Windows_Form_Controls.NetworkViewBox.resources
+G:\Github Repository\iggy12345s_vault\Neural Network Vault\Neuron Simulation\NeuralNetworkFundamentals\obj\Debug\NeuralNetworkFundamentals.csproj.GenerateResource.cache
