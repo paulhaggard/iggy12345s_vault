@@ -173,7 +173,13 @@ namespace NeuralNetworkFundamentals
             base.GenWeights(weights);
             foreach (Tuple<List<Neuron>, int> layer in recurrentLayers)
                 foreach (Neuron neuron in layer.Item1)
-                    neuron.RandomizeWeights(new Random());
+                {
+                    List<double> temp = new List<double>(neuron.Weights.Count);
+                    for (int i = 0; i < neuron.Weights.Count; i++)
+                        temp.Add(1);
+                    neuron.Weights = temp;
+                    // neuron.RandomizeWeights(new Random());
+                }
         }
 
         protected override void GenBiases(List<List<double>> biases = null)
@@ -181,7 +187,10 @@ namespace NeuralNetworkFundamentals
             base.GenBiases(biases);
             foreach (Tuple<List<Neuron>, int> layer in recurrentLayers)
                 foreach (Neuron neuron in layer.Item1)
-                    neuron.RandomizeBias(new Random());
+                {
+                    neuron.Bias = 0;
+                    // neuron.RandomizeBias(new Random());
+                }
         }
 
         // File IO

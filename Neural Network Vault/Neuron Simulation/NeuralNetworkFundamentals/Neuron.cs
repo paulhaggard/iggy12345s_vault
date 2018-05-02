@@ -234,7 +234,7 @@ namespace NeuralNetworkFundamentals
             }
         }
 
-        public async virtual void Activate(ActivationFunction type = null, ActivationParameters Params = null)
+        public virtual void Activate(ActivationFunction type = null, ActivationParameters Params = null)
         {
             // These are the various activation functions that I could find on wikipedia:
             // https://en.wikipedia.org/wiki/Activation_function
@@ -248,10 +248,14 @@ namespace NeuralNetworkFundamentals
             {
                 // Input layers don't have weights and activation functions, that's why they get an exclusive case
                 Net = bias;
+
                 for (int i = 0; i < (inputNeurons.Count); i++)
                     Net += (inputs[i]) * (weights[i]);
+
+                // Resets the inputs_collected list
                 for (int i = 0; i < inputs_collected.Length; i++)
                     inputs_collected[i] = false;
+
                 activation = type.Activate(Net, Params);
             }
             else
@@ -260,7 +264,8 @@ namespace NeuralNetworkFundamentals
                 activation = net;
             }
 
-            await Task.Run(new Action(OnActivation));
+            //Task.Run(new Action(OnActivation));
+            OnActivation();
 
             //return Activation;
         }

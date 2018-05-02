@@ -679,25 +679,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aaron\\.nuget\\packages\\": {},
+    "C:\\Users\\aaron\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\Mutliple Neuron Debugging Testbench.csproj",
+      "projectUniqueName": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\Mutliple Neuron Debugging Testbench.csproj",
       "projectName": "Mutliple Neuron Debugging Testbench",
-      "projectPath": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\Mutliple Neuron Debugging Testbench.csproj",
-      "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
-      "outputPath": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\obj\\",
+      "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\Mutliple Neuron Debugging Testbench.csproj",
+      "packagesPath": "C:\\Users\\aaron\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\Mutliple Neuron Debugging Testbench\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
@@ -711,8 +711,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj": {
-              "projectPath": "G:\\Github Repository\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj"
+            "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj": {
+              "projectPath": "C:\\Users\\aaron\\Documents\\GitHub\\iggy12345s_vault\\Neural Network Vault\\Neuron Simulation\\NeuralNetworkFundamentals\\NeuralNetworkFundamentals.csproj"
             }
           }
         }

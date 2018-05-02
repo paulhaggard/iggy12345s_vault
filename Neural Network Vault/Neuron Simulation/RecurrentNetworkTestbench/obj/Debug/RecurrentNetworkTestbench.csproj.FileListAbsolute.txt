@@ -1,4 +1,3 @@
-C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\RecurrentNetworkTestbench.exe.config
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\RecurrentNetworkTestbench.exe
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\RecurrentNetworkTestbench.pdb
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Neural Network Vault\Neuron Simulation\RecurrentNetworkTestbench\bin\Debug\NeuralNetworkFundamentals.dll
