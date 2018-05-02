@@ -1,2 +1,5 @@
 *.cache
 *.config
+*.ide
+*ide-wal
+*.suo
