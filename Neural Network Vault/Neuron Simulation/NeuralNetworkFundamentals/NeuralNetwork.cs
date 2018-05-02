@@ -132,6 +132,15 @@ namespace NeuralNetworkFundamentals
         // Accessor Methods
         public List<List<Neuron>> Layers { get => layers; set => layers = value; }
         public double LearningRate { get => learningRate; set => learningRate = value; }
+        public List<double> Output { get => getOutputs(); }
+
+        private List<double> getOutputs()
+        {
+            List<double> temp = new List<double>(Layers.Last().Count);
+            foreach (Neuron neuron in layers.Last())
+                temp.Add(neuron.Activation);
+            return temp;
+        }
 
         public List<double> Calc(List<double> inputs)
         {
