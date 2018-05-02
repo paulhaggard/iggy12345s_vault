@@ -165,6 +165,8 @@ namespace NeuralNetworkFundamentals
             foreach (double d in shortTermMemory)
                 input.Add(d);
 
+            // TODO: MAKE THESE PARALLEL PROCESSES!!!
+
             // Loads the sample into the different neural layers and forwards propagates them.
             forgetGate.LoadSample(input);
             forgetGate.ForwardPropagate();
