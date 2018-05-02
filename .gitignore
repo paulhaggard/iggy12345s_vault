@@ -4,3 +4,11 @@
 *ide-wal
 *.suo
 *.ide-shm
+*.cache
+*.cache
+*.props
+*.targets
+*.json
+*.cache
+*.cache
+*.props
