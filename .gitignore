@@ -3,3 +3,4 @@
 *.ide
 *ide-wal
 *.suo
+*.ide-shm
