@@ -1,5 +1,4 @@
-﻿using Flashcards.Cards;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +12,9 @@ namespace Flashcards.Forms
 {
     public partial class WrittenResponseForm : Form
     {
-        private WrittenResponse card;
+        private Card card;
 
-        public WrittenResponse Card { get => card; set => card = value; }
+        public Card Card { get => card; set => card = value; }
 
         public delegate void FormFinishEventHandler(object sender, EventArgs e);
 
@@ -29,7 +28,7 @@ namespace Flashcards.Forms
         public WrittenResponseForm()
         {
             InitializeComponent();
-            card = new WrittenResponse();
+            card = new Card();
         }
 
         private void addHintBtn_Click(object sender, EventArgs e)
@@ -63,9 +62,12 @@ namespace Flashcards.Forms
 
         private void removeHintBtn_Click(object sender, EventArgs e)
         {
-            Card.Hint.RemoveAt(hintList.SelectedIndices[0]);
-            hintList.Items.RemoveAt(hintList.SelectedIndices[0]);
-            hintList.Invalidate();
+            if (hintList.SelectedIndex > 0)
+            {
+                Card.Hint.RemoveAt(hintList.SelectedIndex);
+                hintList.Items.RemoveAt(hintList.SelectedIndex);
+                hintList.Invalidate();
+            }
         }
     }
 }

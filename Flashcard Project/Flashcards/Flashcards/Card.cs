@@ -7,25 +7,36 @@ using System.Xml.Linq;
 
 namespace Flashcards
 {
-    public abstract class Card
+    public class Card
     {
         // A parent class that can be inherited from to create custom card types.
 
         private string question;
         private List<string> hint;
-        //private abstract object answer;
+        private List<string> answers;
         private int correctPoints;
         private int incorrectPoints;
 
         public string Question { get => question; set => question = value; }
         public List<string> Hint { get => hint; set => hint = value; }
-        //public T Answer { get => answer; set => answer = value; }
+        public List<string> Answers { get => answers; set => answers = value; }
+        public string Answer { get => answers[0]; set => answers[0] = value; }
 
-        public Card(string question, List<string> hint = null,
+        public Card(string question, List<string> answers, List<string> hint = null,
             int correctPoints = 1, int incorrectPoints = 0)
         {
             this.question = question;
-            //this.answer = answer;
+            this.answers = answers;
+            this.hint = hint ?? new List<string>();
+            this.correctPoints = correctPoints;
+            this.incorrectPoints = incorrectPoints;
+        }
+
+        public Card(string question = "", string answer = "", List<string> hint = null,
+            int correctPoints = 1, int incorrectPoints = 0)
+        {
+            this.question = question;
+            answers = new List<string> { answer };
             this.hint = hint ?? new List<string>();
             this.correctPoints = correctPoints;
             this.incorrectPoints = incorrectPoints;
@@ -44,12 +55,10 @@ namespace Flashcards
                 this.hint.Remove(hint);
         }
 
-        protected abstract bool IsCorrect(object answer);    // Determines if the supplied answer is correct.
-
-        public virtual int GetScore(object answer)
+        public virtual int GetScore(string answer)
         {
             // Returns the score value of this card given the current answer.
-            return IsCorrect(answer) ? correctPoints : incorrectPoints;
+            return answers.Contains(answer) ? correctPoints : incorrectPoints;
         }
 
         public virtual XElement ConvertToXml()

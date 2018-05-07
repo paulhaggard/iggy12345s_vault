@@ -11,4 +11,3 @@ C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Flashcard Project\Flashcards\Fl
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Flashcard Project\Flashcards\Flashcards\obj\Debug\Flashcards.csproj.CoreCompileInputs.cache
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Flashcard Project\Flashcards\Flashcards\obj\Debug\Flashcards.exe
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Flashcard Project\Flashcards\Flashcards\obj\Debug\Flashcards.pdb
-C:\Users\aaron\Documents\GitHub\iggy12345s_vault\Flashcard Project\Flashcards\Flashcards\obj\Debug\Flashcards.Forms.MultipleGuessForm.resources

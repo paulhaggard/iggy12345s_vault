@@ -46,20 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
-    <Compile Include="Cards\MultipleGuess.cs" />
-    <Compile Include="Cards\WrittenResponse.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Forms\DeckBuilder.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DeckBuilder.Designer.cs">
       <DependentUpon>DeckBuilder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MultipleGuessForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MultipleGuessForm.Designer.cs">
-      <DependentUpon>MultipleGuessForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserEntry.cs">
       <SubType>Form</SubType>
@@ -83,9 +75,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\DeckBuilder.resx">
       <DependentUpon>DeckBuilder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MultipleGuessForm.resx">
-      <DependentUpon>MultipleGuessForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserEntry.resx">
       <DependentUpon>UserEntry.cs</DependentUpon>

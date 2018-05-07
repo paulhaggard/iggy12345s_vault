@@ -51,11 +51,23 @@ namespace Flashcards.Forms
         {
             WrittenResponseForm form = (WrittenResponseForm)sender;
             deck.Cards.Add(form.Card);
+            cardList.Items.Add(form.Card.Question);
+            cardList.Invalidate();
         }
 
-        private void AddMultGuess_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            deck.Name = textBox1.Text;
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cardList.SelectedIndex > 0)
+            {
+                deck.Cards.RemoveAt(cardList.SelectedIndex);
+                cardList.Items.RemoveAt(cardList.SelectedIndex);
+                cardList.Invalidate();
+            }
         }
     }
 
