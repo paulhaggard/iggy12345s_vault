@@ -29,8 +29,16 @@ namespace JarvisFramework
 
         public void ServerStart()
         {
+            server.AddUser(new NetUser("Admin", "Lethologica1"));
+            Console.WriteLine("Created the admin user");
             server.Start();
             Console.WriteLine("Created the server @{0}:{1}", server.Ip, server.Port);
+        }
+
+        public void ServerStop()
+        {
+            server.Close();
+            Console.WriteLine("Stopped the TCP server.");
         }
 
         #region Event Methods

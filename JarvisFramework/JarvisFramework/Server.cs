@@ -73,6 +73,8 @@ namespace JarvisFramework
         private long connectionCount;           // How many connections have been made to the server
         private List<NetUser> users;
 
+        private static int iterationDelay = 1000;
+
         #endregion
 
         #region Accessor Methods
@@ -163,6 +165,11 @@ namespace JarvisFramework
             return port;
         }
 
+        /// <summary>
+        /// Sends a message targetting a specific connection
+        /// </summary>
+        /// <param name="id">user id of the connection to target</param>
+        /// <param name="message">message to send</param>
         public void TargetedTx(long id, string message)
         {
             // Sends a message to a specific user
@@ -180,6 +187,11 @@ namespace JarvisFramework
             transmitStatus = false;
         }
 
+        /// <summary>
+        /// Sends a message targetting a specific connection
+        /// </summary>
+        /// <param name="stream">stream to target</param>
+        /// <param name="message">message to send</param>
         public void TargetedTx(NetworkStream stream, string message)
         {
             // Sends a message to a specific user
@@ -187,9 +199,22 @@ namespace JarvisFramework
             stream.Write(msg, 0, msg.Length);
         }
 
+        /// <summary>
+        /// Sends a string message to all connected users
+        /// </summary>
+        /// <param name="message">Message to be sent</param>
         public void SendMessage(string message)
         {
             TxQueue.Enqueue(message);
+        }
+
+        /// <summary>
+        /// Allows users to be added remotely
+        /// </summary>
+        /// <param name="user">User to be added</param>
+        public void AddUser(NetUser user)
+        {
+            users.Add(user);
         }
 
         #region Managers
@@ -200,6 +225,8 @@ namespace JarvisFramework
             Console.WriteLine("Receiver manager initialized, awaiting incoming messages...");
             while (!isExitting)
             {
+                Thread.Sleep(iterationDelay);
+
                 byte[] bytes = new byte[65536];
                 // Checks if it can read
                 if (!clientListEditStatus)
@@ -207,15 +234,18 @@ namespace JarvisFramework
                     readingStatus = true;
                     for (int i = 0; i < users.Count; i++)
                     {
-                        int count = users[i].Stream.Read(bytes, 0, bytes.Length);
-                        if (count > 0)
+                        if (users[i].IsConnected)
                         {
-                            // Found a message waiting to be read
-                            string msg = Encoding.ASCII.GetString(bytes, 0, count);
-                            if (msg == "Connection.Close")
-                                ClosingQueue.Enqueue(i);    // Closes the connection if requested.
-                            else
-                                OnRxMessageEvent(users[i].Id, msg);  // Triggers the receive event if a message was found
+                            int count = users[i].Stream.Read(bytes, 0, bytes.Length);
+                            if (count > 0)
+                            {
+                                // Found a message waiting to be read
+                                string msg = Encoding.ASCII.GetString(bytes, 0, count);
+                                if (msg == "Connection.Close")
+                                    ClosingQueue.Enqueue(i);    // Closes the connection if requested.
+                                else
+                                    OnRxMessageEvent(users[i].Id, msg);  // Triggers the receive event if a message was found
+                            }
                         }
                     }
                     readingStatus = false;
@@ -225,6 +255,8 @@ namespace JarvisFramework
 
         public void TxManager()
         {
+            Thread.Sleep(iterationDelay);
+
             // Handles Transmitted messges
             Console.WriteLine("Transmission manager initialized, awaiting outgoing messages...");
             while (!isExitting)
@@ -254,6 +286,8 @@ namespace JarvisFramework
 
         public async void ConnectionManager()
         {
+            Thread.Sleep(iterationDelay);
+
             // Handles new Connections
             Console.WriteLine("Connection Host Initialized, awaiting connections...");
             while (!isExitting)
@@ -296,7 +330,11 @@ namespace JarvisFramework
                             if (username == user.Username)
                             {
                                 if (user.CheckPassword(password))
+                                {
+                                    user.UpdateClient(client);
+                                    OnCntEvent(user.Id);
                                     break;
+                                }
                                 TargetedTx(stream, "Username or password is incorrect.");
                                 duplicant = true;
                             }
@@ -312,11 +350,6 @@ namespace JarvisFramework
 
                     while (readingStatus) ;         // Waits until the current read is finished
 
-                    // Adds the client to the list
-                    //users.Add(new NetUser(username, "", client));
-
-                    OnCntEvent(users.Last().Id);
-
                     Console.WriteLine("{0} has Connected!", username);
 
                     clientListEditStatus = false;
@@ -326,6 +359,8 @@ namespace JarvisFramework
 
         public void DisConnectionManager()
         {
+            Thread.Sleep(iterationDelay);
+
             // Handles closing Connections
             Console.WriteLine("Connection Host Initialized, awaiting connections...");
             while (!isExitting)
