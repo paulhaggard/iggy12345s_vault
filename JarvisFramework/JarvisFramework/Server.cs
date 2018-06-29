@@ -6,8 +6,9 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Threading;
+using JarvisFramework;
 
-namespace Chatroom
+namespace JarvisFramework
 {
     class Server
     {
@@ -21,9 +22,22 @@ namespace Chatroom
         /// </summary>
         public event RxMessageEventHandler RxMessageEvent;
 
-        protected virtual void OnRxMessageEvent(string message)
+        protected virtual void OnRxMessageEvent(long ID, string message)
         {
-            RxMessageEvent?.Invoke(message);
+            RxMessageEvent?.Invoke(this, new ServerRxEventArgs(ID, message));
+        }
+
+        // Receive event triggered whenever a message is received
+        public delegate void TxMessageEventHandler(object sender, ServerTxEventArgs e);
+
+        /// <summary>
+        /// Triggered anytime a message is transmitted
+        /// </summary>
+        public event TxMessageEventHandler TxMessageEvent;
+
+        protected virtual void OnTxMessageEvent(string message)
+        {
+            TxMessageEvent?.Invoke(this, new ServerTxEventArgs(message));
         }
 
         // Connection event triggered whenever a connection is established
@@ -70,12 +84,29 @@ namespace Chatroom
 
         #endregion
 
-        #region Constructor
+        #region Constructors
 
         public Server(int port, IPAddress ip)
         {
             this.port = port;
             this.ip = ip;
+            server = new TcpListener(ip, port);
+            users = new List<NetUser>();
+            Rx = new Thread(new ThreadStart(RxManager));
+            Tx = new Thread(new ThreadStart(TxManager));
+            ConnectionMgr = new Thread(new ThreadStart(ConnectionManager));
+            DisConnectionMgr = new Thread(new ThreadStart(DisConnectionManager));
+            TxQueue = new Queue<string>();
+            ClosingQueue = new Queue<int>();
+            clientListEditStatus = false;
+            readingStatus = false;
+            transmitStatus = false;
+        }
+
+        public Server()
+        {
+            port = FindFreePort();
+            ip = IPAddress.Loopback;
             server = new TcpListener(ip, port);
             users = new List<NetUser>();
             Rx = new Thread(new ThreadStart(RxManager));
@@ -137,9 +168,9 @@ namespace Chatroom
             // Sends a message to a specific user
             transmitStatus = true;
             while (clientListEditStatus) ;
-            foreach(NetUser user in users)
+            foreach (NetUser user in users)
             {
-                if(id == user.Id)
+                if (id == user.Id)
                 {
                     byte[] msg = Encoding.ASCII.GetBytes(message);
                     user.Stream.Write(msg, 0, msg.Length);
@@ -167,7 +198,7 @@ namespace Chatroom
         {
             // Handles received messages
             Console.WriteLine("Receiver manager initialized, awaiting incoming messages...");
-            while(!isExitting)
+            while (!isExitting)
             {
                 byte[] bytes = new byte[65536];
                 // Checks if it can read
@@ -184,7 +215,7 @@ namespace Chatroom
                             if (msg == "Connection.Close")
                                 ClosingQueue.Enqueue(i);    // Closes the connection if requested.
                             else
-                                OnRxMessageEvent( users[i].Username + ": " + msg);  // Triggers the receive event if a message was found
+                                OnRxMessageEvent(users[i].Id, msg);  // Triggers the receive event if a message was found
                         }
                     }
                     readingStatus = false;
@@ -196,17 +227,21 @@ namespace Chatroom
         {
             // Handles Transmitted messges
             Console.WriteLine("Transmission manager initialized, awaiting outgoing messages...");
-            while(!isExitting)
+            while (!isExitting)
             {
-                if(TxQueue.Count > 0)
+                if (TxQueue.Count > 0)
                 {
                     transmitStatus = true;
                     while (clientListEditStatus) ;  // Waits until it's safe to proceed
 
+                    string message = TxQueue.Dequeue();
+
+                    OnTxMessageEvent(message);
+
                     // Transmits a message if there exists one in the queue
-                    byte[] msg = Encoding.ASCII.GetBytes(TxQueue.Dequeue());
-                    
-                    foreach(NetUser user in users)
+                    byte[] msg = Encoding.ASCII.GetBytes(message);
+
+                    foreach (NetUser user in users)
                     {
                         // Transmits to every listener
                         user.Stream.Write(msg, 0, msg.Length);
@@ -221,7 +256,7 @@ namespace Chatroom
         {
             // Handles new Connections
             Console.WriteLine("Connection Host Initialized, awaiting connections...");
-            while(!isExitting)
+            while (!isExitting)
             {
                 TcpClient client = server.AcceptTcpClient();    // Waits until a connection appears
 
@@ -232,17 +267,23 @@ namespace Chatroom
                 {
                     //bool signup = false;
                     NetworkStream stream = client.GetStream();
-                    byte[] responses = new byte[256];
+                    byte[] responses = new byte[65536];
                     int i = 0;
                     string username = "";
+                    string password = "";
                     bool duplicant = false;
                     do
                     {
                         duplicant = false;
-                        TargetedTx(stream, "Username:");
+                        TargetedTx(stream, "Username: ");
                         while ((i = stream.Read(responses, 0, responses.Length)) <= 0) ; // Wait until the person responds, or times out
 
                         username = Encoding.ASCII.GetString(responses, 0, i);
+
+                        TargetedTx(stream, "Password: ");
+                        while ((i = stream.Read(responses, 0, responses.Length)) <= 0) ; // Wait until the person responds, or times out
+
+                        password = Encoding.ASCII.GetString(responses, 0, i);
 
                         while (clientListEditStatus) ;  // Waits until any pending removals are finished
 
@@ -254,80 +295,17 @@ namespace Chatroom
                         {
                             if (username == user.Username)
                             {
-                                TargetedTx(stream, "Sorry, that username is already taken.");
+                                if (user.CheckPassword(password))
+                                    break;
+                                TargetedTx(stream, "Username or password is incorrect.");
                                 duplicant = true;
-                                break;
                             }
                         }
 
                         clientListEditStatus = false;
                     }
                     while (duplicant);
-                    /*
-                    TargetedTx(stream, "Type NEW to sign up, otherwise, please type your credentials\nUsername:");
-                    byte[] responses = new byte[256];
-                    int i = 0;
-                    // TODO: Implements a timeout function here.
-                    while ((i = stream.Read(responses, 0, responses.Length)) <= 0) ; // Wait until the person responds, or times out
-                    string username = Encoding.ASCII.GetString(responses);
-                    if(username == "NEW")
-                    {
-                        signup = true;
-                        bool duplicant = false;
-                        do
-                        {
-                            TargetedTx(stream, "Username:");
-                            while ((i = stream.Read(responses, 0, responses.Length)) <= 0) ; // Wait until the person responds, or times out
-                            username = Encoding.ASCII.GetString(responses);
-
-                            while (clientListEditStatus) ;  // Waits until any pending removals are finished
-
-                            clientListEditStatus = true;    // Flags that a change is occuring
-
-                            while (readingStatus) ;         // Waits until the current read is finished
-
-                            foreach (NetUser user in users)
-                            {
-                                if (username == user.Username)
-                                {
-                                    TargetedTx(stream, "Sorry, that username is already taken.");
-                                    duplicant = true;
-                                    break;
-                                }
-                            }
-
-                            clientListEditStatus = false;
-                        }
-                        while (duplicant);
-                    }
-
-                    /*
-                    TargetedTx(stream, "Password:");
-                    while ((i = stream.Read(responses, 0, responses.Length)) <= 0) ; // Wait until the person responds, or times out
-                    string password = Encoding.ASCII.GetString(responses);
-                    if(signup)
-                    {
-                        while (clientListEditStatus) ;  // Waits until any pending removals are finished
-
-                        clientListEditStatus = true;    // Flags that a change is occuring
-
-                        while (readingStatus) ;         // Waits until the current read is finished
-
-                        // Adds the client to the list
-                        users.Add(new NetUser(username, password, client));
-
-                        OnCntEvent(users.Last().Id);
-
-                        TxQueue.Enqueue(username + " has joined the room!");
-
-                        clientListEditStatus = false;
-                    }
-                    else
-                    {
-
-                    }
-                    */
-
+                    
                     while (clientListEditStatus) ;  // Waits until any pending removals are finished
 
                     clientListEditStatus = true;    // Flags that a change is occuring
@@ -335,12 +313,11 @@ namespace Chatroom
                     while (readingStatus) ;         // Waits until the current read is finished
 
                     // Adds the client to the list
-                    users.Add(new NetUser(username, "", client));
+                    //users.Add(new NetUser(username, "", client));
 
                     OnCntEvent(users.Last().Id);
 
-                    TxQueue.Enqueue(username + " has joined the room!");
-                    Console.WriteLine("{0} has joined the room!", username);
+                    Console.WriteLine("{0} has Connected!", username);
 
                     clientListEditStatus = false;
                 }
@@ -353,7 +330,7 @@ namespace Chatroom
             Console.WriteLine("Connection Host Initialized, awaiting connections...");
             while (!isExitting)
             {
-                if(ClosingQueue.Count > 0)
+                if (ClosingQueue.Count > 0)
                 {
                     int id = ClosingQueue.Dequeue();
 
@@ -361,17 +338,15 @@ namespace Chatroom
 
                     clientListEditStatus = true;
 
-                    while (readingStatus||transmitStatus) ; // Waits until the current read/write is finished
+                    while (readingStatus || transmitStatus) ; // Waits until the current read/write is finished
 
                     // Closes and removes the client
-                    for(int i = 0; i < users.Count; i++)
+                    for (int i = 0; i < users.Count; i++)
                     {
-                        if(id == users[i].Id)
+                        if (id == users[i].Id)
                         {
-                            Console.WriteLine("{0} has left the room.", users[i].Username);
-                            TxQueue.Enqueue(users[i].Username + " has left the room.");
+                            Console.WriteLine("{0} has disconnected.", users[i].Username);
                             users[i].Close();
-                            users.RemoveAt(i);
                             break;
                         }
                     }

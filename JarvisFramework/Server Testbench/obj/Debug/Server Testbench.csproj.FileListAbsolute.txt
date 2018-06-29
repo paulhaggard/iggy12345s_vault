@@ -1,0 +1,10 @@
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\bin\Debug\Server Testbench.exe.config
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\bin\Debug\Server Testbench.exe
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\bin\Debug\Server Testbench.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\bin\Debug\JarvisFramework.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\bin\Debug\JarvisFramework.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\obj\Debug\Server Testbench.csprojResolveAssemblyReference.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\obj\Debug\Server Testbench.csproj.CoreCompileInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\obj\Debug\Server Testbench.csproj.CopyComplete
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\obj\Debug\Server Testbench.exe
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\Server Testbench\obj\Debug\Server Testbench.pdb

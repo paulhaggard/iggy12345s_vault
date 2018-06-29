@@ -1,0 +1,6 @@
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\JarvisFramework\bin\Debug\JarvisFramework.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\JarvisFramework\bin\Debug\JarvisFramework.pdb
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\JarvisFramework\obj\Debug\JarvisFramework.csprojResolveAssemblyReference.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\JarvisFramework\obj\Debug\JarvisFramework.csproj.CoreCompileInputs.cache
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\JarvisFramework\obj\Debug\JarvisFramework.dll
+C:\Users\aaron\Documents\GitHub\iggy12345s_vault\JarvisFramework\JarvisFramework\obj\Debug\JarvisFramework.pdb
