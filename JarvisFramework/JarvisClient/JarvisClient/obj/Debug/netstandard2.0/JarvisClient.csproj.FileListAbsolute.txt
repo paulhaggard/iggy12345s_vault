@@ -1,0 +1,12 @@
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\bin\Debug\netstandard2.0\JarvisClient.deps.json
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\bin\Debug\netstandard2.0\JarvisClient.dll
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\bin\Debug\netstandard2.0\JarvisClient.pdb
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\JarvisClient.csprojAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\App.xaml.g.cs
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\JarvisClient.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\JarvisClient.AssemblyInfoInputs.cache
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\JarvisClient.AssemblyInfo.cs
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\XamlC.stamp
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\JarvisClient.dll
+G:\Github Repository\iggy12345s_vault\JarvisFramework\JarvisClient\JarvisClient\obj\Debug\netstandard2.0\JarvisClient.pdb

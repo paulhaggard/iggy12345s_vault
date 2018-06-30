@@ -12,6 +12,20 @@ namespace JarvisClient
 		public MainPage()
 		{
 			InitializeComponent();
-		}
+
+            Content = new StackLayout
+            {
+                VerticalOptions = LayoutOptions.Center,
+                Children =
+                    {
+                        new Label
+                        {
+                            XAlign = TextAlignment.Center,
+                            Text = "Welcome to Xamarin Forms!"
+                        }
+                    }
+            };
+
+        }
 	}
 }
