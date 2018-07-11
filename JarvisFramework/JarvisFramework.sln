@@ -13,7 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JarvisClient.iOS", "JarvisC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JarvisClient.UWP", "JarvisClient\JarvisClient.UWP\JarvisClient.UWP.csproj", "{C54B752A-BFE9-4CF6-A11D-463903F93770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JarvisClient", "JarvisClient\JarvisClient\JarvisClient.csproj", "{6AD95193-C1B1-4727-A04C-F3C5B35CD152}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JarvisClient", "JarvisClient\JarvisClient\JarvisClient.csproj", "{6AD95193-C1B1-4727-A04C-F3C5B35CD152}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JarvisClientApp", "JarvisClientApp", "{7F766780-4DA8-4257-8D75-9D432C95CBB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -354,6 +356,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1CCCDDD9-24F5-4BEE-AF11-45707EF59A96} = {7F766780-4DA8-4257-8D75-9D432C95CBB4}
+		{7D2D7BAC-10AB-4B79-A70E-17A1FE0A4E2F} = {7F766780-4DA8-4257-8D75-9D432C95CBB4}
+		{C54B752A-BFE9-4CF6-A11D-463903F93770} = {7F766780-4DA8-4257-8D75-9D432C95CBB4}
+		{6AD95193-C1B1-4727-A04C-F3C5B35CD152} = {7F766780-4DA8-4257-8D75-9D432C95CBB4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F47540E-695F-421D-8C2B-6E122E5F1E10}
