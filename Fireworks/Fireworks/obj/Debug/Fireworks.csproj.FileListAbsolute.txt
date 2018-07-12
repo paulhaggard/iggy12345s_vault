@@ -1,0 +1,10 @@
+C:\Users\aaron\source\repos\Fireworks\Fireworks\bin\Debug\Fireworks.exe.config
+C:\Users\aaron\source\repos\Fireworks\Fireworks\bin\Debug\Fireworks.exe
+C:\Users\aaron\source\repos\Fireworks\Fireworks\bin\Debug\Fireworks.pdb
+C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.csprojAssemblyReference.cache
+C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.Form1.resources
+C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.Properties.Resources.resources
+C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.csproj.GenerateResource.cache
+C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.csproj.CoreCompileInputs.cache
+C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.exe
+C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.pdb
