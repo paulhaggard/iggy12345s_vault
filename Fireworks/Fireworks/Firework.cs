@@ -11,14 +11,15 @@ namespace Fireworks
     {
         #region Properties
 
-        private Particle firework;
-        private List<Particle> particles;
-        private int explosionAlpha = 255;
-        private bool exploded = false;
-        private bool busy = false;
-        private static int explosionMag = 10;
+        protected Particle firework;
+        protected List<Particle> particles;
+        protected int explosionAlpha = 255;
+        protected bool exploded = false;
+        protected bool busy = false;
+        protected static int explosionMag = 10;
+        protected static int explosionPlacementRadius = 5;
 
-        private Random rng = new Random();
+        protected Random rng = new Random();
 
         #endregion
 
@@ -42,7 +43,7 @@ namespace Fireworks
                 firework.Update();
 
                 if (firework.Vel.Y >= 0)
-                    Explode();
+                    Explode(300);
             }
             else
             {
@@ -54,7 +55,7 @@ namespace Fireworks
                     foreach (Particle p in particles)
                     {
                         p.ApplyForce(PhysConstants.Gravity);
-                        p.Vel *= 0.9;
+                        p.Vel *= 0.95;
                         p.Update();
                     }
                     if (explosionAlpha < 0)
@@ -88,26 +89,29 @@ namespace Fireworks
 
         public virtual void Explode(int qty = 100)
         {
-            exploded = true;
-
-            while (busy) ;
-            busy = true;
-            lock (particles)
+            Task.Factory.StartNew(() =>
             {
-                particles = new List<Particle>(qty);
+                exploded = true;
 
-                for (int i = 0; i < qty; i++)
+                while (busy) ;
+                busy = true;
+                lock (particles)
                 {
-                    double angle = rng.NextDouble() * 2 * Math.PI;
-                    double xVel = (rng.NextDouble() * explosionMag) * Math.Cos(angle);
-                    double yVel = (rng.NextDouble() * explosionMag) * Math.Sin(angle);
+                    particles = new List<Particle>(qty);
 
-                    particles.Add(new Particle(new Vector2D(firework.Pos.X, firework.Pos.Y),
-                        new Vector2D(xVel, yVel),
-                        new Vector2D(), firework.Color));
+                    for (int i = 0; i < qty; i++)
+                    {
+                        double angle = rng.NextDouble() * 2 * Math.PI;
+                        double xVel = (rng.NextDouble() * explosionMag) * Math.Cos(angle);
+                        double yVel = (rng.NextDouble() * explosionMag) * Math.Sin(angle);
+
+                        particles.Add(new Particle(new Vector2D(firework.Pos.X, firework.Pos.Y),
+                            new Vector2D(xVel, yVel),
+                            new Vector2D(), firework.Color));
+                    }
                 }
-            }
-            busy = false;
+                busy = false;
+            });
         }
 
         public bool Done()

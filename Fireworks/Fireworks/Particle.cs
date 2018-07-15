@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fireworks
 {
-    class Particle
+    public class Particle
     {
         #region Properties
 

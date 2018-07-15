@@ -18,6 +18,9 @@ namespace Fireworks
 
         private List<Firework> firework;
         private static int refresh = 10;   // refresh delay in ms
+        private static double launchProb = 0.05;
+        private static int minVel = -5;
+        private static int maxVel = -20;
 
         #endregion
 
@@ -68,26 +71,31 @@ namespace Fireworks
                 {
                     using (Graphics g = Graphics.FromImage(canvasBox.Image))
                     {
-                        Image image = (Image)canvasBox.Image.Clone();
+                        Task t = Task.Factory.StartNew(() =>
+                        {
+                            Image image = (Image)canvasBox.Image.Clone();
 
-                        g.Clear(Color.Black);
+                            g.Clear(Color.Black);
 
-                        Bitmap bmp = new Bitmap(image.Width, image.Height);
+                            Bitmap bmp = new Bitmap(image.Width, image.Height);
 
-                        //create a color matrix object  
-                        ColorMatrix matrix = new ColorMatrix();
+                            //create a color matrix object  
+                            ColorMatrix matrix = new ColorMatrix();
 
-                        //set the opacity  
-                        matrix.Matrix33 *= 0.95f;
+                            //set the opacity  
+                            matrix.Matrix33 *= 0.95f;
 
-                        //create image attributes  
-                        ImageAttributes attributes = new ImageAttributes();
+                            //create image attributes  
+                            ImageAttributes attributes = new ImageAttributes();
 
-                        //set the color(opacity) of the image  
-                        attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+                            //set the color(opacity) of the image  
+                            attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-                        //now draw the image  
-                        g.DrawImage(image, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+                            //now draw the image  
+                            g.DrawImage(image, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+                        });
+
+                        while (!t.IsCompleted) ;
 
                         lock (firework)
                             foreach(Firework f in firework)
@@ -111,11 +119,11 @@ namespace Fireworks
             {
                 Thread.Sleep(refresh);
 
-                if (rng.NextDouble() <= 0.1)
+                if (rng.NextDouble() <= launchProb)
                     lock(firework)
                         firework.Add(new Firework(new Vector2D(
                             rng.Next(Width), Height),
-                            new Vector2D(0, rng.Next(-15, -5))));
+                            new Vector2D(0, rng.Next(maxVel, minVel))));
 
                 UpdateParticles();
                 canvasBox.Invalidate();

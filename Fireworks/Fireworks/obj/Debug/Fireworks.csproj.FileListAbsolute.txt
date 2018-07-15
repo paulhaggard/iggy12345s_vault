@@ -8,3 +8,12 @@ C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.csproj.Gener
 C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.csproj.CoreCompileInputs.cache
 C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.exe
 C:\Users\aaron\source\repos\Fireworks\Fireworks\obj\Debug\Fireworks.pdb
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\obj\Debug\Fireworks.exe
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\obj\Debug\Fireworks.pdb
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\bin\Debug\Fireworks.exe
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\bin\Debug\Fireworks.pdb
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\obj\Debug\Fireworks.csprojAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\obj\Debug\Fireworks.Form1.resources
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\obj\Debug\Fireworks.Properties.Resources.resources
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\obj\Debug\Fireworks.csproj.GenerateResource.cache
+G:\Github Repository\iggy12345s_vault\Fireworks\Fireworks\obj\Debug\Fireworks.csproj.CoreCompileInputs.cache

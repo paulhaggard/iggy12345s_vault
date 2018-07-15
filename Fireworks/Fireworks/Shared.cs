@@ -11,6 +11,75 @@ namespace Fireworks
         public static Vector2D Gravity = new Vector2D(0, 0.2);
     }
 
+    public static class AdvancedMath
+    {
+
+        /// <summary>
+        /// Returns the theta chebyshev function theta(x)=Sum(Ln(Pk)) for
+        /// k = 1 to pi(x)
+        /// Pk = the kth prime number
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="resolution"></param>
+        /// <returns></returns>
+        public static double ThetaFunction(double x)
+        {
+            return Math.Log(Primorial(x));
+        }
+
+        /// <summary>
+        /// Finds the product of all prime numbers less than x
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static int Primorial(double x)
+        {
+            int product = 1;
+            for (int i = 1; i < PrimeCountingFunction((int)x); i++)
+                product *= kPrime(i);
+            return (x < 1) ? 0 : product;
+        }
+
+        /// <summary>
+        /// Returns the number of prime numbers that are less than x
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static int PrimeCountingFunction(int x)
+        {
+            int sum = -1;
+            for (int j = 3; j < x; j++)
+            {
+                int Fact = Factorial(j - 2);
+                sum += Fact - j * (int)Math.Floor((double)(Fact / j));
+            }
+            return (x <= 1) ? 0 : (x == 2) ? 1 : sum;
+        }
+
+        /// <summary>
+        /// Returns the factorial of some non-negative integer x
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static int Factorial(int x)
+        {
+            int product = x;
+            for (int i = x - 1; i > 0; i--)
+                product *= i;
+            return (x == 0) ? 1 : product;
+        }
+
+        /// <summary>
+        /// Returns the kth Prime number
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int kPrime(int n)
+        {
+            return (n == 1) ? 1 : (n == 2) ? 2 : ((n - 2) * 2 + 1);
+        }
+    }
+
     public class Vector2D
     {
         #region Properties
