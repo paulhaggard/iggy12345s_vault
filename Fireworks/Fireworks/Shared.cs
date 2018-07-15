@@ -24,7 +24,8 @@ namespace Fireworks
         /// <returns></returns>
         public static double ThetaFunction(double x)
         {
-            return Math.Log(Primorial(x));
+            //return Primorial(x)==0?0:Math.Log(Primorial(x));
+            return (x < 0) ? 0 : (x == 0) ? 0.5 : 1;
         }
 
         /// <summary>

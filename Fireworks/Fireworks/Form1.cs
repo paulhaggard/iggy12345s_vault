@@ -120,10 +120,31 @@ namespace Fireworks
                 Thread.Sleep(refresh);
 
                 if (rng.NextDouble() <= launchProb)
-                    lock(firework)
-                        firework.Add(new Firework(new Vector2D(
-                            rng.Next(Width), Height),
-                            new Vector2D(0, rng.Next(maxVel, minVel))));
+                    lock (firework)
+                    {
+                        /*
+                        firework.Add(new Pikachu_Firework(new Vector2D(
+                                Width/2, Height/2), //rng.Next(Width), Height),
+                                new Vector2D(0, 0)));// rng.Next(maxVel, minVel))));
+                                */
+                        
+                        double r = rng.NextDouble();
+
+                        if (r > 0.25)
+                            firework.Add(new Firework(new Vector2D(
+                                rng.Next(Width), Height),
+                                new Vector2D(0, rng.Next(maxVel, minVel))));
+                        else if (r > 0.05)
+                            firework.Add(new Heart_Firework(new Vector2D(
+                                rng.Next(Width), Height),
+                                new Vector2D(0, rng.Next(maxVel, minVel))));
+                        /*else
+                            firework.Add(new Pikachu_Firework(new Vector2D(
+                                rng.Next(Width), Height),
+                                new Vector2D(0, rng.Next(maxVel, minVel))));*/
+                                
+                    }
+                        
 
                 UpdateParticles();
                 canvasBox.Invalidate();

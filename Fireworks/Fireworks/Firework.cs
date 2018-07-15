@@ -16,8 +16,9 @@ namespace Fireworks
         protected int explosionAlpha = 255;
         protected bool exploded = false;
         protected bool busy = false;
-        protected static int explosionMag = 10;
-        protected static int explosionPlacementRadius = 5;
+        protected int explosionMag = 10;
+        protected int explosionPlacementRadius = 5;
+        protected int particleDiminishRate = 4;
 
         protected Random rng = new Random();
 
@@ -43,7 +44,7 @@ namespace Fireworks
                 firework.Update();
 
                 if (firework.Vel.Y >= 0)
-                    Explode(300);
+                    Explode();
             }
             else
             {
@@ -51,7 +52,7 @@ namespace Fireworks
                 busy = true;
                 lock (particles)
                 {
-                    explosionAlpha -= 4;
+                    explosionAlpha -= particleDiminishRate;
                     foreach (Particle p in particles)
                     {
                         p.ApplyForce(PhysConstants.Gravity);

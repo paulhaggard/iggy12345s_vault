@@ -10,10 +10,10 @@ namespace Fireworks
     {
         public Pikachu_Firework(Vector2D pos, Vector2D vel):base(pos,vel)
         {
-
+            particleDiminishRate = 10;
         }
 
-        public override void Explode(int qty = 100)
+        public override void Explode(int qty = 15000)
         {
             Task.Factory.StartNew(() =>
             {
@@ -28,14 +28,18 @@ namespace Fireworks
                     for (int i = 0; i < qty; i++)
                     {
                         // Algorithm goes here
-
+                        double t = rng.NextDouble() * 52 * Math.PI;
+                        Task<Tuple<double, double>> a = GenPikachuCoord(t);
+                        while (!a.IsCompleted) ;
+                        double targetX = a.Result.Item1;
+                        double targetY = a.Result.Item2;
 
                         double angle = rng.NextDouble() * 2 * Math.PI;
                         double xVel = (rng.NextDouble() * explosionMag) * Math.Cos(angle);
                         double yVel = (rng.NextDouble() * explosionMag) * Math.Sin(angle);
 
                         particles.Add(new Particle(new Vector2D(firework.Pos.X + targetX, firework.Pos.Y - targetY),
-                            new Vector2D(xVel, yVel),
+                            new Vector2D(0, 0),//new Vector2D(xVel, yVel),
                             new Vector2D(), firework.Color));
                     }
                 }
@@ -51,12 +55,14 @@ namespace Fireworks
             {
                 double comp1, comp2, comp3, comp4, comp5, comp6, comp7, comp8, comp9, comp10, comp11, comp12, comp13;
 
+                // Double Checked
                 comp1 = (-0.25 * Sin(10 / 7 - 23 * t) - 0.3 * Sin(4 / 3 - 22 * t) - 0.4 * Sin(1.4 - 19 * t) - 0.2 * Sin(1.4 - 16 * t) -
                 3 / 7 * Sin(10 / 7 - 15 * t) - 0.375 * Sin(13 / 9 - 9 * t) - 19 / 13 * Sin(11 / 7 - 3 * t) + 44.4 * Sin(t + 11 / 7) + 20.5 * Sin(2 * t + 11 / 7) +
                 34 / 9 * Sin(4 * t + 11 / 7) + 1 / 3 * Sin(5 * t + 1.6) + 0.375 * Sin(6 * t + 1.6) + 12 / 7 * Sin(7 * t + 1.625) + 11 / 7 * Sin(8 * t + 1.625) +
                 0.25 * Sin(10 * t + 20 / 13) + 2 / 9 * Sin(11 * t + 16 / 9) + 0.375 * Sin(12 * t + 1.6) + 1 / 3 * Sin(13 * t + 1.75) +
                 0.5 * Sin(14 * t + 1.7) + 5 / 7 * Sin(17 * t + 1.7) + 1 / 28 * Sin(18 * t + 4.5) + 0.5 * Sin(20 * t + 12 / 7) + 3 / 7 * Sin(21 * t + 16 / 9) +
                 6 / 11 * Sin(24 * t + 1.75) - 979 / 9) * AdvancedMath.ThetaFunction(51 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 47 * Math.PI);
+
 
                 comp2 = (-1.2 * Sin(14 / 9 - 22 * t) - 1 / 9 * Sin(1.4 - 19 * t) -
                 1.125 * Sin(14 / 9 - 18 * t) - 1 / 14 * Sin(15 / 11 - 15 * t) - 1.2 * Sin(11 / 7 - 12 * t) - 7 / 6 * Sin(11 / 7 - 8 * t) -
@@ -113,8 +119,8 @@ namespace Fireworks
                 2.8 * Sin(20 * t + 27 / 7) + 1.625 * Sin(22 * t + 12 / 7) + 7 / 6 * Sin(23 * t + 7 / 9) + 26 / 11 * Sin(24 * t + 23 / 7) -
                 236.375) * AdvancedMath.ThetaFunction(3 * Math.PI - t) * AdvancedMath.ThetaFunction(t + Math.PI);
 
-                return (comp1 + comp2 + comp3 + comp4 + comp5 + comp6 + comp7 + comp8 + comp9 + comp10 + comp11 + comp12 + comp13) *
-                AdvancedMath.ThetaFunction((Math.Sign(Sin(t / 2)) < 0) ? -1 : Math.Sqrt(Math.Sign(Sin(t / 2))));
+                return ((comp1 + comp2 + comp3 + comp4 + comp5 + comp6 + comp7 + comp8 + comp9 + comp10 + comp11 + comp12 + comp13) *
+                AdvancedMath.ThetaFunction(Math.Sqrt(Math.Sign(Sin(t / 2)))))/2/* * explosionPlacementRadius / 600*/;
 
             });
 
@@ -122,23 +128,73 @@ namespace Fireworks
             {
                 double comp1, comp2, comp3, comp4, comp5, comp6, comp7, comp8, comp9, comp10, comp11, comp12, comp13;
 
+                comp1 = (-8 / 11 * Sin(1.375 - 22 * t) - 0.5 * Sin(10 / 7 - 21 * t) + 67 / 6 * Sin(t + 33 / 7) + 1478 / 29 * Sin(2 * t + 11 / 7) +
+                0.6 * Sin(3 * t + 30 / 7) + 26 / 3 * Sin(4 * t + 11 / 7) + 1 / 6 * Sin(5 * t + 13 / 9) + 30 / 29 * Sin(6 * t + 1.375) + 0.4 * Sin(7 * t + 14 / 3) +
+                88 / 29 * Sin(8 * t + 1.375) + 0.25 * Sin(9 * t + 31 / 7) + 1.375 * Sin(10 * t + 1.6) + 1 / 16 * Sin(11 * t + 4.5) +
+                1 / 12 * Sin(12 * t + 1.25) + 0.1 * Sin(13 * t + 25 / 11) + 1.375 * Sin(14 * t + 18 / 11) + 2 / 7 * Sin(15 * t + 4.625) + 1 / 6 * Sin(16 * t + 1.375) +
+                2 / 9 * Sin(17 * t + 5 / 3) + 0.2 * Sin(18 * t + 1.7) + 1 / 13 * Sin(19 * t + 2.375) + 23 / 24 * Sin(20 * t + 12 / 7) +
+                7 / 11 * Sin(23 * t + 1.8) + 9 / 7 * Sin(24 * t + 1.75) - 1538 / 7) * AdvancedMath.ThetaFunction(51 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 47 * Math.PI);
 
+                comp2 = (-2 / 7 * Sin(20 / 13 - 23 * t) - 1 / 6 * Sin(1.5 - 20 * t) - 5 / 7 * Sin(20 / 13 - 17 * t) - 1 / 9 * Sin(20 / 13 - 11 * t) - 1 / 6 * Sin(13 / 9 - 9 * t) - 19 / 6 * Sin(17 / 11 - 3 * t) +
+                52.6 * Sin(t + 11 / 7) + 614 / 15 * Sin(2 * t + 11 / 7) + 8.7 * Sin(4 * t + 11 / 7) + 1 / 7 * Sin(5 * t + 1.375) + 19 / 11 * Sin(6 * t + 11 / 7) +
+                1.4 * Sin(7 * t + 11 / 7) + 4 / 3 * Sin(8 * t + 1.6) + 1.8 * Sin(10 * t + 14 / 9) + 4 / 7 * Sin(12 * t + 1.6) +
+                3 / 11 * Sin(13 * t + 1.5) + 0.125 * Sin(14 * t + 22 / 15) + 1 / 9 * Sin(15 * t + 12 / 7) + 1.2 * Sin(16 * t + 11 / 7) + 2 / 9 * Sin(18 * t + 11 / 7) +
+                0.6 * Sin(19 * t + 1.6) + 1 / 26 * Sin(21 * t + 15 / 11) + 6 / 7 * Sin(22 * t + 1.6) - 233.375) *
+                AdvancedMath.ThetaFunction(47 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 43 * Math.PI);
 
-                return (comp1 + comp2 + comp3 + comp4 + comp5 + comp6 + comp7 + comp8 + comp9 + comp10 + comp11 + comp12 + comp13) *
-                AdvancedMath.ThetaFunction((Math.Sign(Sin(t / 2)) < 0) ? -1 : Math.Sqrt(Math.Sign(Sin(t / 2))));
+                comp3 = (118 / 39 * Sin(t + 11 / 7) + 40 / 7 * Sin(2 * t + 33 / 7) + 49 / 25 * Sin(3 * t + 14 / 3) + 2.4 * Sin(4 * t + 1.6) +
+                1 / 9 * Sin(5 * t + 32 / 13) + 2.5 * Sin(6 * t + 1.625) + 0.4 * Sin(7 * t + 4.4) + 0.75 * Sin(8 * t + 1.75) - 14.3) *
+                AdvancedMath.ThetaFunction(43 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 39 * Math.PI);
+
+                comp4 = (-0.125 * Sin(2 / 3 - 8 * t) - 0.5 * Sin(1.4 - 2 * t) - 246 / 19 * Sin(1 / 7 - t) + 0.25 * Sin(3 * t + 33 / 16) + 1 / 6 * Sin(4 * t + 17 / 6) +
+                0.2 * Sin(5 * t + 31 / 7) + 1 / 11 * Sin(6 * t + 50 / 17) + 0.125 * Sin(7 * t + 30 / 7) + 665 / 6) * AdvancedMath.ThetaFunction(39 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 35 * Math.PI);
+
+                comp5 = (-11.9 * Sin(7 / 15 - t) + 2 / 11 * Sin(2 * t + 25 / 7) + 2 / 9 * Sin(3 * t + 0.625) + 0.2 * Sin(4 * t + 33 / 7) + 0.25 * Sin(5 * t + 1.9) +
+                102.3) * AdvancedMath.ThetaFunction(35 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 31 * Math.PI);
+
+                comp6 = (-1 / 7 * Sin(2 / 7 - 12 * t) - 0.125 * Sin(0.3 - 5 * t) + 25 / 7 * Sin(t + 77 / 17) +
+                355 / 59 * Sin(2 * t + 41 / 40) + 5.4 * Sin(3 * t + 46 / 15) + 33 / 7 * Sin(4 * t + 11 / 3) + 2.7 * Sin(6 * t + 13 / 9) +
+                5 / 11 * Sin(7 * t + 2.2) + 0.625 * Sin(8 * t + 3) + 1.6 * Sin(9 * t + 16 / 15) + 16 / 15 * Sin(10 * t + 1 / 7) + 7 / 9 * Sin(11 * t + 2.4) - 862 / 7) *
+                AdvancedMath.ThetaFunction(31 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 27 * Math.PI);
+
+                comp7 = (-1 / 3 * Sin(1.25 - 8 * t) - 0.4 * Sin(5 / 9 - 7 * t) - 5 / 7 * Sin(1.375 - 5 * t) -
+                3.5 * Sin(15 / 14 - 2 * t) + 3.625 * Sin(t + 4.1) + 11 / 6 * Sin(3 * t + 13 / 3) + 7 / 6 * Sin(4 * t + 1 / 27) + 2 / 7 * Sin(6 * t + 8 / 7) +
+                1 / 9 * Sin(9 * t + 1.8) + 2 / 7 * Sin(10 * t + 0.1) + 40.2) * AdvancedMath.ThetaFunction(27 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 23 * Math.PI);
+
+                comp8 = (4 / 11 * Sin(8 / 9 - 12 * t) - 10 / 7 * Sin(19 / 13 - 10 * t) + 623 / 3 * Sin(t + 10 / 7) + 7.8 * Sin(2 * t + 10 / 11) + 251 / 9 * Sin(3 * t + 4 / 3) + 5 / 7 * Sin(4 * t + 4 / 3) +
+                61 / 6 * Sin(5 * t + 4 / 3) + 14 / 9 * Sin(6 * t + 23 / 7) + 76 / 25 * Sin(7 * t + 9 / 7) + 0.75 * Sin(8 * t + 0.25) + 3.8 * Sin(9 * t + 1.5) +
+                17 / 6 * Sin(11 * t + 1.2) + 1.625 * Sin(13 * t + 14 / 13) + 8 / 9 * Sin(14 * t + 17 / 6) + 24 / 25 * Sin(15 * t + 0.5) +
+                1 / 6 * Sin(16 * t + 1.625) + 0.625 * Sin(17 * t + 1) + 1 / 7 * Sin(18 * t + 18 / 17) + 6 / 7 * Sin(19 * t + 1) + 0.25 * Sin(20 * t + 4 / 9) +
+                2 / 7 * Sin(21 * t + 1.4) + 1 / 3 * Sin(22 * t + 8 / 7) + 0.4 * Sin(23 * t + 1 / 26) + 2 / 11 * Sin(24 * t + 8 / 7) - 30.375) *
+                AdvancedMath.ThetaFunction(23 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 19 * Math.PI);
+
+                comp9 = (-11.1 * Sin(0.8 - 9 * t) - 2.4 * Sin(7 / 13 - 2 * t) + 1 / 6 * Sin(t + 48 / 11) + 1.625 * Sin(3 * t + 27 / 7) +
+                71 / 24 * Sin(4 * t + 6 / 11) + 22 / 9 * Sin(5 * t + 3.5) + 19 / 7 * Sin(6 * t + 8 / 17) + 20 / 7 * Sin(7 * t + 34 / 9) +
+                55 / 7 * Sin(8 * t + 1.2) + 64 / 9 * Sin(10 * t + 38 / 9) + 5.4) * AdvancedMath.ThetaFunction(19 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 15 * Math.PI);
+
+                comp10 = (-22 / 7 * Sin(4 / 3 - 8 * t) - 19 / 7 * Sin(20 / 13 - 6 * t) + 38 / 13 * Sin(t + 1 / 24) + 12 / 11 * Sin(2 * t + 5 / 9) + 26 / 7 * Sin(3 * t + 7 / 9) + 2.2 * Sin(4 * t + 12 / 11) +
+                3.7 * Sin(5 * t + 1.7) + 5.1 * Sin(7 * t + 10 / 3) + 8.25 * Sin(9 * t + 26 / 7) + 8.2 * Sin(10 * t + 1.8) - 13.5) *
+                AdvancedMath.ThetaFunction(15 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 11*Math.PI);
+
+                comp11 = (-14.4 * Sin(0.375 - t) + 1.25 * Sin(2 * t + 3.5) + 2303 / 24) * AdvancedMath.ThetaFunction(11 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 7 * Math.PI);
+
+                comp12 = (88.2 - 455 / 12 * Sin(7 / 9 - t)) * AdvancedMath.ThetaFunction(7 * Math.PI - t) * AdvancedMath.ThetaFunction(t - 3 * Math.PI);
+
+                comp13 = (-1 / 3 * Sin(1 / 20 - 18 * t) - 1.4 * Sin(7 / 9 - 17 * t) - 18 / 11 * Sin(0.4 - 14 * t) -
+                4.8 * Sin(1 / 13 - 9 * t) + 2767 / 7 * Sin(t + 11 / 3) + 45.8 * Sin(2 * t + 17 / 7) + 39.125 * Sin(3 * t + 4.4) +
+                32 / 3 * Sin(4 * t + 4.4) + 169 / 6 * Sin(5 * t + 2.625) + 23 / 7 * Sin(6 * t + 26 / 11) + 10.5 * Sin(7 * t + 5 / 6) +
+                55 / 6 * Sin(8 * t + 2.8) + 212 / 13 * Sin(10 * t + 24 / 7) + 26 / 9 * Sin(11 * t + 4.5) + 3.2 * Sin(12 * t + 25 / 6) + 35 / 17 * Sin(13 * t + 4 / 11) +
+                1.875 * Sin(15 * t + 0.7) + 2 / 3 * Sin(16 * t + 20 / 9) + 16 / 7 * Sin(19 * t + 0.8) + 13 / 7 * Sin(20 * t + 29 / 7) +
+                14 / 3 * Sin(21 * t + 1.4) + 4 / 3 * Sin(22 * t + 1.75) + 12 / 7 * Sin(23 * t + 34 / 33) + 1.75 * Sin(24 * t + 27 / 7) -
+                42.2) * AdvancedMath.ThetaFunction(3 * Math.PI - t) * AdvancedMath.ThetaFunction(t + Math.PI);
+
+                return ((comp1 + comp2 + comp3 + comp4 + comp5 + comp6 + comp7 + comp8 + comp9 + comp10 + comp11 + comp12 + comp13) *
+                AdvancedMath.ThetaFunction(Math.Sqrt(Math.Sign(Sin(t / 2)))))/2/* * explosionPlacementRadius / 500*/;
             });
 
             double Sin(double x)
             {
                 return Math.Sin(x);
-            }
-
-            async Task<double> SinComp(double A, double x)
-            {
-                return await Task.Run(() => 
-                {
-                    return A * Math.Sin(x);
-                });
             }
 
             return new Tuple<double, double>(xCoord, yCoord);
