@@ -1,0 +1,13 @@
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\bin\Debug\GamepadWrappingService.exe.config
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\bin\Debug\GamepadWrappingService.exe
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\bin\Debug\GamepadWrappingService.pdb
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\bin\Debug\SharpDX.DirectInput.dll
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\bin\Debug\SharpDX.dll
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\bin\Debug\SharpDX.pdb
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\bin\Debug\SharpDX.DirectInput.pdb
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\bin\Debug\SharpDX.DirectInput.xml
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\obj\Debug\GamepadWrappingService.csprojAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\obj\Debug\GamepadWrappingService.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\obj\Debug\GamepadWrappingService.csproj.CopyComplete
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\obj\Debug\GamepadWrappingService.exe
+G:\Github Repository\iggy12345s_vault\GamepadWrappingService\GamepadWrappingService\obj\Debug\GamepadWrappingService.pdb
