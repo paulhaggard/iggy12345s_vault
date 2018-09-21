@@ -39,7 +39,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonPencil = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonEraser = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.pictureBoxCanvas = new System.Windows.Forms.PictureBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.canvasVScrollBar = new System.Windows.Forms.VScrollBar();
@@ -47,6 +46,13 @@
             this.LayerList = new System.Windows.Forms.ImageList(this.components);
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.listViewLayers = new System.Windows.Forms.ListView();
+            this.toolStripButtonPicker = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonColor = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.layerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButtonGrid = new System.Windows.Forms.ToolStripButton();
+            this.colorDialogPicker = new System.Windows.Forms.ColorDialog();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCanvas)).BeginInit();
@@ -68,7 +74,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
-            this.closeToolStripMenuItem});
+            this.closeToolStripMenuItem,
+            this.newToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -76,7 +83,7 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // closeToolStripMenuItem
@@ -105,7 +112,10 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonPencil,
             this.toolStripButtonEraser,
-            this.toolStripSeparator1});
+            this.toolStripButtonPicker,
+            this.toolStripButtonGrid,
+            this.toolStripSeparator1,
+            this.toolStripButtonColor});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
@@ -131,11 +141,6 @@
             this.toolStripButtonEraser.Size = new System.Drawing.Size(42, 22);
             this.toolStripButtonEraser.Text = "Eraser";
             this.toolStripButtonEraser.Click += new System.EventHandler(this.toolStripButtonEraser_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // pictureBoxCanvas
             // 
@@ -192,6 +197,56 @@
             this.listViewLayers.Size = new System.Drawing.Size(254, 278);
             this.listViewLayers.TabIndex = 7;
             this.listViewLayers.UseCompatibleStateImageBehavior = false;
+            this.listViewLayers.SelectedIndexChanged += new System.EventHandler(this.listViewLayers_SelectedIndexChanged);
+            // 
+            // toolStripButtonPicker
+            // 
+            this.toolStripButtonPicker.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonPicker.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPicker.Image")));
+            this.toolStripButtonPicker.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPicker.Name = "toolStripButtonPicker";
+            this.toolStripButtonPicker.Size = new System.Drawing.Size(75, 22);
+            this.toolStripButtonPicker.Text = "Color Picker";
+            this.toolStripButtonPicker.Click += new System.EventHandler(this.toolStripButtonPicker_Click);
+            // 
+            // toolStripButtonColor
+            // 
+            this.toolStripButtonColor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonColor.Image")));
+            this.toolStripButtonColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonColor.Name = "toolStripButtonColor";
+            this.toolStripButtonColor.Size = new System.Drawing.Size(56, 22);
+            this.toolStripButtonColor.Text = "Color";
+            this.toolStripButtonColor.Click += new System.EventHandler(this.toolStripButtonColor_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.layerToolStripMenuItem});
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Text = "New";
+            // 
+            // layerToolStripMenuItem
+            // 
+            this.layerToolStripMenuItem.Name = "layerToolStripMenuItem";
+            this.layerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.layerToolStripMenuItem.Text = "Layer";
+            this.layerToolStripMenuItem.Click += new System.EventHandler(this.layerToolStripMenuItem_Click);
+            // 
+            // toolStripButtonGrid
+            // 
+            this.toolStripButtonGrid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonGrid.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonGrid.Image")));
+            this.toolStripButtonGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonGrid.Name = "toolStripButtonGrid";
+            this.toolStripButtonGrid.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButtonGrid.Text = "Gridlines";
+            this.toolStripButtonGrid.Click += new System.EventHandler(this.toolStripButtonGrid_Click);
             // 
             // SpriteDesigner
             // 
@@ -231,7 +286,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButtonPencil;
         private System.Windows.Forms.ToolStripButton toolStripButtonEraser;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.PictureBox pictureBoxCanvas;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.VScrollBar canvasVScrollBar;
@@ -239,6 +293,13 @@
         private System.Windows.Forms.ImageList LayerList;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
         private System.Windows.Forms.ListView listViewLayers;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPicker;
+        private System.Windows.Forms.ToolStripButton toolStripButtonColor;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem layerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonGrid;
+        private System.Windows.Forms.ColorDialog colorDialogPicker;
     }
 }
 

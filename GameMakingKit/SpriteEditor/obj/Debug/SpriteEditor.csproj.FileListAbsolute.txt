@@ -8,3 +8,12 @@ C:\Users\aaron\Documents\GitHub\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.csproj.CoreCompileInputs.cache
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.exe
 C:\Users\aaron\Documents\GitHub\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.pdb
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\bin\Debug\SpriteEditor.exe
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\bin\Debug\SpriteEditor.pdb
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.csprojAssemblyReference.cache
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.SpriteDesigner.resources
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.Properties.Resources.resources
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.csproj.GenerateResource.cache
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.csproj.CoreCompileInputs.cache
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.exe
+G:\Github Repository\iggy12345s_vault\GameMakingKit\SpriteEditor\obj\Debug\SpriteEditor.pdb
