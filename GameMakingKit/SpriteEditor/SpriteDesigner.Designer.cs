@@ -45,7 +45,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonColor = new System.Windows.Forms.ToolStripButton();
             this.pictureBoxCanvas = new System.Windows.Forms.PictureBox();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.canvasVScrollBar = new System.Windows.Forms.VScrollBar();
             this.canvasHScrollBar = new System.Windows.Forms.HScrollBar();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
@@ -201,15 +200,9 @@
             this.pictureBoxCanvas.TabIndex = 2;
             this.pictureBoxCanvas.TabStop = false;
             this.pictureBoxCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxCanvas_MouseClick);
+            this.pictureBoxCanvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxCanvas_MouseDown);
             this.pictureBoxCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SpriteDesigner_MouseMove);
-            // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(0, 49);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(254, 442);
-            this.splitter1.TabIndex = 3;
-            this.splitter1.TabStop = false;
+            this.pictureBoxCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxCanvas_MouseUp);
             // 
             // canvasVScrollBar
             // 
@@ -227,7 +220,7 @@
             // 
             // pictureBoxPreview
             // 
-            this.pictureBoxPreview.Location = new System.Drawing.Point(0, 333);
+            this.pictureBoxPreview.Location = new System.Drawing.Point(0, 349);
             this.pictureBoxPreview.Name = "pictureBoxPreview";
             this.pictureBoxPreview.Size = new System.Drawing.Size(148, 117);
             this.pictureBoxPreview.TabIndex = 6;
@@ -247,9 +240,9 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelCursorPosition});
-            this.statusStrip.Location = new System.Drawing.Point(254, 469);
+            this.statusStrip.Location = new System.Drawing.Point(0, 469);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(546, 22);
+            this.statusStrip.Size = new System.Drawing.Size(800, 22);
             this.statusStrip.TabIndex = 8;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -269,13 +262,15 @@
             this.Controls.Add(this.pictureBoxPreview);
             this.Controls.Add(this.canvasHScrollBar);
             this.Controls.Add(this.canvasVScrollBar);
-            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.pictureBoxCanvas);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SpriteDesigner";
             this.Text = "Form1";
+            this.ResizeEnd += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
+            this.ClientSizeChanged += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
+            this.SizeChanged += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -301,7 +296,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonPencil;
         private System.Windows.Forms.ToolStripButton toolStripButtonEraser;
         private System.Windows.Forms.PictureBox pictureBoxCanvas;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.VScrollBar canvasVScrollBar;
         private System.Windows.Forms.HScrollBar canvasHScrollBar;
         private System.Windows.Forms.PictureBox pictureBoxPreview;

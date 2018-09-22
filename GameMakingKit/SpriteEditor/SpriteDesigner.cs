@@ -68,6 +68,11 @@ namespace SpriteEditor
         /// </summary>
         protected List<Bitmap> LayerList { get; set; }
 
+        /// <summary>
+        /// Flags when the user is trying to draw while dragging the mouse
+        /// </summary>
+        protected bool isMousePressed { get; set; } = false;
+
         #endregion
 
         public SpriteDesigner()
@@ -79,6 +84,8 @@ namespace SpriteEditor
             toolStripButtonEraser.Checked = false;
             toolStripButtonPicker.Checked = false;
             toolStripButtonGrid.Checked = true;
+
+            setupControlSizes();
 
             canvasImage = new Bitmap(canvasResolution.Item1, canvasResolution.Item2, PixelFormat.Format32bppArgb);  // Creates the new sprite bitmap
             Graphics g = Graphics.FromImage(canvasImage);
@@ -102,6 +109,32 @@ namespace SpriteEditor
             updateLayerVisuals();
         }
 
+        #region Methods
+
+        /// <summary>
+        /// Resizes the controls to fit the screen perfectly
+        /// </summary>
+        protected void setupControlSizes()
+        {
+            // Updates the canvas
+            pictureBoxCanvas.Height = Height - pictureBoxCanvas.Location.Y - statusStrip.Height - 2;
+            pictureBoxCanvas.Width = Width - pictureBoxCanvas.Location.X;
+            pictureBoxCanvas.Height -= pictureBoxCanvas.Height % canvasResolution.Item2;
+            pictureBoxCanvas.Width -= pictureBoxCanvas.Width % canvasResolution.Item1;
+            pictureBoxCanvas.Height = (pictureBoxCanvas.Height < pictureBoxCanvas.Width) ? pictureBoxCanvas.Height : pictureBoxCanvas.Width;
+            pictureBoxCanvas.Width = (pictureBoxCanvas.Width < pictureBoxCanvas.Height) ? pictureBoxCanvas.Width : pictureBoxCanvas.Height;
+
+            /*
+            // Updates the layer list
+            listViewLayers.Height = Height - (Height - pictureBoxPreview.Location.Y);
+
+            // Updates the previewbox
+            pictureBoxPreview.Location = new Point(0, Height - (pictureBoxPreview.Height + statusStrip.Height));
+            */
+        }
+
+        #endregion
+
         #region Visual Functions
 
         /// <summary>
@@ -124,16 +157,23 @@ namespace SpriteEditor
         /// <param name="Y">Y coordinate of the pixel</param>
         protected void colorCanvas(int X, int Y)
         {
+            /*
             Graphics g = Graphics.FromImage(LayerList[currentLayer]);
 
             lock(g)
             {
                 Pen p = new Pen(new SolidBrush(selectedColor));
-                g.FillRegion(new SolidBrush(selectedColor), new Region(new Rectangle(X, Y, 1, 1)));
+                p.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                p.Width = 0.5f;
+                //g.FillRegion(new SolidBrush(selectedColor), new Region(new Rectangle(X+1, Y+1, 1, 1)));
+                g.DrawRectangle(p, X+0.5f, Y+0.5f, 1, 1);
                 p.Dispose();
             }
 
             g.Dispose();
+            */
+
+            LayerList[currentLayer].SetPixel(X, Y, selectedColor);
 
 
             // Shows the image on the preview section
@@ -177,12 +217,12 @@ namespace SpriteEditor
                     // Vertical lines
                     for (int i = 0; i < pictureBoxCanvas.Width; i += pictureBoxCanvas.Width / canvasResolution.Item1)
                         g.DrawLine(pen, i, 0, i, pictureBoxCanvas.Height);
-                    g.DrawLine(pen, pictureBoxCanvas.Width - 1, 0, pictureBoxCanvas.Width, pictureBoxCanvas.Height);
+                    g.DrawLine(pen, pictureBoxCanvas.Width - 1, 0, pictureBoxCanvas.Width - 1, pictureBoxCanvas.Height);
 
                     // Horizontal lines
                     for (int i = 0; i < pictureBoxCanvas.Height; i += pictureBoxCanvas.Height / canvasResolution.Item2)
                         g.DrawLine(pen, 0, i, pictureBoxCanvas.Width, i);
-                    g.DrawLine(pen, 0, pictureBoxCanvas.Height, pictureBoxCanvas.Width, pictureBoxCanvas.Height);
+                    g.DrawLine(pen, 0, pictureBoxCanvas.Height - 1, pictureBoxCanvas.Width, pictureBoxCanvas.Height - 1);
 
                     pen.Dispose();
                 }
@@ -323,6 +363,30 @@ namespace SpriteEditor
         {
             Tuple<int, int> coord = GetSelectedIndex(e);
             toolStripStatusLabelCursorPosition.Text = "X: " + e.X + " Y: " + e.Y + " Pixel Location: {" + coord.Item1 + ", " + coord.Item2 + "}";
+
+            // Colors the pixels if the mouse is pressed
+            if(isMousePressed)
+            {
+                colorCanvas(coord.Item1, coord.Item2);
+                colorControl();
+            }
+        }
+
+        private void SpriteDesigner_ResizeEnd(object sender, EventArgs e)
+        {
+            setupControlSizes();
+            updateLayerVisuals();
+            colorControl();
+        }
+
+        private void pictureBoxCanvas_MouseDown(object sender, MouseEventArgs e)
+        {
+            isMousePressed = true;
+        }
+
+        private void pictureBoxCanvas_MouseUp(object sender, MouseEventArgs e)
+        {
+            isMousePressed = false;
         }
     }
 }
