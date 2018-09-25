@@ -99,7 +99,7 @@ namespace SpriteEditor
 
             canvasImage = new Bitmap(canvasResolution.Item1, canvasResolution.Item2, PixelFormat.Format32bppArgb);  // Creates the new sprite bitmap
             Graphics g = Graphics.FromImage(canvasImage);
-            g.Clear(Color.FromArgb(0, 255, 255, 255));                                                                    // Fills the bitmap with a clear background
+            g.Clear(Color.FromArgb(0, 255, 255, 255));                                                              // Fills the bitmap with a clear background
             g.Dispose();
 
             LayerList = new List<Bitmap>(1);
@@ -175,9 +175,23 @@ namespace SpriteEditor
         /// </summary>
         protected void colorControl()
         {
+            //TODO
+
             // Updates the scrollbars
-            canvasHScrollBar.Visible = false;
-            canvasVScrollBar.Visible = false;
+            if (zoomPercentage <= 1)
+            {
+                canvasHScrollBar.Visible = false;
+                canvasVScrollBar.Visible = false;
+            }
+            else
+            {
+                canvasHScrollBar.Visible = true;
+                canvasHScrollBar.Minimum = 0;
+                canvasHScrollBar.Maximum = (int)(pictureBoxCanvas.Width - (pictureBoxCanvas.Width / zoomPercentage));
+                canvasVScrollBar.Visible = true;
+                canvasVScrollBar.Minimum = 0;
+                canvasVScrollBar.Maximum = (int)(pictureBoxCanvas.Height - (pictureBoxCanvas.Height / zoomPercentage));
+            }
 
             resetImages();
 
@@ -407,6 +421,8 @@ namespace SpriteEditor
             g.Dispose();
 
             LayerList[currentLayer] = temp;
+
+            colorControl();
         }
 
         #endregion
@@ -429,7 +445,9 @@ namespace SpriteEditor
         private void SpriteDesigner_MouseMove(object sender, MouseEventArgs e)
         {
             Tuple<int, int> coord = GetSelectedIndex(e);
-            toolStripStatusLabelCursorPosition.Text = "X: " + e.X + " Y: " + e.Y + " Pixel Location: {" + coord.Item1 + ", " + coord.Item2 + "} Opacity: " + LayerOpacities[currentLayer];
+            toolStripStatusLabelCursorPosition.Text = "X: " + e.X + 
+                " Y: " + e.Y + " Pixel Location: {" + coord.Item1 + ", " + coord.Item2 + "} Opacity: " + LayerOpacities[currentLayer] +
+                " Zoom: " + zoomPercentage + "x";
 
             // Colors the pixels if the mouse is pressed
             if(isMousePressed)
