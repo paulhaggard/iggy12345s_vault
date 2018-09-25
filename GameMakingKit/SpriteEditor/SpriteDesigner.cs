@@ -69,9 +69,19 @@ namespace SpriteEditor
         protected List<Bitmap> LayerList { get; set; }
 
         /// <summary>
+        /// List of opacities for the images used in the layers
+        /// </summary>
+        protected List<double> LayerOpacities { get; set; }
+
+        /// <summary>
         /// Flags when the user is trying to draw while dragging the mouse
         /// </summary>
         protected bool isMousePressed { get; set; } = false;
+
+        /// <summary>
+        /// The percent that the sprite is blown up by in the viewer 1 = 1x, 2 = 2x, etc...
+        /// </summary>
+        protected double zoomPercentage { get; set; } = 1;
 
         #endregion
 
@@ -89,14 +99,16 @@ namespace SpriteEditor
 
             canvasImage = new Bitmap(canvasResolution.Item1, canvasResolution.Item2, PixelFormat.Format32bppArgb);  // Creates the new sprite bitmap
             Graphics g = Graphics.FromImage(canvasImage);
-            g.Clear(Color.FromArgb(0, 0, 0, 0));                                                                    // Fills the bitmap with a clear background
+            g.Clear(Color.FromArgb(0, 255, 255, 255));                                                                    // Fills the bitmap with a clear background
             g.Dispose();
 
             LayerList = new List<Bitmap>(1);
+            LayerOpacities = new List<double>(1);
             LayerList.Add((Bitmap)canvasImage.Clone());                                                             // Copies the new image into the first layer
+            LayerOpacities.Add(100);
 
                                                                                                                     // Updates the icon of the color button
-            Bitmap temp = new Bitmap(2, 2);
+            Bitmap temp = new Bitmap(10, 10);
             g = Graphics.FromImage(temp);
             lock (g)
             {
@@ -123,14 +135,6 @@ namespace SpriteEditor
             pictureBoxCanvas.Width -= pictureBoxCanvas.Width % canvasResolution.Item1;
             pictureBoxCanvas.Height = (pictureBoxCanvas.Height < pictureBoxCanvas.Width) ? pictureBoxCanvas.Height : pictureBoxCanvas.Width;
             pictureBoxCanvas.Width = (pictureBoxCanvas.Width < pictureBoxCanvas.Height) ? pictureBoxCanvas.Width : pictureBoxCanvas.Height;
-
-            /*
-            // Updates the layer list
-            listViewLayers.Height = Height - (Height - pictureBoxPreview.Location.Y);
-
-            // Updates the previewbox
-            pictureBoxPreview.Location = new Point(0, Height - (pictureBoxPreview.Height + statusStrip.Height));
-            */
         }
 
         #endregion
@@ -157,10 +161,13 @@ namespace SpriteEditor
         /// <param name="Y">Y coordinate of the pixel</param>
         protected void colorCanvas(int X, int Y)
         {
-            if (drawingMode != DrawingMode.Picker)
-                LayerList[currentLayer].SetPixel(X, Y, (drawingMode == DrawingMode.Pencil) ? selectedColor : Color.FromArgb(0, 0, 0, 0));
-            else
-                selectedColor = LayerList[currentLayer].GetPixel(X, Y);
+            if (Y > 0 && X > 0 && Y < canvasResolution.Item2 && X < canvasResolution.Item1)
+            {
+                if (drawingMode != DrawingMode.Picker)
+                    LayerList[currentLayer].SetPixel(X, Y, (drawingMode == DrawingMode.Pencil) ? selectedColor : Color.FromArgb(0, 0, 0, 0));
+                else
+                    selectedColor = LayerList[currentLayer].GetPixel(X, Y);
+            }
         }
 
         /// <summary>
@@ -177,42 +184,84 @@ namespace SpriteEditor
             Graphics g = Graphics.FromImage(canvasImage);
             lock (g)
             {
-                // Form the picture that is contained inside of the layer list
-                for(int i = 0; i < canvasResolution.Item1; i++)
+                // Form the picture that is contained inside of the layer list and draw grid if necessary
+                bool firstPassVer = true;
+                Pen pen = new Pen(new SolidBrush(gridColor));
+
+                for (int i = 0; i < canvasResolution.Item1; i++)
                 {
+                    bool firstPassHor = true;
+
                     for (int j = 0; j < canvasResolution.Item2; j++)
                     {
                         double dX = pictureBoxCanvas.Width / canvasResolution.Item1;
                         double dY = pictureBoxCanvas.Height / canvasResolution.Item2;
-                        g.FillRegion(new SolidBrush(LayerList[currentLayer].GetPixel(i, j)),
+
+                        // Draws the grid as part of the pixel system to reduce iteration time
+                        if(showGrid && firstPassVer)
+                            g.DrawLine(pen, 0, (int)(j * dX), pictureBoxCanvas.Width, (int)(j * dX));
+
+                        if(showGrid && firstPassHor)
+                        {
+                            firstPassHor = false;
+                            g.DrawLine(pen, (int)(i * dY), 0, (int)(i * dY), pictureBoxCanvas.Height);
+                        }
+
+                        // Generates the color
+                        Color newColor = Color.FromArgb(0, 255, 255, 255);
+                        for(int k = 0; k < LayerList.Count; k++)
+                        {
+                            // Skip this layer if it isn't visible
+                            if (LayerOpacities[k] == 0)
+                                continue;
+
+                            // Gets the color of the pixel
+                            Color c = LayerList[k].GetPixel(i, j);
+
+                            // Only occurs if the layer, and c is actually visible
+                            if (c.A > 0)
+                            {
+                                // If the new layer's opacity is 100% then everything below it will be covered up, there's no sense in doing the algorithm
+                                if (c.A < 255 || LayerOpacities[k] < 100)
+                                {
+                                    // Transforms the alpha transparencies into 0-1 doubles
+                                    double alphaNP = newColor.A / 255, alphaCP = c.A / 255 * (LayerOpacities[k] / 100);
+
+                                    // Calculates the new values of c over newColor using alpha compositing
+                                    // https://en.wikipedia.org/wiki/Alpha_compositing
+                                    int red = (int)((c.R * alphaCP + newColor.R * alphaNP * (1 - alphaCP)) / (alphaCP + alphaNP * (1 - alphaCP)));
+                                    int green = (int)((c.G * alphaCP + newColor.G * alphaNP * (1 - alphaCP)) / (alphaCP + alphaNP * (1 - alphaCP)));
+                                    int blue = (int)((c.B * alphaCP + newColor.B * alphaNP * (1 - alphaCP)) / (alphaCP + alphaNP * (1 - alphaCP)));
+                                    int alpha = (int)(255 * (alphaCP + alphaNP * (1 - alphaCP)));
+
+                                    newColor = Color.FromArgb(alpha, red, green, blue);
+                                }
+                                else
+                                    newColor = c;
+                            }
+                        }
+
+                        g.FillRegion(new SolidBrush(newColor),
                             new Region(new Rectangle((int)(i * dX),(int)(j * dY), (int)dX, (int)dY)));
                     }
+                    if (showGrid && firstPassVer)
+                    {
+                        firstPassVer = false;
+                        g.DrawLine(pen, 0, pictureBoxCanvas.Height - 1, pictureBoxCanvas.Width, pictureBoxCanvas.Height - 1);
+                    }
                 }
+
+                if(showGrid)
+                    g.DrawLine(pen, pictureBoxCanvas.Width - 1, 0, pictureBoxCanvas.Width - 1, pictureBoxCanvas.Height);
+
+                pen.Dispose();
 
                 // Shows the image on the preview section
                 if (previewImage != null)
                     previewImage.Dispose();
                 previewImage = new Bitmap(canvasImage, pictureBoxPreview.Width, pictureBoxPreview.Height);
                 pictureBoxPreview.Image = previewImage;
-                
-
-                // Draws the grid lines if they're shown
-                if (showGrid)
-                {
-                    Pen pen = new Pen(new SolidBrush(gridColor));
-
-                    // Vertical lines
-                    for (int i = 0; i < pictureBoxCanvas.Width; i += pictureBoxCanvas.Width / canvasResolution.Item1)
-                        g.DrawLine(pen, i, 0, i, pictureBoxCanvas.Height);
-                    g.DrawLine(pen, pictureBoxCanvas.Width - 1, 0, pictureBoxCanvas.Width - 1, pictureBoxCanvas.Height);
-
-                    // Horizontal lines
-                    for (int i = 0; i < pictureBoxCanvas.Height; i += pictureBoxCanvas.Height / canvasResolution.Item2)
-                        g.DrawLine(pen, 0, i, pictureBoxCanvas.Width, i);
-                    g.DrawLine(pen, 0, pictureBoxCanvas.Height - 1, pictureBoxCanvas.Width, pictureBoxCanvas.Height - 1);
-
-                    pen.Dispose();
-                }
+               
             }
             g.Dispose();
 
@@ -233,11 +282,13 @@ namespace SpriteEditor
 
             // Adds an equivalent number of items as there are in the LayerList
             for (int i = 0; i < LayerList.Count; i++)
-                listViewLayers.Items.Add(new ListViewItem(new string[] { "Frame " + i }, i, (i == currentLayer) ? Color.CadetBlue : Color.White, Color.BlueViolet, DefaultFont));
+                listViewLayers.Items.Add(new ListViewItem(new string[] { "Frame " + i + " Op: " + LayerOpacities[i] }, i, (i == currentLayer) ? Color.CadetBlue : Color.White, Color.BlueViolet, DefaultFont));
 
             // Causes the bitmaps to be drawn on the layer list
             listViewLayers.RedrawItems(0, listViewLayers.Items.Count - 1, true);
-            
+
+            trackBarLayerOpacity.Value = (int)(LayerOpacities[currentLayer]);
+
         }
 
         /// <summary>
@@ -314,6 +365,11 @@ namespace SpriteEditor
             Dispose();
         }
 
+        /// <summary>
+        /// Creates a new layer in the layer list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void layerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Bitmap temp = new Bitmap(canvasResolution.Item1, canvasResolution.Item2);
@@ -326,11 +382,31 @@ namespace SpriteEditor
             g.Dispose();
 
             LayerList.Add(temp);
+            LayerOpacities.Add(100);
 
             currentLayer = LayerList.Count - 1;
 
             updateLayerVisuals();
             colorControl();
+        }
+
+        /// <summary>
+        /// Clears the current layer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Bitmap temp = new Bitmap(canvasResolution.Item1, canvasResolution.Item2);
+
+            Graphics g = Graphics.FromImage(temp);
+            lock (g)
+            {
+                g.Clear(Color.FromArgb(0, 0, 0, 0));
+            }
+            g.Dispose();
+
+            LayerList[currentLayer] = temp;
         }
 
         #endregion
@@ -353,7 +429,7 @@ namespace SpriteEditor
         private void SpriteDesigner_MouseMove(object sender, MouseEventArgs e)
         {
             Tuple<int, int> coord = GetSelectedIndex(e);
-            toolStripStatusLabelCursorPosition.Text = "X: " + e.X + " Y: " + e.Y + " Pixel Location: {" + coord.Item1 + ", " + coord.Item2 + "}";
+            toolStripStatusLabelCursorPosition.Text = "X: " + e.X + " Y: " + e.Y + " Pixel Location: {" + coord.Item1 + ", " + coord.Item2 + "} Opacity: " + LayerOpacities[currentLayer];
 
             // Colors the pixels if the mouse is pressed
             if(isMousePressed)
@@ -378,6 +454,13 @@ namespace SpriteEditor
         private void pictureBoxCanvas_MouseUp(object sender, MouseEventArgs e)
         {
             isMousePressed = false;
+        }
+
+        private void trackBarLayerOpacity_ValueChanged(object sender, EventArgs e)
+        {
+            LayerOpacities[currentLayer] = trackBarLayerOpacity.Value;
+            updateLayerVisuals();
+            colorControl();
         }
     }
 }

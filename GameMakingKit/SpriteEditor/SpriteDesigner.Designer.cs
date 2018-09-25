@@ -52,11 +52,16 @@
             this.colorDialogPicker = new System.Windows.Forms.ColorDialog();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelCursorPosition = new System.Windows.Forms.ToolStripStatusLabel();
+            this.trackBarLayerOpacity = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.layerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCanvas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
             this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarLayerOpacity)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -111,7 +116,8 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.spriteSizeToolStripMenuItem});
+            this.spriteSizeToolStripMenuItem,
+            this.layerToolStripMenuItem1});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -220,7 +226,7 @@
             // 
             // pictureBoxPreview
             // 
-            this.pictureBoxPreview.Location = new System.Drawing.Point(0, 349);
+            this.pictureBoxPreview.Location = new System.Drawing.Point(12, 401);
             this.pictureBoxPreview.Name = "pictureBoxPreview";
             this.pictureBoxPreview.Size = new System.Drawing.Size(148, 117);
             this.pictureBoxPreview.TabIndex = 6;
@@ -240,7 +246,7 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelCursorPosition});
-            this.statusStrip.Location = new System.Drawing.Point(0, 469);
+            this.statusStrip.Location = new System.Drawing.Point(0, 529);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(800, 22);
             this.statusStrip.TabIndex = 8;
@@ -252,11 +258,47 @@
             this.toolStripStatusLabelCursorPosition.Size = new System.Drawing.Size(30, 17);
             this.toolStripStatusLabelCursorPosition.Text = "X: Y:";
             // 
+            // trackBarLayerOpacity
+            // 
+            this.trackBarLayerOpacity.LargeChange = 20;
+            this.trackBarLayerOpacity.Location = new System.Drawing.Point(12, 350);
+            this.trackBarLayerOpacity.Maximum = 100;
+            this.trackBarLayerOpacity.Name = "trackBarLayerOpacity";
+            this.trackBarLayerOpacity.Size = new System.Drawing.Size(226, 45);
+            this.trackBarLayerOpacity.TabIndex = 9;
+            this.trackBarLayerOpacity.ValueChanged += new System.EventHandler(this.trackBarLayerOpacity_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 334);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Layer Opacity:";
+            // 
+            // layerToolStripMenuItem1
+            // 
+            this.layerToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearToolStripMenuItem});
+            this.layerToolStripMenuItem1.Name = "layerToolStripMenuItem1";
+            this.layerToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.layerToolStripMenuItem1.Text = "Layer";
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
             // SpriteDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 491);
+            this.ClientSize = new System.Drawing.Size(800, 551);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.trackBarLayerOpacity);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.listViewLayers);
             this.Controls.Add(this.pictureBoxPreview);
@@ -267,7 +309,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SpriteDesigner";
-            this.Text = "Form1";
+            this.Text = "Sprite Designer";
             this.ResizeEnd += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
             this.ClientSizeChanged += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
             this.SizeChanged += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
@@ -279,6 +321,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarLayerOpacity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -309,6 +352,10 @@
         private System.Windows.Forms.ColorDialog colorDialogPicker;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelCursorPosition;
+        private System.Windows.Forms.TrackBar trackBarLayerOpacity;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem layerToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
     }
 }
 
