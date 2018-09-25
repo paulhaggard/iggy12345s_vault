@@ -175,23 +175,14 @@ namespace SpriteEditor
         /// </summary>
         protected void colorControl()
         {
-            //TODO
-
-            // Updates the scrollbars
-            if (zoomPercentage <= 1)
-            {
-                canvasHScrollBar.Visible = false;
-                canvasVScrollBar.Visible = false;
-            }
-            else
-            {
-                canvasHScrollBar.Visible = true;
-                canvasHScrollBar.Minimum = 0;
-                canvasHScrollBar.Maximum = (int)(pictureBoxCanvas.Width - (pictureBoxCanvas.Width / zoomPercentage));
-                canvasVScrollBar.Visible = true;
-                canvasVScrollBar.Minimum = 0;
-                canvasVScrollBar.Maximum = (int)(pictureBoxCanvas.Height - (pictureBoxCanvas.Height / zoomPercentage));
-            }
+            /*
+             * Look into making this so that it only has to change the pixels that have changed since the last update, this would speed this up A LOT!!!
+             * if(prevValue == newValue)
+             *  continue;
+             *  
+             * Make another list of coordinates in the bitmap that have been changed, then use that instead of iterating through all of them, as a way to simplify the process
+             * Leave another way to repaint the whole thing, though, for when just a generic paint needs to take place.
+             */
 
             resetImages();
 
@@ -479,6 +470,25 @@ namespace SpriteEditor
             LayerOpacities[currentLayer] = trackBarLayerOpacity.Value;
             updateLayerVisuals();
             colorControl();
+        }
+
+        private void SpriteDesigner_Scroll(object sender, ScrollEventArgs e)
+        {
+            // Updates the scrollbars
+            if (zoomPercentage <= 1)
+            {
+                canvasHScrollBar.Visible = false;
+                canvasVScrollBar.Visible = false;
+            }
+            else
+            {
+                canvasHScrollBar.Visible = true;
+                canvasHScrollBar.Minimum = 0;
+                canvasHScrollBar.Maximum = (int)(pictureBoxCanvas.Width - (pictureBoxCanvas.Width / zoomPercentage));
+                canvasVScrollBar.Visible = true;
+                canvasVScrollBar.Minimum = 0;
+                canvasVScrollBar.Maximum = (int)(pictureBoxCanvas.Height - (pictureBoxCanvas.Height / zoomPercentage));
+            }
         }
     }
 }

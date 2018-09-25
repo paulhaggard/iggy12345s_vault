@@ -311,6 +311,7 @@
             this.Name = "SpriteDesigner";
             this.Text = "Sprite Designer";
             this.ResizeEnd += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
+            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.SpriteDesigner_Scroll);
             this.ClientSizeChanged += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
             this.SizeChanged += new System.EventHandler(this.SpriteDesigner_ResizeEnd);
             this.menuStrip1.ResumeLayout(false);
