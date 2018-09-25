@@ -29,7 +29,7 @@ namespace SpriteEditor
         public Tuple<int, int> canvasResolution { get; set; } = new Tuple<int, int>(32, 32);
 
         /// <summary>
-        /// The physical bitmap of the sprite being created
+        /// The canvas bitmap of the sprite being created
         /// </summary>
         public Bitmap canvasImage { get; protected set; }
 
@@ -157,31 +157,10 @@ namespace SpriteEditor
         /// <param name="Y">Y coordinate of the pixel</param>
         protected void colorCanvas(int X, int Y)
         {
-            /*
-            Graphics g = Graphics.FromImage(LayerList[currentLayer]);
-
-            lock(g)
-            {
-                Pen p = new Pen(new SolidBrush(selectedColor));
-                p.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                p.Width = 0.5f;
-                //g.FillRegion(new SolidBrush(selectedColor), new Region(new Rectangle(X+1, Y+1, 1, 1)));
-                g.DrawRectangle(p, X+0.5f, Y+0.5f, 1, 1);
-                p.Dispose();
-            }
-
-            g.Dispose();
-            */
-
-            LayerList[currentLayer].SetPixel(X, Y, selectedColor);
-
-
-            // Shows the image on the preview section
-            if (previewImage != null)
-                previewImage.Dispose();
-            previewImage = new Bitmap(canvasImage, pictureBoxPreview.Width, pictureBoxPreview.Height);
-            pictureBoxPreview.Image = previewImage;
-
+            if (drawingMode != DrawingMode.Picker)
+                LayerList[currentLayer].SetPixel(X, Y, (drawingMode == DrawingMode.Pencil) ? selectedColor : Color.FromArgb(0, 0, 0, 0));
+            else
+                selectedColor = LayerList[currentLayer].GetPixel(X, Y);
         }
 
         /// <summary>
@@ -199,8 +178,16 @@ namespace SpriteEditor
             lock (g)
             {
                 // Form the picture that is contained inside of the layer list
-                g.DrawImage(LayerList[currentLayer], 0, 0, pictureBoxCanvas.Width, pictureBoxCanvas.Height);
-
+                for(int i = 0; i < canvasResolution.Item1; i++)
+                {
+                    for (int j = 0; j < canvasResolution.Item2; j++)
+                    {
+                        double dX = pictureBoxCanvas.Width / canvasResolution.Item1;
+                        double dY = pictureBoxCanvas.Height / canvasResolution.Item2;
+                        g.FillRegion(new SolidBrush(LayerList[currentLayer].GetPixel(i, j)),
+                            new Region(new Rectangle((int)(i * dX),(int)(j * dY), (int)dX, (int)dY)));
+                    }
+                }
 
                 // Shows the image on the preview section
                 if (previewImage != null)
@@ -259,7 +246,7 @@ namespace SpriteEditor
         {
             if (canvasImage != null)
                 canvasImage.Dispose();
-            canvasImage = new Bitmap(LayerList[currentLayer], pictureBoxCanvas.Width, pictureBoxCanvas.Height);
+            canvasImage = new Bitmap(pictureBoxCanvas.Width, pictureBoxCanvas.Height);
 
             if (previewImage != null)
                 previewImage.Dispose();
