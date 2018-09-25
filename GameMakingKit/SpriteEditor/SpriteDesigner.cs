@@ -117,8 +117,8 @@ namespace SpriteEditor
         protected void setupControlSizes()
         {
             // Updates the canvas
-            pictureBoxCanvas.Height = Height - pictureBoxCanvas.Location.Y - statusStrip.Height - 2;
-            pictureBoxCanvas.Width = Width - pictureBoxCanvas.Location.X;
+            pictureBoxCanvas.Height = Height - pictureBoxCanvas.Location.Y - statusStrip.Height - canvasResolution.Item2;
+            pictureBoxCanvas.Width = Width - pictureBoxCanvas.Location.X - canvasResolution.Item1;
             pictureBoxCanvas.Height -= pictureBoxCanvas.Height % canvasResolution.Item2;
             pictureBoxCanvas.Width -= pictureBoxCanvas.Width % canvasResolution.Item1;
             pictureBoxCanvas.Height = (pictureBoxCanvas.Height < pictureBoxCanvas.Width) ? pictureBoxCanvas.Height : pictureBoxCanvas.Width;
@@ -233,10 +233,11 @@ namespace SpriteEditor
 
             // Adds an equivalent number of items as there are in the LayerList
             for (int i = 0; i < LayerList.Count; i++)
-                listViewLayers.Items.Add(new ListViewItem("Frame " + i, i));
+                listViewLayers.Items.Add(new ListViewItem(new string[] { "Frame " + i }, i, (i == currentLayer) ? Color.CadetBlue : Color.White, Color.BlueViolet, DefaultFont));
 
             // Causes the bitmaps to be drawn on the layer list
             listViewLayers.RedrawItems(0, listViewLayers.Items.Count - 1, true);
+            
         }
 
         /// <summary>
@@ -294,7 +295,7 @@ namespace SpriteEditor
             selectedColor = colorDialogPicker.Color;
 
             // Updates the icon of the color button
-            Bitmap temp = new Bitmap(2, 2);
+            Bitmap temp = new Bitmap(10, 10);
             Graphics g = Graphics.FromImage(temp);
             lock(g)
             {
@@ -315,7 +316,7 @@ namespace SpriteEditor
 
         private void layerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Bitmap temp = new Bitmap(canvasResolution.Item1, canvasResolution.Item2, PixelFormat.Format32bppArgb);
+            Bitmap temp = new Bitmap(canvasResolution.Item1, canvasResolution.Item2);
 
             Graphics g = Graphics.FromImage(temp);
             lock(g)
@@ -324,9 +325,12 @@ namespace SpriteEditor
             }
             g.Dispose();
 
-            LayerList.Add(new Bitmap(canvasResolution.Item1, canvasResolution.Item2, PixelFormat.Format32bppArgb));
+            LayerList.Add(temp);
 
             currentLayer = LayerList.Count - 1;
+
+            updateLayerVisuals();
+            colorControl();
         }
 
         #endregion
